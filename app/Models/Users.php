@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Users extends Model
+{
+
+
+    public function login() { 
+        return $this->belongsTo(UsersLogin::class, 'user_id', 'user_id'); 
+    }
+
+    protected $table = 'tbl_user_info'; 
+    protected $primaryKey = 'user_id'; // Specify the primary key
+    public $incrementing = false;
+
+    protected $fillable = [
+        'user_id',
+        'fname',
+        'mname',
+        'lname',
+        'age',
+        'gender',
+        'house_no',
+        'street',
+        'brgy',
+        'city',
+        'province',
+        'postal_code',
+        'mobile_no',
+        'profile_picture',
+        'profile_points',
+        'verified_status',
+    ];
+
+}
