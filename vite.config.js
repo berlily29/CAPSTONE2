@@ -8,4 +8,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        rollupOptions: {
+            external: ['material-design-icons/iconfont/material-icons.css'],
+        },
+    },
 });
