@@ -27,7 +27,7 @@ class PasswordResetController extends Controller
     protected function generatePasswordResetToken($email) { 
         do { 
             $token = Str::random(64); 
-        } while (PasswordResetTokens::where('token')->exists()); 
+        } while (PasswordResetTokens::where('token', $token)->exists()); 
 
 
 
