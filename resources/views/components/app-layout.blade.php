@@ -43,7 +43,8 @@
                 <li class="mb-4">
                     <a href="{{route('user.profile')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all 
                     {{ Route::is('user.profile*') ? 'active_link' : '' }}">
-                        <span class="material-icons mr-3">account_circle</span>
+                   
+                     <span class="material-icons mr-3">account_circle</span>
                         Profile
                     </a>
                 </li>

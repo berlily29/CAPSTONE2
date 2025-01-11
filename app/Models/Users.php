@@ -8,11 +8,11 @@ class Users extends Model
 {
 
 
-    public function login() { 
-        return $this->belongsTo(UsersLogin::class, 'user_id', 'user_id'); 
+    public function login() {
+        return $this->belongsTo(UsersLogin::class, 'user_id', 'user_id');
     }
 
-    protected $table = 'tbl_user_info'; 
+    protected $table = 'tbl_user_info';
     protected $primaryKey = 'user_id'; // Specify the primary key
     public $incrementing = false;
 

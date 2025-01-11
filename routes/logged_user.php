@@ -22,6 +22,9 @@ Route::middleware(['auth'])->group(function() {
     /// PROFILE
     Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile'); 
 
+
+
+
     /// TOP VOLUNTEERS
     Route::get('/leaderboard', [LeaderboardsController::class, 'index'])->name('user.leaderboards'); 
     
@@ -60,6 +63,7 @@ Route::middleware(['auth'])->group(function() {
     
     Route::get('/gallery/this-month', function () { 
         return view('user.gallery.thisMonth'); })->name('gallery.thisMonth');    
+
 }); 
 
 

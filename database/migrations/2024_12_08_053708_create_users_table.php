@@ -28,12 +28,17 @@ Schema::create('tbl_user_info', function (Blueprint $table) {
     $table->string('mobile_no', 50)->nullable();
     $table->string('profile_picture')->nullable(); // Change to string for file path
     $table->float('profile_points', 8)->default(0);
-    $table->integer('email_verified')->default(0); 
+    $table->integer('email_verified')->default(0);
+    $table->string('account_status')->default('Pending')->nullable();
+
     $table->string('verified_status')->default('pending'); // Use string for status
 
     $table->timestamps();
     $table->softDeletes(); // Add soft deletes
 });
+
+
+
 
 
 // Create tbl_login table
@@ -43,7 +48,7 @@ Schema::create('tbl_login', function (Blueprint $table) {
     $table->string('password', 255);
     $table->string('role', 50);
 
-   
+
     $table->timestamps();
     $table->softDeletes(); // Add soft deletes
 });
@@ -55,7 +60,7 @@ Schema::create('tbl_valid_id', function (Blueprint $table) {
     $table->string('attachment'); // Change to string for file path
     $table->string('status', 50)->default('pending');
 
-  
+
     $table->timestamps();
     $table->softDeletes(); // Add soft deletes
 });
