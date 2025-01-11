@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? config('app.name') }}</title>
-    
+
+    <!--Mat-Icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
@@ -56,7 +59,7 @@
 
                 <!-- Joined Events -->
                 <li class="mb-4">
-                    <a href="/user-joined-events" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all">
+                    <a href="/user-joined-events" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Request::is('user-joined-events*') ? 'active_link' : '' }}">
                         <span class="material-icons mr-3">check_circle</span>
                         Joined Events
                     </a>
@@ -93,7 +96,7 @@
 
                 <!-- Top Volunteers -->
                 <li class="mb-4">
-                    <a href="{{route('user.leaderboards')}}" class="flex items-center p-3 text-black hover:bg-pink-100 rounded-lg transition-all
+                    <a href="{{route('user.leaderboards')}}" class="flex items-center p-3  text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                       {{ Route::is('user.leaderboards*') ? 'active_link' : '' }}
                        ">
                         <span class="material-icons mr-3">leaderboard</span>
