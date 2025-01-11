@@ -17,7 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-       
+        //run other seeders
+        $this->call(EventCategorySeeder::class);
+
+
+
         Users::create([
             'user_id' => 1,  // or any unique ID, if it's auto-incremented, you can omit this
             'fname' => 'John',
@@ -40,7 +44,7 @@ class DatabaseSeeder extends Seeder
         UsersLogin::create([
             'user_id' => 1,
             'email' => 'test@example.com',
-            'password'=> Hash::make('superadmin'), 
+            'password'=> Hash::make('superadmin'),
             'role'=> 'Admin'
         ]);
 
@@ -67,12 +71,12 @@ class DatabaseSeeder extends Seeder
         UsersLogin::create([
             'user_id' => 2,
             'email' => 'officialdaletv@gmail.com',
-            'password'=> Hash::make('userpass'), 
+            'password'=> Hash::make('userpass'),
             'role'=> 'User'
         ]);
 
 
 
-        
+
     }
 }
