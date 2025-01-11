@@ -40,6 +40,13 @@ class LocationController extends Controller
         $user->save();
 
 
+        $RegisterController = new RegisterController();
+
+
+        $email = session('email');
+        $token = $RegisterController-> sendEmailToken($email);
+        return redirect()->route('auth.register.success',['token'=> $token]);
+
 
 
 

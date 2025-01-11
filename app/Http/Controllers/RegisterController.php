@@ -54,7 +54,7 @@ class RegisterController extends Controller
 
 
     //email verification sender
-    protected function sendEmailToken($email) {
+    public function sendEmailToken($email) {
         $user = UsersLogin::where('email', $email)-> first();
 
         $token = $this-> generateRegistrationToken();
