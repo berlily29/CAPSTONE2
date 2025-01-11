@@ -37,6 +37,7 @@ Route::post('/preferences', [UserPreferencesController::class,'store'])->name('a
 
 
 Route::get('/location', [LocationController::class, 'index'])->name('auth.location');
+Route::put('/location', [LocationController::class, 'store' ])->name('auth.location.store');
 
 Route::get('/verify-email/expired', function() {
     return view('register.expired');

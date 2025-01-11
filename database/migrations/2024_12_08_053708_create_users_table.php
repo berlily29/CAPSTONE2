@@ -29,6 +29,8 @@ Schema::create('tbl_user_info', function (Blueprint $table) {
     $table->string('profile_picture')->nullable(); // Change to string for file path
     $table->float('profile_points', 8)->default(0);
     $table->integer('email_verified')->default(0);
+    $table->string('account_status')->default('Pending')->nullable();
+
     $table->string('verified_status')->default('pending'); // Use string for status
 
     $table->timestamps();

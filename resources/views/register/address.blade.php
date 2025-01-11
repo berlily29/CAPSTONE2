@@ -9,7 +9,7 @@
 <body class="bg-gray-50">
 
     <div class="min-h-screen flex items-center justify-center p-8">
-        <form action="" method="POST" class="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
+        <form action="{{route('auth.location.store')}}" method="POST" class="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
             @csrf
             @method('PUT') <!-- Use this if you're updating existing data, otherwise, POST for new -->
 
@@ -27,6 +27,8 @@
                 <div id="city_div">
                     <label for="city" class="block text-sm font-semibold text-gray-700">City</label>
                     <select id="city" name="city" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
+                        <option value="" disabled selected>Select a City</option>
+                        <!-- Cities here -->
                         <option value="Angeles">Angeles</option>
                         <option value="Apalit">Apalit</option>
                         <option value="Arayat">Arayat</option>
@@ -54,13 +56,19 @@
                 <!-- Barangay (to be populated based on city selection) -->
                 <div id="barangay_div">
                     <label for="barangay" class="block text-sm font-semibold text-gray-700">Barangay</label>
-                    <select id="barangay" name="barangay" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
+                    <select id="barangay" name="brgy" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
                         <!-- Barangay options will be populated based on city selection -->
                     </select>
                 </div>
 
                 <!-- Hidden Fields (House No., Street, Postal Code) -->
                 <div id="address_fields" class="hidden">
+
+                    <!-- Postal Code -->
+                    <div>
+                        <label for="postal_code" class="block text-sm font-semibold text-gray-700">Postal Code</label>
+                        <input readonly type="text" id="postal_code" name="postal_code" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-200 text-gray-600" required>
+                    </div>
                     <!-- House No. -->
                     <div>
                         <label for="house_no" class="block text-sm font-semibold text-gray-700">House No.</label>
@@ -72,17 +80,11 @@
                         <label for="street" class="block text-sm font-semibold text-gray-700">Street</label>
                         <input type="text" id="street" name="street" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
                     </div>
-
-                    <!-- Postal Code -->
-                    <div>
-                        <label for="postal_code" class="block text-sm font-semibold text-gray-700">Postal Code</label>
-                        <input type="text" id="postal_code" name="postal_code" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
-                    </div>
                 </div>
 
                 <!-- Submit Button -->
                 <div class="mt-6">
-                    <button type="submit" class="w-full bg-pink-500 text-white py-3 rounded-md hover:bg-pink-600 transition-colors text-sm">
+                    <button type="submit" class="w-full bg-pink-500  text-white py-3 rounded-md hover:bg-pink-600 transition-colors text-sm">
                         Save Address
                     </button>
                 </div>
@@ -324,27 +326,38 @@
     ]
     };
 
+     // Function to populate Barangay based on selected city
+     const citySelect = document.getElementById('city');
+        const barangaySelect = document.getElementById('barangay');
+        const addressFields = document.getElementById('address_fields');
 
-        // Handle city change
-        document.getElementById('city').addEventListener('change', function() {
+        citySelect.addEventListener('change', function() {
             const city = this.value;
-            const barangaySelect = document.getElementById('barangay');
-            const addressFields = document.getElementById('address_fields');
+            const barangays = cityBarangays[city];
 
-            barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
+            // Clear previous options
+            barangaySelect.innerHTML = '<option value="" disabled selected>Select a Barangay</option>';
 
-            if (cityBarangays[city]) {
-                cityBarangays[city].forEach(item => {
+            if (barangays) {
+                barangays.forEach(function(barangay) {
                     const option = document.createElement('option');
-                    option.value = item.name;
-                    option.textContent = item.name;
+                    option.value = barangay.name;
+                    option.textContent = barangay.name;
                     barangaySelect.appendChild(option);
                 });
 
-                addressFields.classList.remove('hidden');
+                // Show address fields when a city and barangay are selected
+                barangaySelect.addEventListener('change', function() {
+                    const selectedBarangay = barangaySelect.value;
+                    const postalCode = barangays.find(barangay => barangay.name === selectedBarangay).postal_code;
+
+                    document.getElementById('postal_code').value = postalCode;
+                    addressFields.classList.remove('hidden');
+                });
+            } else {
+                addressFields.classList.add('hidden');
             }
         });
     </script>
-
 </body>
 </html>

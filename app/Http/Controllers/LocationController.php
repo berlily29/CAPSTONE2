@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Users;
+use App\Models\UsersLogin;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -21,11 +22,13 @@ class LocationController extends Controller
             'province'=> 'string'
         ]);
 
-        $uid = session('email');
 
-        $user = Users::find($uid);
+        $user_details = UsersLogin::where('email', session('email'))->first();
 
-        $user->upate([
+
+        $user = Users::find($user_details->user_id);
+
+        $user->update([
             'house_no'=> $request->house_no,
             'street'=> $request-> street,
             'brgy'=> $request->brgy,
