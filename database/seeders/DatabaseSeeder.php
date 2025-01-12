@@ -38,7 +38,8 @@ class DatabaseSeeder extends Seeder
             'mobile_no' => '09123456789',
             'profile_picture' => 'profile-pic.jpg', // Example image file path or URL
             'profile_points' => 100,  // Default points, if needed
-            'verified_status' => 1,  // Assuming 1 means verified
+            'email_verified'=> 1,
+            'account_status' => 'Pending',
         ]);
 
         UsersLogin::create([
@@ -65,7 +66,9 @@ class DatabaseSeeder extends Seeder
             'mobile_no' => '09123456789',
             'profile_picture' => 'profile-pic.jpg', // Example image file path or URL
             'profile_points' => 100,  // Default points, if needed
-            'verified_status' => 1,  // Assuming 1 means verified
+            'email_verified'=> 1,
+
+            'account_status' => 'Pending',
         ]);
 
         UsersLogin::create([

@@ -31,7 +31,6 @@ Schema::create('tbl_user_info', function (Blueprint $table) {
     $table->integer('email_verified')->default(0);
     $table->string('account_status')->default('Pending')->nullable();
 
-    $table->string('verified_status')->default('pending'); // Use string for status
 
     $table->timestamps();
     $table->softDeletes(); // Add soft deletes

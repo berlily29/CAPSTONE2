@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Auth;
+
+
 class RegisterController extends Controller
 {
 
@@ -20,7 +23,7 @@ class RegisterController extends Controller
 
 
     //generate user id
-    protected function generateId() {
+    public function generateId() {
         do{
             $id = (string) rand(20300000, 20430000);
         }while(UsersLogin::where('user_id', $id)->exists());
@@ -31,7 +34,7 @@ class RegisterController extends Controller
 
 
     //registration token
-    protected function generateRegistrationToken() {
+    public function generateRegistrationToken() {
         do {
             $token = Str::random(64);
 
@@ -41,7 +44,7 @@ class RegisterController extends Controller
 
     }
 
-    protected function delete_existing($id) {
+    public function delete_existing($id) {
 
         $user = UsersLogin::where('user_id', $id)->first();
 
@@ -53,8 +56,28 @@ class RegisterController extends Controller
     }
 
 
+    public function email_verification_checker($email) {
+        $user = UsersLogin::where('email',$email)-> first();
+
+
+
+        if($user->user->email_verified == 1) {
+
+            return true;
+        }
+
+        return false;
+
+
+
+    }
+
+
     //email verification sender
-    public function sendEmailToken($email) {
+    protected function sendEmailToken($email) {
+
+
+
         $user = UsersLogin::where('email', $email)-> first();
 
         $token = $this-> generateRegistrationToken();
