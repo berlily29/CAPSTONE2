@@ -13,21 +13,21 @@ use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['auth'])->group(function() { 
+Route::middleware(['auth'])->group(function() {
 
-    Route::get('/dashboard', function() { 
-        return view('user.dashboard'); 
-    })-> name('user.dashboard'); 
-    
+    Route::get('/dashboard', function() {
+        return view('user.dashboard');
+    })-> name('user.dashboard');
+
     /// PROFILE
-    Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile'); 
+    Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
 
 
 
 
     /// TOP VOLUNTEERS
-    Route::get('/leaderboard', [LeaderboardsController::class, 'index'])->name('user.leaderboards'); 
-    
+    Route::get('/leaderboard', [LeaderboardsController::class, 'index'])->name('user.leaderboards');
+
     /// JOINED EVENTS
     Route::get('/user-joined-events', [JoinedEventsController::class, 'index'])->name('user.joinevents');
     Route::get('/user-joined-events/{event_id}/announcement', [JoinedEventsController::class, 'announcement'])->name('user.joinevents.announcement');
@@ -45,31 +45,24 @@ Route::middleware(['auth'])->group(function() {
     /// FIND EVENTS
 
     Route::get('/user-find-events', function () {
-        return redirect()->route('find-events.open'); })->name('find-events.index');
-    
-    Route::get('/find-events/recommended', function () {
-        return view('user.find-events.recommended'); })->name('find-events.recommended');
-    
-    Route::get('/find-events/open', function () {
-        return view('user.find-events.open'); })->name('find-events.open');
+        return view('user.find-events.view');
+    })->name('user.find-events');
 
-    Route::get('/find-events/nearby', function () {
-        return view('user.find-events.nearby'); })->name('find-events.nearby');
 
     /// GALLERY
     Route::get('/user-gallery', function () {
         return redirect()->route('gallery.all'); })->name('gallery.index');
-    
-    Route::get('/gallery/all', function () { 
-        return view('user.gallery.all');})->name('gallery.all');
-    
-    Route::get('/gallery/today', function () { 
-        return view('user.gallery.today'); })->name('gallery.today');
-    
-    Route::get('/gallery/this-month', function () { 
-        return view('user.gallery.thisMonth'); })->name('gallery.thisMonth');    
 
-}); 
+    Route::get('/gallery/all', function () {
+        return view('user.gallery.all');})->name('gallery.all');
+
+    Route::get('/gallery/today', function () {
+        return view('user.gallery.today'); })->name('gallery.today');
+
+    Route::get('/gallery/this-month', function () {
+        return view('user.gallery.thisMonth'); })->name('gallery.thisMonth');
+
+});
 
 
 
