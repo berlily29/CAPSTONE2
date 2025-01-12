@@ -13,6 +13,12 @@
         Change Profile Picture
       </button> 
     </div>
+
+    <div>
+      <button class="w-full bg-gray-200 p-2.5 rounded-2xl hover:bg-gray-300 mt-3 text-sm flex items-center justify-center">
+        Delete Profile Picture
+      </button> 
+    </div>
   </div>
 
 

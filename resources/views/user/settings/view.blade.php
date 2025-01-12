@@ -22,9 +22,9 @@
                         Account Settings
                     </a>
                     <a 
-                        href="{{ route('user.settings.userinfo') }}"
+                        href="{{ route('user.settings.userInfo') }}"
                         class="px-4 py-2 font-medium border-b-2 focus:outline-none 
-                            {{ request()->routeIs('user.settings.userinfo') ? 'border-black text-pink-500' : 'border-transparent text-black' }}">
+                            {{ request()->routeIs('user.settings.userInfo') ? 'border-black text-pink-500' : 'border-transparent text-black' }}">
                         Personal Information Settings
                     </a>
                     
