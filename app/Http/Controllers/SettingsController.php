@@ -24,7 +24,6 @@ class SettingsController extends Controller
     public function userInfo() {
 
         return view('user.settings.userInfo')->with([
-            'msg' => '',
             'user'=> Users::where('user_id', Auth::user()->user_id)->first()]);
     }
 
@@ -73,7 +72,6 @@ public function storeaccount(Request $request)
 {
 
     return redirect()->route('user.settings.account')->with([
-        
         'msg' => 'edited successfully!']);
 }
 
