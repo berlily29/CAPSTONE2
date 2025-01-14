@@ -11,21 +11,10 @@ class SettingsController extends Controller
 {
     public function index()
     {
-        return redirect()->route('user.settings.account')->with([
+        return view('user.settings.view')->with([
             'user'=> Users::where('user_id', Auth::user()->user_id)->first()]);
     }
 
-    public function account() {
-
-        return view('user.settings.account')->with([
-            'user'=> Users::where('user_id', Auth::user()->user_id)->first()]);
-    }
-
-    public function userInfo() {
-
-        return view('user.settings.userInfo')->with([
-            'user'=> Users::where('user_id', Auth::user()->user_id)->first()]);
-    }
 
     public function storeinfo(Request $request)
 {
@@ -46,7 +35,6 @@ class SettingsController extends Controller
 
     ]);
 
-    
     $user->fname = $request->input('fname');
     $user->mname = $request->input('mname');
     $user->lname = $request->input('lname');
@@ -63,16 +51,16 @@ class SettingsController extends Controller
 
     $user->save();
 
+    return redirect()->route('user.settings')->with([
+        'msg' => 'Edited Successfully!']);
 
-    return redirect()->route('user.settings.userInfo')->with([
-        'msg' => 'edited successfully!',]);
 }
 
 public function storeaccount(Request $request)
 {
 
-    return redirect()->route('user.settings.account')->with([
-        'msg' => 'edited successfully!']);
+    return redirect()->route('user.settings')->with([
+        'msg' => 'Edited Successfully!']);
 }
 
 }
