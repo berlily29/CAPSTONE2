@@ -21,17 +21,17 @@ class SettingsController extends Controller
     $user= Users::where('user_id', Auth::user()->user_id)->first();
 
     $request->validate([
-        'fname'=> 'string',
-        'mname'=> 'string',
-        'lname'=> 'string',
-        'age'=> 'string',
-        'gender'=> 'string',
-        'house_no' => 'string',
-        'street' => 'string',
-        'brgy' => 'string',
-        'city' => 'string',
-        'province' => 'string',
-        'postal_code' => 'string',
+        'fname'=> 'required|string',
+        'mname'=> 'required|string',
+        'lname'=> 'required|string',
+        'age'=> 'required|string',
+        'gender'=> 'required|string',
+        'house_no' => 'required|string',
+        'street' => 'required|string',
+        'brgy' => 'required|string',
+        'city' => 'required|string',
+        'province' => 'required|string',
+        'postal_code' => 'required|string',
 
     ]);
 
