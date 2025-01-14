@@ -11,42 +11,30 @@ class SettingsController extends Controller
 {
     public function index()
     {
-        return redirect()->route('user.settings.account')->with([
+        return view('user.settings.view')->with([
             'user'=> Users::where('user_id', Auth::user()->user_id)->first()]);
     }
 
-    public function account() {
-
-        return view('user.settings.account')->with([
-            'user'=> Users::where('user_id', Auth::user()->user_id)->first()]);
-    }
-
-    public function userInfo() {
-
-        return view('user.settings.userInfo')->with([
-            'user'=> Users::where('user_id', Auth::user()->user_id)->first()]);
-    }
 
     public function storeinfo(Request $request)
 {
     $user= Users::where('user_id', Auth::user()->user_id)->first();
 
     $request->validate([
-        'fname'=> 'required|string',
-        'mname'=> 'required|string',
-        'lname'=> 'required|string',
-        'age'=> 'required|string',
-        'gender'=> 'required|string',
-        'house_no' => 'required|string',
-        'street' => 'required|string',
-        'brgy' => 'required|string',
-        'city' => 'required|string',
-        'province' => 'required|string',
-        'postal_code' => 'required|string',
+        'fname'=> 'string',
+        'mname'=> 'string',
+        'lname'=> 'string',
+        'age'=> 'string',
+        'gender'=> 'string',
+        'house_no' => 'string',
+        'street' => 'string',
+        'brgy' => 'string',
+        'city' => 'string',
+        'province' => 'string',
+        'postal_code' => 'string',
 
     ]);
 
-    
     $user->fname = $request->input('fname');
     $user->mname = $request->input('mname');
     $user->lname = $request->input('lname');
@@ -63,16 +51,16 @@ class SettingsController extends Controller
 
     $user->save();
 
+    return redirect()->route('user.settings')->with([
+        'msg' => 'Edited Successfully!']);
 
-    return redirect()->route('user.settings.userInfo')->with([
-        'msg' => 'edited successfully!',]);
 }
 
 public function storeaccount(Request $request)
 {
 
-    return redirect()->route('user.settings.account')->with([
-        'msg' => 'edited successfully!']);
+    return redirect()->route('user.settings')->with([
+        'msg' => 'Edited Successfully!']);
 }
 
 }

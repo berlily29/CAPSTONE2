@@ -130,7 +130,7 @@
                         <!-- Postal Code -->
                         <div>
                             <label for="postal_code" class="block text-sm font-semibold text-gray-700">Postal Code</label>
-                            <input readonly type="text" id="postal_code" name="postal_code" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-200 text-gray-600" required>
+                            <input readonly type="text" id="postal_code" value="{{$user->postal_code}}" name="postal_code" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-200 text-gray-600" required>
                         </div>
                         <!-- House No. -->
                         <div>
@@ -148,14 +148,6 @@
                 </div>
             </form>
         
-
-
-
-@if(session('msg'))
-    <div class="w-96 mb-4 p-4 text-green-700 bg-green-100 border border-green-300 rounded-md">
-        {{ session('msg') }}
-    </div>
-@endif
 
 <div class="mt-2 text-center w-full flex flex-row-reverse">
     <button id="editButton" class="mx-2 my-2 w-40 bg-pink-500  text-white py-3 rounded-md hover:bg-pink-600 transition-colors text-sm">
@@ -208,6 +200,8 @@
             if (result.isConfirmed) {
                 // Submit the form if confirmed
                 document.getElementById('editForm').submit();
+
+                
             }
         });
     });
@@ -517,5 +511,34 @@ citySelect.addEventListener('change', function() {
     }
 });
 </script>
+
+@if(session('msg'))
+    <script>
+        const allTabs = document.querySelectorAll(`.tab-content`);
+        allTabs.forEach(function(tab) {
+            tab.classList.add('hidden'); 
+        });
+
+        const selectedTab = document.getElementById(`userInfo`);
+        selectedTab.classList.remove('hidden');
+
+        const allTabButtons = document.querySelectorAll(`.nav-tabs>button`);
+        allTabButtons.forEach(function(button) {
+            button.classList.remove('border-black', 'text-pink-500');
+            button.classList.add('border-transparent', 'text-black');
+        });
+
+        const activeButton = document.getElementById(`userInfo-tab`);
+        activeButton.classList.add('border-black', 'text-pink-500');
+    
+        Swal.fire({
+            text: "{{session('msg')}}",
+            icon: "success",
+            showConfirmButton: false,
+            timer:1500
+        
+        });
+    </script>
+@endif
 
 </x-app-layout>
