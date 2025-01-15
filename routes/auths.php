@@ -37,6 +37,7 @@ Route::get('/resend-verification/{id}', [RegisterController::class, 'resend_veri
 Route::get('/preferences', [UserPreferencesController::class, 'index'])->name('auth.preferences');
 Route::post('/preferences', [UserPreferencesController::class,'store'])->name('auth.preferences.store');
 
+
 //set location
 Route::get('/location', [LocationController::class, 'index'])->name('auth.location');
 Route::put('/location', [LocationController::class, 'store' ])->name('auth.location.store');
@@ -53,6 +54,8 @@ Route::get('/verify-email/expired', function() {
     return view('register.expired');
 })->name('auth.register.expired');
 
+
+//unverified login
 Route::get('/login/unverified',function() {
 
 

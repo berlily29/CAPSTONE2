@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function() {
 
     Route::get('/dashboard', function() {
+
         return view('user.dashboard')->with([
             'is_approved'=> session('is_approved')
         ]);
+
 
     })-> name('user.dashboard');
 
@@ -39,8 +41,6 @@ Route::middleware(['auth'])->group(function() {
 
     /// SETTINGS
     Route::get('/settings', [SettingsController::class, 'index'])->name('user.settings');
-    Route::get('/settings/account', [SettingsController::class, 'account'])->name('user.settings.account');
-    Route::get('/settings/userinfo', [SettingsController::class, 'userInfo'])->name('user.settings.userInfo');
     Route::patch('/settings/userinfo', [SettingsController::class, 'storeInfo'])->name('user.settings.storeUserInfo');
 
 
@@ -48,7 +48,9 @@ Route::middleware(['auth'])->group(function() {
     /// FIND EVENTS
 
     Route::get('/user-find-events', function () {
+
         return view('user.find-events.view'); })->name('find-events.index');
+
 
 
     /// GALLERY

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\ID;
+
 use App\Models\UserPreferences;
 use App\Models\Users;
 use App\Models\UsersLogin;
@@ -22,6 +24,8 @@ class AuthController extends Controller
         }
     }
 
+
+
     public function login(Request $request)
     {
         $this->isAuthenticated();
@@ -32,10 +36,11 @@ class AuthController extends Controller
         ]);
 
 
+        // Check if the user exists
         if (!(UsersLogin::where('email', $request->email)->exists())) {
             return redirect()->route('login')->with(['errorMessage' => 'User not found. Please check your credentials.']);
         }
-        // Check if the user exists
+
         $user = UsersLogin::where('email', $request->email)->first();
         session(['email'=> $user->email, 'id'=> $user->user_id]);
 
@@ -44,8 +49,9 @@ class AuthController extends Controller
             return redirect()->route('login')->with(['errorMessage' => 'Incorrect password. Please try again.']);
         }
 
-         //check if user preference is already set
-         if(!(UserPreferences::where('user_id', $user->user_id)->exists())) {
+
+        //check if user preference is already set
+        if(!(UserPreferences::where('user_id', $user->user_id)->exists())) {
             return redirect()->route('auth.preferences');
         }
 

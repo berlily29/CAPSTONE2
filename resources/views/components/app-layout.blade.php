@@ -85,9 +85,11 @@
             <ul>
                 <!-- Find Events -->
                 <li class="mb-4">
-                    <a  <a @if(session('is_approved') == false) href = # @else href = "{{route('find-events.index')}}" @endif
-                    class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+
+                    <a @if(session('is_approved') == false) href = # @else href = "{{route('find-events.index')}}" @endif
+                    class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.find-events*') ? 'active_link' : '' }}
                      @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
+                    
                         <span class="material-icons mr-3">search</span>
                         Find Events
                     </a>
