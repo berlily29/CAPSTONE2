@@ -9,14 +9,19 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FindEventsController;
 use App\Http\Controllers\GalleryController;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['auth'])->group(function() {
 
     Route::get('/dashboard', function() {
-        return view('user.dashboard');
+
+        return view('user.dashboard')->with([
+            'is_approved'=> session('is_approved')
+        ]);
+
+
     })-> name('user.dashboard');
 
     /// PROFILE
@@ -43,8 +48,9 @@ Route::middleware(['auth'])->group(function() {
     /// FIND EVENTS
 
     Route::get('/user-find-events', function () {
-        return view('user.find-events.view');
-    })->name('user.find-events');
+
+        return view('user.find-events.view'); })->name('find-events.index');
+
 
 
     /// GALLERY

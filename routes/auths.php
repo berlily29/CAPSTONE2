@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AgeGenderController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\IDController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\RegisterController;
@@ -35,9 +37,18 @@ Route::get('/resend-verification/{id}', [RegisterController::class, 'resend_veri
 Route::get('/preferences', [UserPreferencesController::class, 'index'])->name('auth.preferences');
 Route::post('/preferences', [UserPreferencesController::class,'store'])->name('auth.preferences.store');
 
-//setting up address/location
+
+//set location
 Route::get('/location', [LocationController::class, 'index'])->name('auth.location');
 Route::put('/location', [LocationController::class, 'store' ])->name('auth.location.store');
+
+
+//ID upload
+Route::get('/valid-id/upload', [IDController::class,'index'])->name('auth.id');
+Route::post('/valid-id/upload', [IDController::class, 'store'])->name('auth.id.store');
+
+
+
 
 Route::get('/verify-email/expired', function() {
     return view('register.expired');

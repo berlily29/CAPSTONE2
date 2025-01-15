@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\ID;
+
 use App\Models\UserPreferences;
 use App\Models\Users;
 use App\Models\UsersLogin;
@@ -32,11 +35,12 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        // Check if the user exists
 
+        // Check if the user exists
         if (!(UsersLogin::where('email', $request->email)->exists())) {
             return redirect()->route('login')->with(['errorMessage' => 'User not found. Please check your credentials.']);
         }
+
         $user = UsersLogin::where('email', $request->email)->first();
         session(['email'=> $user->email, 'id'=> $user->user_id]);
 
@@ -44,6 +48,7 @@ class AuthController extends Controller
         if (!Hash::check($request->password, $user->password)) {
             return redirect()->route('login')->with(['errorMessage' => 'Incorrect password. Please try again.']);
         }
+
 
         //check if user preference is already set
         if(!(UserPreferences::where('user_id', $user->user_id)->exists())) {
@@ -57,15 +62,23 @@ class AuthController extends Controller
         }
 
 
+
         // Check email verification status
         if ($user->user->email_verified == 0) {
             return redirect()->route('auth.unverified')->with(['email' => $request->email]);
         }
 
+        //check if an ID is already uploaded.
+        if(!(ID::where('user_id', $user->user_id)->exists())){
+            return redirect()-> route('auth.id')->with(['email', $request->email]);
+        }
 
-
-        // Log in the user
+        // Log in the users
         Auth::login($user);
+
+        session([
+            'is_approved'=> $user->user->account_status === 'Pending' ? false : true
+        ]);
         return redirect()->route('user.dashboard');
     }
 
