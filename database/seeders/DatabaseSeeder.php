@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'profile_picture' => 'profile-pic.jpg', // Example image file path or URL
             'profile_points' => 100,  // Default points, if needed
             'email_verified'=> 1,
-            'account_status' => 'Pending',
+            'account_status' => 'Approved',
         ]);
 
         UsersLogin::create([

@@ -29,7 +29,19 @@
 <body class="bg-gray-100 font-sans">
 <div class="flex h-screen">
 
-    <!-- Sidebar -->
+    <!--
+
+
+        START OF USER SIDEBAR
+
+    -->
+    <!-- sidebar of user sidebar here ========================================================================= -->
+
+
+
+    @if(Auth::user()->role =='User')
+
+
     <nav class="w-64 bg-white text-gray-900 p-6 flex flex-col justify-between h-screen border-r border-gray-200">
         <div>
             <!-- Profile -->
@@ -89,7 +101,7 @@
                     <a @if(session('is_approved') == false) href = # @else href = "{{route('find-events.index')}}" @endif
                     class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.find-events*') ? 'active_link' : '' }}
                      @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
-                    
+
                         <span class="material-icons mr-3">search</span>
                         Find Events
                     </a>
@@ -123,6 +135,48 @@
             </button>
         </div>
     </nav>
+
+
+
+    @endif
+
+
+
+
+    <!--
+
+
+        START OF ADMIN SIDEBAR
+    -->
+
+
+    @if(Auth::user()->role === 'Admin')
+    <!-- sidebar of admin here ========================================================================= -->
+    <nav class="w-64 bg-white text-gray-900 p-6 flex flex-col justify-between h-screen border-r border-gray-200">
+        <div>
+            <!-- Profile -->
+            <div class="flex flex-col items-center">
+                <img src="{{asset('images/logo/logo.png')}}" alt="" class="w-66 h-66 rounded-full" />
+
+            </div>
+
+            <ul>
+
+                <!-- Settings -->
+                <li class="mb-4">
+                    <a href="{{route('admin.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all">
+                        <span class="material-icons mr-3">dashboard </span>
+                        Dashboard
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    @endif
+
+
+
 
     <!-- Main Content Area -->
     <div class="flex-1 p-6 bg-gray-100 overflow-y-auto">
