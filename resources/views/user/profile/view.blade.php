@@ -3,7 +3,7 @@
 
 <section class="bg-white p-8 rounded-lg shadow">
   <div class="flex items-center mb-6">
-    <img src="{{ asset('profiles/' . $user->profile_picture )}}" alt="Profile Picture" class="w-24 h-24 rounded bg-gray-300 mr-4">
+    <img src="{{asset('storage/uploads/profilepic/' . $user->profile_picture )}}" alt="Profile Picture" class="w-24 h-24 rounded bg-gray-300 mr-4">
 
     <!-- <div>
       <button class="w-full bg-gray-200 p-2.5 rounded-2xl hover:bg-gray-300 mt-3 text-sm flex items-center justify-center">

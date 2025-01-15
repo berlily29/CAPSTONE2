@@ -30,25 +30,39 @@
                    
                 </div>
 
-                <div id='accountDetails' class='tab-content'> 
+        <div id='accountDetails' class='tab-content'> 
                     <h1>Profile </h1>
             <div class="flex items-center mb-6">
 
 
-            <img src="{{ asset('profiles/' . $user->profile_picture )}}" alt="{{$user->profile_picture}}" class="w-24 h-24 rounded bg-gray-300 mr-4">
+            <img id='editImage' src="{{asset('storage/uploads/profilepic/' . $user->profile_picture )}}" alt="{{$user->profile_picture}}" class="w-24 h-24 rounded bg-gray-300 mr-4">
 
             <div>
-            <button class="w-full bg-gray-200 p-2.5 rounded-2xl hover:bg-gray-300 mt-3 text-sm flex items-center justify-center">
-                Change Profile Picture
-            </button> 
+
+            <form id="changeProfile" class='relative' enctype="multipart/form-data" action="{{route('user.settings.storeProfilePic')}}" method="POST">
+            @csrf
+            @method('PATCH')
+            
+            <label for='changeProfileButton' class='cursor-pointer rounded-2xl p-2 text-white hover:bg-pink-400 bg-pink-500'>
+            Upload Photo
+            </label>
+            <input type='file' id='changeProfileButton' name='changeProfileButton' class='hidden bg-gray-200 absolute rounded-2xl opacity-1 cursor-pointer hover:bg-pink-400 bg-pink-500'>
+            <button id="saveButton" class="hidden mt-4 p-2 bg-pink-500 hover:bg-pink-400 text-white rounded-2xl">Save</button>
+
+            </form>
+
+
+
             </div>
 
                     <div>
-                    <button class="w-full bg-gray-200 p-2.5 rounded-2xl hover:bg-gray-300 mt-3 text-sm flex items-center justify-center">
+                    <button class="cursor-pointer rounded-2xl p-2 text-white hover:bg-pink-400 bg-pink-500 rounded">
                         Delete Profile Picture
                     </button> 
                     </div>
-                </div> </div>
+                </div> 
+            
+            </div>
 
                 <div id='userInfo' class='tab-content hidden'> 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Edit User Information</h2>
@@ -167,6 +181,21 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
 <script>
 
+    document.getElementById('changeProfileButton').addEventListener('change', function() {
+        document.getElementById('saveButton').classList.remove('hidden');
+        
+        if (this.files && this.files[0]) {
+        var reader = new FileReader();
+
+        // Set the onload function to update the image source
+        reader.onload = function(e) {
+            document.getElementById('editImage').src = e.target.result;
+        }
+
+        reader.readAsDataURL(this.files[0]);
+    }
+    });
+    
     function showTab(tabName) {
         const allTabs = document.querySelectorAll(`.tab-content`);
         allTabs.forEach(function(tab) {
@@ -512,7 +541,7 @@ citySelect.addEventListener('change', function() {
 });
 </script>
 
-@if(session('msg'))
+@if(session('page') == "2")
     <script>
         const allTabs = document.querySelectorAll(`.tab-content`);
         allTabs.forEach(function(tab) {
@@ -529,6 +558,34 @@ citySelect.addEventListener('change', function() {
         });
 
         const activeButton = document.getElementById(`userInfo-tab`);
+        activeButton.classList.add('border-black', 'text-pink-500');
+    
+        Swal.fire({
+            text: "{{session('msg')}}",
+            icon: "success",
+            showConfirmButton: false,
+            timer:1500
+        
+        });
+    </script>
+
+@elseif(session('page') == "1")
+<script>
+        const allTabs = document.querySelectorAll(`.tab-content`);
+        allTabs.forEach(function(tab) {
+            tab.classList.add('hidden'); 
+        });
+
+        const selectedTab = document.getElementById(`accountDetails`);
+        selectedTab.classList.remove('hidden');
+
+        const allTabButtons = document.querySelectorAll(`.nav-tabs>button`);
+        allTabButtons.forEach(function(button) {
+            button.classList.remove('border-black', 'text-pink-500');
+            button.classList.add('border-transparent', 'text-black');
+        });
+
+        const activeButton = document.getElementById(`accountDetails-tab`);
         activeButton.classList.add('border-black', 'text-pink-500');
     
         Swal.fire({
