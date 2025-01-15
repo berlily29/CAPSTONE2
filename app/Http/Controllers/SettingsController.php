@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Storage;
+
 
 
 class SettingsController extends Controller
@@ -52,15 +55,46 @@ class SettingsController extends Controller
     $user->save();
 
     return redirect()->route('user.settings')->with([
-        'msg' => 'Edited Successfully!']);
+        'msg' => 'Edited Successfully!',
+        'page' => '2']);
 
 }
 
-public function storeaccount(Request $request)
+public function storeProfilePic(Request $request)
 {
 
+    $user= Users::where('user_id', Auth::user()->user_id)->first();
+
+    $request->validate([
+
+        "changeProfileButton" => "required | file | max:2048| mimes:jpeg,png,jpg,gif"
+    ]);
+
+    $path = 'uploads/profilepic';
+
+    if (!Storage::disk('public')->exists($path)) {
+        Storage::disk('public')->makeDirectory($path);
+    }
+
+    if($request->hasFile('changeProfileButton')) {
+    
+    $fileFormat = $user->user_id . '.' . $request->file('changeProfileButton')->getClientOriginalExtension();
+
+    if (Storage::disk('public')->exists($path . '/' . $user->profile_picture)) {
+        Storage::disk('public')->delete($path . '/' . $user->profile_picture);
+    }
+
+    $request->file('changeProfileButton')->storeAs($path,$fileFormat, 'public');
+
+    $user->profile_picture = $fileFormat;
+
+    $user->save();
+
+    }
+
     return redirect()->route('user.settings')->with([
-        'msg' => 'Edited Successfully!']);
+        'msg' => 'Edited Successfully!',
+        'page' => '1']);
 }
 
 }

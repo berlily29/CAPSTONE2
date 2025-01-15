@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function() {
     /// SETTINGS
     Route::get('/settings', [SettingsController::class, 'index'])->name('user.settings');
     Route::patch('/settings/userinfo', [SettingsController::class, 'storeInfo'])->name('user.settings.storeUserInfo');
+    Route::patch('/settings/userprofilepic', [SettingsController::class, 'storeProfilePic'])->name('user.settings.storeProfilePic');
 
 
 
