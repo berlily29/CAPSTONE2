@@ -1,42 +1,43 @@
-<!-- resources/views/layouts/admin.blade.php -->
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Admin Dashboard
-        </h2>
-    </x-slot>
+    <div class="min-h-screen bg-gray-50 p-8">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Admin Dashboard Overview -->
-                <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
-                    <h3 class="text-lg font-semibold">Total Users</h3>
-                    <p class="text-2xl">500</p>
-                </div>
+        <!-- Dashboard Header -->
+        <section class="mb-6 text-center md:text-left">
+            <h2 class="text-3xl font-bold text-gray-800">Admin Dashboard</h2>
+            <p class="text-xl text-gray-700">Hello, <span class="font-semibold text-pink-600">{{ Auth::user()->user->fname }}!</span></p>
+            <p class="text-gray-600" id="current-date">Today is: </p>
+        </section>
 
-                <!-- Admin Dashboard Overview -->
-                <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
-                    <h3 class="text-lg font-semibold">Total Events</h3>
-                    <p class="text-2xl">100</p>
-                </div>
-
-                <!-- Admin Dashboard Overview -->
-                <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6">
-                    <h3 class="text-lg font-semibold">Pending Approvals</h3>
-                    <p class="text-2xl">25</p>
-                </div>
+        <!-- Dashboard Overview -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800">Total Users</h3>
+                <p class="text-[5rem] text-pink-600 font-black">{{$users}}</p>
             </div>
 
-            <div class="mt-8">
-                <!-- Admin-specific content, like charts, recent activities, etc. -->
-                <h3 class="text-lg font-semibold">Recent Activities</h3>
-                <ul class="list-disc pl-5">
-                    <li>User 'John Doe' registered</li>
-                    <li>Event 'Volunteer Drive' was scheduled</li>
-                    <li>Pending request for approval on event 'Charity Fundraiser'</li>
-                </ul>
+            <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800">Total Event Organizers</h3>
+                <p class="text-[5rem] text-pink-600 font-black">{{$event_organizers}}</p>
             </div>
-        </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800">Total Events</h3>
+                <p class="text-[5rem] text-pink-600 font-black">300</p>
+            </div>
+        </section>
+
     </div>
+
+    <script>
+        // Display today's date dynamically
+        const currentDateElement = document.getElementById("current-date");
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+        currentDateElement.textContent += formattedDate;
+    </script>
 </x-app-layout>

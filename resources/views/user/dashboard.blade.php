@@ -3,7 +3,7 @@
 
       <!-- Dashboard Header -->
       <section class="mb-6 text-center md:text-left">
-         <h2 class="text-3xl font-bold text-gray-800">Dashboard</h2>
+         <h2 class="text-3xl font-black text-gray-600 ">Dashboard</h2>
          <p class="text-xl text-gray-700">Hello, <span class="font-semibold text-pink-600">{{Auth::user()->user->fname}}!</span></p>
          <p class="text-gray-600" id="current-date">Today is: </p>
       </section>

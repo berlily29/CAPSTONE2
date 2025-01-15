@@ -162,9 +162,11 @@
 
             <ul>
 
-                <!-- Settings -->
+
                 <li class="mb-4">
-                    <a href="{{route('admin.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all">
+                    <a href="{{route('admin.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+                    {{ Route::is('admin.dashboard*') ? 'active_link' : '' }}
+                    ">
                         <span class="material-icons mr-3">dashboard </span>
                         Dashboard
                     </a>

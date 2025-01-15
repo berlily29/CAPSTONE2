@@ -73,12 +73,18 @@ class AuthController extends Controller
             return redirect()-> route('auth.id')->with(['email', $request->email]);
         }
 
+
         // Log in the users
         Auth::login($user);
 
         session([
             'is_approved'=> $user->user->account_status === 'Pending' ? false : true
         ]);
+
+        if($user->role === 'Admin') {
+            return redirect()-> route('admin.dashboard');
+        }
+
         return redirect()->route('user.dashboard');
     }
 

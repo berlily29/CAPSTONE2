@@ -51,6 +51,10 @@
         .footer p {
             margin: 0;
         }
+
+        .btn-url {
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +70,8 @@
                 <p>Thanks for signing up! To complete your registration, please verify your email address.</p>
                 <p>Click the link below to verify your email:</p>
                 <p style="text-align: center; margin: 20px 0;">
-                    <a href="{{ $url }}">Verify Your Email</a>
+                    <a class="btn-url"
+                    href="{{ $url }}">Verify Your Email</a>
                 </p>
                 <p>If you did not create an account, please ignore this email.</p>
             </td>
