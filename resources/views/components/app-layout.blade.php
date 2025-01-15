@@ -21,7 +21,7 @@
             background-color: #fce7f3;
          }
 
-         .active-link:hover { 
+         .active-link:hover {
             background-color: #F472B6;
          }
     </style>
@@ -35,7 +35,7 @@
             <!-- Profile -->
             <div class="flex flex-col items-center">
                 <img src="{{asset('images/logo/logo.png')}}" alt="" class="w-66 h-66 rounded-full" />
-              
+
             </div>
 
             <!-- Account Section -->
@@ -43,9 +43,9 @@
             <ul>
                 <!-- Profile -->
                 <li class="mb-4">
-                    <a href="{{route('user.profile')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all 
+                    <a href="{{route('user.profile')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('user.profile*') ? 'active_link' : '' }}">
-                   
+
                      <span class="material-icons mr-3">account_circle</span>
                         Profile
                     </a>
@@ -59,13 +59,16 @@
                     </a>
                 </li>
 
-                <!-- Joined Events -->
                 <li class="mb-4">
-                    <a href="/user-joined-events" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Request::is('user-joined-events*') ? 'active_link' : '' }}">
+                    <a @if(session('is_approved') == false) href = # @else href = "{{route('user.joinevents')}}" @endif
+                    class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+                    {{ Request::is('user-joined-events*') ? 'active_link' : '' }}
+                    @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
                         <span class="material-icons mr-3">check_circle</span>
                         Joined Events
                     </a>
                 </li>
+
 
                 <!-- Settings -->
                 <li class="mb-4">
@@ -82,7 +85,9 @@
             <ul>
                 <!-- Find Events -->
                 <li class="mb-4">
-                    <a href="/user-find-events" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all">
+                    <a  <a @if(session('is_approved') == false) href = # @else href = "{{route('find-events.index')}}" @endif
+                    class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+                     @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
                         <span class="material-icons mr-3">search</span>
                         Find Events
                     </a>
@@ -111,7 +116,7 @@
         <!-- Volunteer Button -->
         <div class="w-full mt-8">
             <button class="w-full bg-sky-400 text-white p-3 rounded-lg hover:bg-pink-700 transition-all flex items-center justify-center">
-            
+
                 Volunteer to an Event
             </button>
         </div>

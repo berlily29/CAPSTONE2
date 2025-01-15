@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ID;
+use App\Models\UserPreferences;
 use App\Models\Users;
 use App\Models\UsersLogin;
 use Illuminate\Http\Request;
@@ -29,28 +31,48 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
+
+        if (!(UsersLogin::where('email', $request->email)->exists())) {
+            return redirect()->route('login')->with(['errorMessage' => 'User not found. Please check your credentials.']);
+        }
         // Check if the user exists
         $user = UsersLogin::where('email', $request->email)->first();
         session(['email'=> $user->email, 'id'=> $user->user_id]);
-
-        if (!$user) {
-            return redirect()->route('login')->with(['errorMessage' => 'User not found. Please check your credentials.']);
-        }
 
         // Verify the password manually
         if (!Hash::check($request->password, $user->password)) {
             return redirect()->route('login')->with(['errorMessage' => 'Incorrect password. Please try again.']);
         }
 
+         //check if user preference is already set
+         if(!(UserPreferences::where('user_id', $user->user_id)->exists())) {
+            return redirect()->route('auth.preferences');
+        }
+
+
+        //check if the location is already set
+        if($user->user->province == null || $user->user->house_no == null || $user->user->street == null || $user->user->brgy == null || $user->user->city == null || $user-> user-> postal_code == null) {
+            return redirect()->route('auth.location');
+        }
+
+
+
         // Check email verification status
         if ($user->user->email_verified == 0) {
             return redirect()->route('auth.unverified')->with(['email' => $request->email]);
         }
 
+        //check if an ID is already uploaded.
+        if(!(ID::where('user_id', $user->user_id)->exists())){
+            return redirect()-> route('auth.id')->with(['email', $request->email]);
+        }
 
-
-        // Log in the user
+        // Log in the users
         Auth::login($user);
+
+        session([
+            'is_approved'=> $user->user->account_status === 'Pending' ? false : true
+        ]);
         return redirect()->route('user.dashboard');
     }
 

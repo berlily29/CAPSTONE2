@@ -55,7 +55,7 @@ Schema::create('tbl_login', function (Blueprint $table) {
 
 // Create tbl_valid_id table
 Schema::create('tbl_valid_id', function (Blueprint $table) {
-    $table->string('user_id');
+    $table->string('user_id', 20)->primary();
     $table->string('id_type', 50);
     $table->string('attachment'); // Change to string for file path
     $table->string('status', 50)->default('pending');
