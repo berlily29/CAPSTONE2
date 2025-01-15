@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -14,8 +14,15 @@ class SettingsController extends Controller
 {
     public function index()
     {
+
+        $user = Users::where('user_id', Auth::user()->user_id)->first();
+        //set address
+
+
         return view('user.settings.view')->with([
-            'user'=> Users::where('user_id', Auth::user()->user_id)->first()]);
+            'user'=> $user,
+
+        ]);
     }
 
 
@@ -77,7 +84,7 @@ public function storeProfilePic(Request $request)
     }
 
     if($request->hasFile('changeProfileButton')) {
-    
+
     $fileFormat = $user->user_id . '.' . $request->file('changeProfileButton')->getClientOriginalExtension();
 
     if (Storage::disk('public')->exists($path . '/' . $user->profile_picture)) {
