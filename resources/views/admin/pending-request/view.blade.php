@@ -1,5 +1,5 @@
 <x-app-layout>
-<div class="pr-4">
+<div class="">
     <div class="p-8 bg-gray-50 border-b border-gray-200 min-h-screen">
     
     <div class="mb-3 pl-2">

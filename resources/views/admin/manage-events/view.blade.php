@@ -1,6 +1,6 @@
 <x-app-layout>
-<div class="pr-4">
-    <div class="p-8 bg-gray-50 border-b border-gray-200 min-h-screen">
+<div class="">
+    <div class="p-5 bg-gray-50 min-h-screen">
     
     <div class="mb-3 pl-2">
         <h1 class="text-lg text-gray-800">Manage</h1>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="flex justify-end w-3/4">
-            <button id="" class="bg-pink-500 text-white py-2 px-2 rounded-2xl mb-3 flex justify-center hover:bg-pink-600">
+            <button id="" class="bg-pink-500 text-white py-2 px-2 rounded-2xl mb-3 flex justify-center font-semibold hover:bg-pink-600">
                 <span class="flex material-icons mr-2">schedule</span>
                 Create Event
             </button>

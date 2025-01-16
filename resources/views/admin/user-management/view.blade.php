@@ -1,148 +1,223 @@
 <x-app-layout>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=filter_alt" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-
-    <div class="p-8">
-        <!-- Smaller Title on top of the User List -->
-        <h3 class="text-sm font-medium text-gray-700">Manage</h3>
-      
-        <!-- Title for User List -->
-        <h1 class="text-3xl font-bold text-gray-800">All Users</h1>
-      
-        <!-- Search Bar -->
-        <div class="relative mb-4">
-            <!-- Container for positioning the search box -->
-            <div class="absolute top-4 right-4">
-              <input type="text" placeholder="Search..." class="border border-gray-300 p-2 pl-10 pr-4 rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <!-- Search Icon inside the input, left side -->
-              <span class="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">search</span>
+    <div class="bg-gray-50 overflow-hidden">
+        <!-- Manage All Users Section -->
+        <div class="p-8" id="usersSection">
+            <div class="mb-3 pl-2">
+                <h1 class="text-lg text-gray-800">Manage</h1>
+                <h1 class="text-3xl font-bold text-gray-800">All User</h1>        
             </div>
-          </div>
-          
-        <!-- Filter -->
-        <div class="flex justify-start">
-            <button class="bg-gray-400 text-white px-6 py-3 rounded-full hover:bg-gray-600 focus:outline-none flex items-center">
-                <span class="material-symbols-outlined">
-                    filter_alt
-                    </span>
-              Filter
-            </button>
-          </div>
-      
 
-          <!-- Users! -->
+            <!-- Search Bar -->
+            <div class="relative mb-4">
+                <div class="absolute right-4">
+                    <input type="text" placeholder="Search" class="border border-gray-300 p-2 pl-10 pr-4 rounded-lg w-64 text-right focus:outline-none focus:ring-1 focus:ring-blue-400">
+                    <span class="material-icons absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">search</span>
+                </div>
+            </div>
 
-         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-8">
-  <!-- User 1 -->
-  <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-    <!-- Left-side User Icon (Google Material Icon) -->
-    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    
-    <!-- User Info -->
-    <div class="flex-grow">
-      <h3 class="text-lg font-semibold">User 1</h3>
-      <p class="text-gray-500">Role: Admin</p>
-      <p class="text-sm text-gray-400">Email: user1@example.com</p>
-    </div>
+            <!-- Filter Button -->
+            <div class="flex justify-start mb-4">
+                <button class="bg-gray-400 text-sm text-white px-4 py-2 rounded-full hover:bg-gray-600 focus:outline-none flex items-center">
+                    <span class="material-icons">filter_alt</span>Filter
+                </button>
+            </div>
 
-    <!-- Right Arrow Icon (Google Material Icon) -->
-    <span class="material-icons text-3xl text-gray-500 ml-4">arrow_forward</span>
-  </div>
+            <!-- Users List -->
+            <div class="grid lg:grid-cols-2 sm:grid-cols-1 gap-4 pt-8">
+                <!-- Example User -->
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
+                    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold">User 1</h3>
+                        <p class="text-gray-500">Role: Admin</p>
+                        <p class="text-sm text-gray-400">Email: user1@example.com</p>
+                    </div>
+                    <button class="showProfile flex items-center p-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-3xl focus:outline-none focus:ring-2 focus:ring-gray-400">
+                        <span class="material-icons text-3xl text-gray-500">arrow_forward</span>
+                    </button>
+                </div>
 
-  <!-- User 2 -->
-  <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    <div class="flex-grow">
-      <h3 class="text-lg font-semibold">User 2</h3>
-      <p class="text-gray-500">Role: Moderator</p>
-      <p class="text-sm text-gray-400">Email: user2@example.com</p>
-    </div>
-    <span class="material-icons text-3xl text-gray-500 ml-4">arrow_forward</span>
-  </div>
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
+                    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold">User 2</h3>
+                        <p class="text-gray-500">Role: User</p>
+                        <p class="text-sm text-gray-400">Email: user1@example.com</p>
+                    </div>
+                    <button class="showProfile flex items-center p-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-3xl focus:outline-none focus:ring-2 focus:ring-gray-400">
+                        <span class="material-icons text-3xl text-gray-500">arrow_forward</span>
+                    </button>
+                </div>
 
-  <!-- User 3 -->
-  <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    <div class="flex-grow">
-      <h3 class="text-lg font-semibold">User 3</h3>
-      <p class="text-gray-500">Role: Member</p>
-      <p class="text-sm text-gray-400">Email: user3@example.com</p>
-    </div>
-    <span class="material-icons text-3xl text-gray-500 ml-4">arrow_forward</span>
-  </div>
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
+                    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold">User 3</h3>
+                        <p class="text-gray-500">Role: User</p>
+                        <p class="text-sm text-gray-400">Email: user1@example.com</p>
+                    </div>
+                    <button class="showProfile flex items-center p-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-3xl focus:outline-none focus:ring-2 focus:ring-gray-400">
+                        <span class="material-icons text-3xl text-gray-500">arrow_forward</span>
+                    </button>
+                </div>
 
-  <!-- User 4 -->
-  <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    <div class="flex-grow">
-      <h3 class="text-lg font-semibold">User 4</h3>
-      <p class="text-gray-500">Role: Admin</p>
-      <p class="text-sm text-gray-400">Email: user4@example.com</p>
-    </div>
-    <span class="material-icons text-3xl text-gray-500 ml-4">arrow_forward</span>
-  </div>
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
+                    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold">User 4</h3>
+                        <p class="text-gray-500">Role: User</p>
+                        <p class="text-sm text-gray-400">Email: user1@example.com</p>
+                    </div>
+                    <button class="showProfile flex items-center p-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-3xl focus:outline-none focus:ring-2 focus:ring-gray-400">
+                        <span class="material-icons text-3xl text-gray-500">arrow_forward</span>
+                    </button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
+                    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold">User 5</h3>
+                        <p class="text-gray-500">Role: User</p>
+                        <p class="text-sm text-gray-400">Email: user1@example.com</p>
+                    </div>
+                    <button class="showProfile flex items-center p-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-3xl focus:outline-none focus:ring-2 focus:ring-gray-400">
+                        <span class="material-icons text-3xl text-gray-500">arrow_forward</span>
+                    </button>
+                </div>
 
-  <!-- User 5 -->
-  <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    <div class="flex-grow">
-      <h3 class="text-lg font-semibold">User 5</h3>
-      <p class="text-gray-500">Role: Moderator</p>
-      <p class="text-sm text-gray-400">Email: user5@example.com</p>
-    </div>
-    <span class="material-icons text-3xl text-gray-500 ml-4">arrow_forward</span>
-  </div>
-
-  <!-- User 6 -->
-  <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    <div class="flex-grow">
-      <h3 class="text-lg font-semibold">User 6</h3>
-      <p class="text-gray-500">Role: Member</p>
-      <p class="text-sm text-gray-400">Email: user6@example.com</p>
-    </div>
-    <span class="material-icons text-3xl text-gray-500 ml-4">arrow_forward</span>
-  </div>
-
-  <!-- User 7 -->
-  <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    <div class="flex-grow">
-      <h3 class="text-lg font-semibold">User 7</h3>
-      <p class="text-gray-500">Role: Admin</p>
-      <p class="text-sm text-gray-400">Email: user7@example.com</p>
-    </div>
-    <span class="material-icons text-3xl text-gray-500 ml-4">arrow_forward</span>
-  </div>
-
-  <!-- User 8 -->
-  <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    <div class="flex-grow">
-      <h3 class="text-lg font-semibold">User 8</h3>
-      <p class="text-gray-500">Role: Moderator</p>
-      <p class="text-sm text-gray-400">Email: user8@example.com</p>
-    </div>
-    <span class="material-icons text-3xl text-gray-500 ml-4">arrow_forward</span>
-  </div>
-
-  <!-- User 9 -->
-  <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
-    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    <div class="flex-grow">
-      <h3 class="text-lg font-semibold">User 9</h3>
-      <p class="text-gray-500">Role: Member</p>
-      <p class="text-sm text-gray-400">Email: user9@example.com</p>
-    </div>
-    <span class="material-icons text-3xl text-gray-500 ml-4">arrow_forward</span>
-  </div>
-</div>
-
-    </div>
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
+                    <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold">User 6</h3>
+                        <p class="text-gray-500">Role: User</p>
+                        <p class="text-sm text-gray-400">Email: user1@example.com</p>
+                    </div>
+                    <button class="showProfile flex items-center p-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-3xl focus:outline-none focus:ring-2 focus:ring-gray-400">
+                        <span class="material-icons text-3xl text-gray-500">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
         </div>
-          
-      
+
+        <!-- user's profile -->
+        <div id="personalProfile" class="min-h-screen hidden">
+            <section class="bg-gray-50 p-8 w-full h-full overflow-auto"> 
+
+            <div class="flex justify-between pb-7">  
+                <h1 class="pt-2 text-2xl font-bold text-gray-800">Personal Profile</h1>
+                    <button id="exitProfile" class="text-gray-500 text-2xl hover:text-gray-700 ">
+                        <span class="material-icons">close</span>
+                    </button>
+            </div>
+
+            <!-- personal infos -->
+            <div class="flex">
+                <img src="" alt="Profile Picture" class="rounded-md w-24 h-24 bg-gray-400">
+            </div>
+
+            <!--- full name -->
+            <h3 class="text-md text-gray-500 mb-2 mt-4">Full Name</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">First Name</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">Jaira</p>
+                </div>
+
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">Middle Name</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">Pascual</p>
+                </div>
+
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">Last Name</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">Nunag</p>
+                </div>
+            </div>
+
+            <!--address-->
+            <h3 class="text-md text-gray-500 mb-2 mt-4">Address</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">House Number</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">Lot 2 Block 4</p>
+                </div> 
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">Street</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">Tanguile St.</p>
+                </div>
+
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">Barangay</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">Dolores</p>
+                </div>
+
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">City</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">San Fernando</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">Province</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">Pampanga</p>
+                </div> 
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">Postal Code</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">2000</p>
+                </div>
+            </div>
+        
+            <!--phone number-->
+            <h3 class="text-md text-gray-500 mb-2 mt-4">Mobile Number</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="border border-gray-300 rounded-md py-3">
+                    <h1 class="text-gray-500 font-semibold pl-5 ">Mobile No.</h1>
+                    <p class="text-lg mb-2 pl-5 mt-2 font-semibold">09123456789</p>
+                </div>
+            </div>
+
+            <hr class="opacity-100 mt-8 mb-4">
+         
+            
+            <!----points-->
+            <div>
+                <div class="flex items-center mb-2">
+                    <h3 class="text-lg font-semibold">Points:  </h3>
+                    <p class="ml-2">100</p>
+                </div>
+            </div>
+
+            <!--- events -->
+            <div>
+                <div class="flex items-center mb-2">
+                    <h3 class="text-lg font-semibold">Participated Events:  </h3>
+                    <p class="ml-2">Dental Outreach Program - 12/2/24 </p>
+                </div>
+            </div>
+
+            <div class="flex md:justify-end justify-start mt-5">
+                <button class="text-white font-semibold py-2 px-4 bg-pink-500 rounded-lg flex items-center hover:bg-pink-600 focus:outline-none sm:text-center">
+                <span class="material-icons text-white mr-2">exit_to_app</span>
+                    Remove User
+                </button>
+            </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.showProfile').forEach(button => {
+            button.addEventListener('click', () => {
+                document.getElementById('personalProfile').classList.remove('hidden');
+                document.getElementById('usersSection').classList.add('hidden'); 
+            });
+        });
+
+        document.getElementById('exitProfile').addEventListener('click', () => {
+            document.getElementById('personalProfile').classList.add('hidden'); 
+            document.getElementById('usersSection').classList.remove('hidden'); 
+        });
+    </script>
+
 </x-app-layout>
