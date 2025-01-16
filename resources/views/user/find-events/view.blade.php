@@ -128,7 +128,7 @@
             // Highlight the active tab button
             const activeButton = document.getElementById(`${tabName}-tab`);
             if (activeButton) {
-                activeButton.classList.add( 'text-pink-500');
+                activeButton.classList.add('text-pink-500');
             }
 
             // Adjust the tab highlight under the active tab

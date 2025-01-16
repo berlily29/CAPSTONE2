@@ -43,7 +43,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/settings', [SettingsController::class, 'index'])->name('user.settings');
     Route::patch('/settings/userinfo', [SettingsController::class, 'storeInfo'])->name('user.settings.storeUserInfo');
     Route::patch('/settings/userprofilepic', [SettingsController::class, 'storeProfilePic'])->name('user.settings.storeProfilePic');
-
+    Route::patch('/settings/userprofilepic/delete', [SettingsController::class, 'deleteProfilePic'])->name('user.settings.deleteProfilePic');
+    Route::post('/settings/changePassword', [SettingsController::class, 'changePassword'])->name('user.settings.changePassword');
 
 
     /// FIND EVENTS
