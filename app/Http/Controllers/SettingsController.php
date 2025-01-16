@@ -7,6 +7,7 @@ use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -77,7 +78,7 @@ public function storeProfilePic(Request $request)
         "changeProfileButton" => "required | file | max:2048| mimes:jpeg,png,jpg,gif"
     ]);
 
-    $path = 'uploads/profilepic';
+    $path = 'uploads/profilepic/';
 
     if (!Storage::disk('public')->exists($path)) {
         Storage::disk('public')->makeDirectory($path);
@@ -87,8 +88,8 @@ public function storeProfilePic(Request $request)
 
     $fileFormat = $user->user_id . '.' . $request->file('changeProfileButton')->getClientOriginalExtension();
 
-    if (Storage::disk('public')->exists($path . '/' . $user->profile_picture)) {
-        Storage::disk('public')->delete($path . '/' . $user->profile_picture);
+    if (Storage::disk('public')->exists($path . $user->profile_picture)) {
+        Storage::disk('public')->delete($path . $user->profile_picture);
     }
 
     $request->file('changeProfileButton')->storeAs($path,$fileFormat, 'public');
@@ -102,6 +103,51 @@ public function storeProfilePic(Request $request)
     return redirect()->route('user.settings')->with([
         'msg' => 'Edited Successfully!',
         'page' => '1']);
+}
+
+public function deleteProfilePic(Request $request) {
+
+    $user= Users::where('user_id', Auth::user()->user_id)->first();
+
+
+    $path = 'uploads/profilepic/';
+
+    if (Storage::disk('public')->exists($path . $user->profile_picture)) {
+        Storage::disk('public')->delete($path . $user->profile_picture);
+    }
+
+    
+    $user->profile_picture = 'profile-picture.jpg';
+    $user->save();
+
+    return redirect()->route('user.settings')->with([
+        'msg' => 'Profile Deleted!',
+        'page' => '1']);
+
+
+}
+
+public function changePassword(Request $request) 
+{
+    $user = Auth::user();
+
+    $request->validate([
+        'current_password' => 'required',
+        'new_password' => 'required|min:8|confirmed'
+    ]);
+
+    if(!Hash::check($request->current_password, Auth::user()->password)){
+        return back()->withErrors(['current_password' => 'The provided password does not match your current password.']);
+}
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+
+    return redirect()->route('user.settings')->with([
+        'msg' => 'Password Changed!',
+        'page' => '1']);
+
+
+
 }
 
 }
