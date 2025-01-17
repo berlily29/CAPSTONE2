@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title', 255)-> nullable();
             $table->longText('description')-> nullable();
             $table->integer('event_category')-> nullable();
+            $table->string('event_organizer')->nullable();
             $table->date('date')->nullable();
             $table->string('venue', 500)->nullable();
             $table->string('target_location', 255)->nullable();

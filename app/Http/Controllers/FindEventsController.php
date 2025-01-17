@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
-use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,8 +23,10 @@ class FindEventsController extends Controller
     }
 
     public function view_event ($id){
-        $event = Event::where('event_id', $id)->first();
-        dd($event);
+        $event = Events::where('event_id', $id)->first();
+        return view('user.find-events.event')->with([
+            'event'=> $event
+        ]);
 
     }
 }

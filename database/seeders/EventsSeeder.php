@@ -27,6 +27,7 @@ class EventsSeeder extends Seeder
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
                 'event_category' =>rand(1, 20),  // Alternating categories
+                'event_organizer'=> '2',
                 'date' => $faker->dateTimeBetween('now', '+1 year')->format('Y-m-d'),
                 'venue' => $faker->address,
                 'target_location' =>$faker->randomElement(['Mabalacat','Angeles', 'Sanfernando']),  // Fixed target location

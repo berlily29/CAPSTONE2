@@ -61,7 +61,7 @@
                                     </div>
                                     <!-- Action Button -->
                                     <div class="flex items-center justify-center h-full">
-                                        <a href="" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2">
+                                        <a href="{{route('find-events.view', ['id'=>$event->event_id])}}" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2">
                                             <span class="material-icons">info</span>
                                             View Details
                                         </a>
