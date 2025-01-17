@@ -1,19 +1,19 @@
 
 <x-app-layout>
 
-<div class="py-5">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+<div class="bg-white rounded-lg p-8">
+        <div class="max-w-7xl ">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
-                <div class="p-4 max-w-full">
-                    <h1 class="ml-2 mt-5 text-3xl font-bold text-black">Settings</h1>
+                <div class=" max-w-full">
+                    <h1 class="text-3xl font-black text-gray-700">Settings</h1>
                 </div>
 
 
-                <div class="p-3 bg-white border-b border-gray-200">
+                <div class="bg-white border-b border-gray-200">
 
                 <!-- Navigation -->
-                    <div  class="nav-tabs flex border-b mb-4 relative">
+                    <div  class="nav-tabs flex border-b relative">
                     <button
                         id="accountDetails-tab"
                          onclick="showTab('accountDetails')"
@@ -109,38 +109,38 @@
                 </div>
             </div>
 
-                <div id='userInfo' class='tab-content hidden'>
+                <div id='userInfo' class='tab-content hidden pt-4'>
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Edit User Information</h2>
 
-    <form id="editForm" action="{{ route('user.settings.storeUserInfo') }}" class='w-full h-full ' method="POST">
+    <form id="editForm" action="{{ route('user.settings.storeUserInfo') }}" class='w-full h-full' method="POST">
         @csrf
         @method('PATCH')
 
-        <div class='grid md:grid-cols-1 lg:grid-cols-2'>
+        <div class='grid md:grid-cols-1 lg:grid-cols-2 gap-4 mb-4'>
 
-        <div class="mb-4 px-5">
+        <div class="pr-5">
             <label for="fname" class=" w-full block text-sm font-medium text-gray-700">First Name</label>
-            <input type="text" id="fname" name="fname" class="text-xl px-1 w-full mt-1 block border-2 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->fname }}" required>
+            <input type="text" id="fname" name="fname" class="text-xl px-4 py-2 w-full mt-1 block rounded-md border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->fname }}" required>
         </div>
 
-        <div class="mb-4 px-5">
+        <div class="pr-5">
             <label for="mname" class="w-full block text-sm font-medium text-gray-700">Middle Name</label>
-            <input type="text" id="mname" name="mname" class="text-xl px-1 w-full mt-1 block border-2 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->mname }}" required>
+            <input type="text" id="mname" name="mname" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->mname }}" required>
         </div>
 
-        <div class="mb-4 px-5">
+        <div class="pr-5">
             <label for="lname" class="w-full block text-sm font-medium text-gray-700">Last Name</label>
-            <input type="text" id="lname" name="lname" class="text-xl px-1 w-full mt-1 block border-2 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->lname }}" required>
+            <input type="text" id="lname" name="lname" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300  rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->lname }}" required>
         </div>
 
-        <div class="mb-4 px-5">
+        <div class="pr-5">
             <label for="age" class="w-full block text-sm font-medium text-gray-700">Age</label>
-            <input type="text" id="age" name="age" class="text-xl px-1 w-full mt-1 block border-2 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->age }}" required>
+            <input type="text" id="age" name="age" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->age }}" required>
         </div>
 
-        <div class="mb-4  px-5">
+        <div class="pr-5">
             <label for="gender" class="w-full block text-sm font-medium text-gray-700">Gender</label>
-            <select id="gender" name="gender" class="text-xl w-full mt-1 block border-2 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            <select id="gender" name="gender" class="text-xl w-full px-4 py-2 block border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                 <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Male</option>
                 <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Female</option>
             </select>

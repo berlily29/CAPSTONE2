@@ -3,15 +3,13 @@
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     </head>
 
-    <div class="bg-gray-50 w-full">
+    <div class="w-full bg-white rounded-lg p-8">
         <div class="w-full">
-            <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg pb-4">
+            <div class=" bg-white overflow-hidden shadow-sm sm:rounded-lg ">
+                    <h1 class="ml-2 mt-5 text-3xl font-black text-gray-700">Events</h1>
 
-                <div class="p-4 max-w-full">
-                    <h1 class="ml-2 mt-5 text-3xl font-bold text-black">Events</h1>
-                </div>
 
-                <div class="py-3 px-8 bg-white ">
+                <div class=" bg-white ">
                     <!-- Navigation Tabs -->
                     <div class="flex border-b mb-4 relative">
                         <button id="open-events-tab" class="px-3 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black"
@@ -31,7 +29,7 @@
                     </div>
 
                     <!-- Tab Contents -->
-                    <div id="open-events" class="tab-content hidden px-4">
+                    <div id="open-events" class="tab-content hidden">
                         <h2 class="text-lg font-semibold text-gray-700">Find events that are currently open for participation.</h2>
 
                         @foreach ($open_events as $event)
@@ -48,7 +46,7 @@
                                             @if($event->event_category == 1 || $event->event_category == 6 || $event->event_category == 11 || $event->event_category == 16 || $event->event_category == 20)
                                                 <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
                                                     {{ $event->category->name }}
-                                                </span>
+                                                </span>`
                                             @else
                                                 <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
                                                     {{ $event->category->parent->name }}

@@ -1,21 +1,21 @@
 <x-app-layout>
-<div class="py-5">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+<div class="py-8 px-10 bg-white border-b border-gray-200 rounded-lg">
+    <div class="">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
-        <div class="pt-10 pl-10">
-            <h1 class="text-lg text-black">Manage</h1>
-            <h1 class="text-3xl font-bold text-black">Events</h1>        
+        <div class="">
+            <h1 class="text-sm font-medium text-gray-500">Manage</h1>
+            <h1 class="text-3xl font-black text-gray-700">Events</h1>
         </div>
 
-        <div class="py-3 px-8  bg-white border-b border-gray-200">
-        
+        <div class="bg-white border-b border-gray-200">
+
         <div class="flex border-b mb-4 relative">
             <button id="active-tab" class="px-3 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black"
                 onclick="showTab('active')">
                 Active
             </button>
-            
+
             <button id="post-events-tab" class="px-4 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black"
                 onclick="showTab('post-events')">
                 Post Events

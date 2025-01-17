@@ -20,6 +20,7 @@
     <style>
         .active_link {
             background-color: #fce7f3;
+            font-weight: 700
          }
 
          .active-link:hover {
@@ -86,7 +87,7 @@
                 <!-- Settings -->
                 <li class="mb-4">
                     <a href="{{route('user.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                        {{ Request::is('user.settings*') ? 'active_link' : '' }}
+                        {{ Request::is('user.settings') ? 'active_link' : '' }}
                       ">
                         <span class="material-icons mr-3">settings</span>
                         Settings
