@@ -9,9 +9,9 @@
                     <h1 class="ml-2 mt-5 text-3xl font-bold text-black">Settings</h1>
                 </div>
 
-                
+
                 <div class="p-3 bg-white border-b border-gray-200">
-    
+
                 <!-- Navigation -->
                     <div  class="nav-tabs flex border-b mb-4 relative">
                     <button
@@ -20,23 +20,23 @@
                         class="px-3 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black">
                         Account Settings
                     </button>
-                    <button 
+                    <button
                         id="userInfo-tab"
                        onclick="showTab('userInfo')"
                         class="px-3 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black">
                         Personal Information Settings
                     </button>
-                      
+
                     <div id="tab-highlight" class="absolute bottom-0 left-0 w-1/3 h-1 bg-pink-500 transition-all"></div>
 
                 </div>
 
-            <div id='accountDetails' class='tab-content grid md:grid-cols-1 gap-2 lg:grid-cols-2'> 
-                <div class="flex items-center flex-col bg-gray-200 rounded-lg p-3"> 
+            <div id='accountDetails' class='tab-content grid md:grid-cols-1 gap-2 lg:grid-cols-2'>
+                <div class="flex items-center flex-col bg-gray-200 rounded-lg p-3">
                     <h2 class="w-full text-2xl font-bold text-gray-800 mb-4">Edit Profile Picture</h2>
 
                     <img id='editImage' src="{{asset('storage/uploads/profilepic/' . $user->profile_picture )}}" alt="{{$user->profile_picture}}" class="w-48 h-48 rounded bg-gray-300 mr-4">
-                    
+
                     <div class='grid md:grid-cols-1 mt-2 text-center gap-5 lg:grid-cols-2'>
                         <div class='relative'>
                             <form id="changeProfilePicForm" enctype="multipart/form-data" action="{{route('user.settings.storeProfilePic')}}" method="POST">
@@ -63,8 +63,8 @@
                                 </button>
                             </form>
                         </div>
-                    </div>     
-                    
+                    </div>
+
                     <div class="mt-2 text-center w-full flex flex-row-reverse ">
                          <button id="saveButton" class="flex items-center justify-center transition-colors hidden mx-3 py-2 px-5 bg-pink-500 hover:bg-pink-600 text-white rounded-2xl">
                             <span class="material-icons mx-2">
@@ -102,14 +102,14 @@
                             <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700">Confirm New Password</label>
                             <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-pink-500 focus:border-pink-500 p-2" required>
                         </div>
-                        <button id='changePasswordButton' type="button" class="flex items-center justify-center w-full bg-pink-500 text-white font-semibold py-2 rounded-md hover:bg-pink-600 transition duration-200">            
+                        <button id='changePasswordButton' type="button" class="flex items-center justify-center w-full bg-pink-500 text-white font-semibold py-2 rounded-md hover:bg-pink-600 transition duration-200">
                             <span class="material-icons mx-2">edit</span>Change Password
                         </button>
                     </form>
                 </div>
             </div>
 
-                <div id='userInfo' class='tab-content hidden'> 
+                <div id='userInfo' class='tab-content hidden'>
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Edit User Information</h2>
 
     <form id="editForm" action="{{ route('user.settings.storeUserInfo') }}" class='w-full h-full ' method="POST">
@@ -210,11 +210,11 @@
 
                 </div>
             </form>
-        
+
 
     <div class="mt-2 text-center w-full flex flex-row-reverse">
         <button id="editButton" class="flex items-center justify-center w-12 h-12  mx-2 my-2  bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
-            <span class="material-icons mx-2">edit</span> 
+            <span class="material-icons mx-2">edit</span>
 
         </button>
 
@@ -228,12 +228,12 @@
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
     document.getElementById('changeProfileButton').addEventListener('change', function() {
         document.getElementById('saveButton').classList.remove('hidden');
-        
+
         if (this.files && this.files[0]) {
         var reader = new FileReader();
 
@@ -245,11 +245,11 @@
         reader.readAsDataURL(this.files[0]);
     }
     });
-    
+
     function showTab(tabName) {
         const allTabs = document.querySelectorAll(`.tab-content`);
         allTabs.forEach(function(tab) {
-            tab.classList.add('hidden'); 
+            tab.classList.add('hidden');
         });
 
         const selectedTab = document.getElementById(`${tabName}`);
@@ -308,7 +308,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById('deleteForm').submit();
- 
+
             }
         });
     });
@@ -326,11 +326,11 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById('passwordForm').submit();
- 
+
             }
         });
     });
-    
+
       // Full Cities and Barangays with Postal Codes for Pampanga
       const cityBarangays = {
     'Angeles': [
@@ -647,7 +647,7 @@ citySelect.addEventListener('change', function() {
             icon: "success",
             showConfirmButton: false,
             timer:1500
-        
+
         });
     </script>
 
@@ -657,13 +657,13 @@ citySelect.addEventListener('change', function() {
     document.addEventListener('DOMContentLoaded', function () {
                 showTab('userInfo')
             });
-      
+
         Swal.fire({
             text: "{{session('msg')}}",
             icon: "success",
             showConfirmButton: false,
             timer:1500
-        
+
         });
     </script>
 

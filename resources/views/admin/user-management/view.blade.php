@@ -8,10 +8,10 @@
     <div class="p-8">
         <!-- Smaller Title on top of the User List -->
         <h3 class="text-sm font-medium text-gray-700">Manage</h3>
-      
+
         <!-- Title for User List -->
         <h1 class="text-3xl font-bold text-gray-800">All Users</h1>
-      
+
         <!-- Search Bar -->
         <div class="relative mb-4">
             <!-- Container for positioning the search box -->
@@ -21,7 +21,7 @@
               <span class="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">search</span>
             </div>
           </div>
-          
+
         <!-- Filter -->
         <div class="flex justify-start">
             <button class="bg-gray-400 text-white px-6 py-3 rounded-full hover:bg-gray-600 focus:outline-none flex items-center">
@@ -31,7 +31,7 @@
               Filter
             </button>
           </div>
-      
+
 
           <!-- Users! -->
 
@@ -40,7 +40,7 @@
   <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
     <!-- Left-side User Icon (Google Material Icon) -->
     <span class="material-icons text-6xl text-gray-500 mr-4">account_circle</span>
-    
+
     <!-- User Info -->
     <div class="flex-grow">
       <h3 class="text-lg font-semibold">User 1</h3>
@@ -143,6 +143,6 @@
 
     </div>
         </div>
-          
-      
+
+
 </x-app-layout>

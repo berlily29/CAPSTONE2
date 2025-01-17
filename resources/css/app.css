@@ -1,5 +1,6 @@
 
 /* @import '/material-design-icons/iconfont/material-icons.css'; */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

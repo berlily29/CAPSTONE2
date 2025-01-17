@@ -12,6 +12,10 @@ class Users extends Model
         return $this->belongsTo(UsersLogin::class, 'user_id', 'user_id');
     }
 
+    public function id() {
+        return $this->hasMany(ID::class,'user_id', 'user_id');
+    }
+
     protected $table = 'tbl_user_info';
     protected $primaryKey = 'user_id'; // Specify the primary key
     public $incrementing = false;
