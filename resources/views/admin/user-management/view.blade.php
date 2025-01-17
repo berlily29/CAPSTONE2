@@ -2,15 +2,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=filter_alt" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-8 px-10 bg-white border-b border-gray-200 rounded-lg">
         <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
-    <div class="p-8">
+    <div class="">
         <!-- Smaller Title on top of the User List -->
-        <h3 class="text-sm font-medium text-gray-700">Manage</h3>
+        <h3 class="text-sm font-medium text-gray-500">Manage</h3>
 
         <!-- Title for User List -->
-        <h1 class="text-3xl font-bold text-gray-800">All Users</h1>
+        <h1 class="text-3xl font-black text-gray-700">All Users</h1>
 
         <!-- Search Bar -->
         <div class="relative mb-4">

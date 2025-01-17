@@ -3,8 +3,16 @@
         <div class="w-full">
             <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg pb-4">
 
+            <a href="{{route('find-events.index')}}" class="inline-flex items-center mx-4 mt-8 mb-4 px-4 py-2 bg-pink-600 text-white border border-pink-600 font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-offset-2 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+                Return to Previous
+            </a>
+
                 <div class="px-4 max-w-full pb-4">
-                    <h1 class="ml-2 mt-5 text-3xl font-extrabold text-black">Event Details</h1>
+
+                    <h1 class="ml-2 text-3xl font-extrabold text-black">Event Details</h1>
                 </div>
 
                 <hr class="opacity-60">

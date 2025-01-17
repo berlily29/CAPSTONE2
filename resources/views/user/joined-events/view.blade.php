@@ -1,14 +1,16 @@
 <x-app-layout>
-    <div class="min-h-screen bg-gray-50 p-8">
+    <div class="min-h-screen bg-white rounded-lg">
 
         <!-- Dashboard Header -->
-        <section class="mb-6 text-center md:text-left">
-            <h2 class="text-3xl font-bold text-gray-800">My Events</h2>
+        <section class=" text-center md:text-left p-8">
+
+            <h2 class="text-3xl font-black text-gray-700">My Events</h2>
 
         </section>
 
+        <hr class="opacity-70">
         <!-- Tabs for Upcoming and Completed Events -->
-        <div class="bg-white rounded-lg shadow-lg border border-gray-200">
+        <div class="bg-white">
             <nav class="flex border-b border-gray-200 relative">
                 <button class="flex-1 p-4 text-center font-semibold text-gray-800 hover:text-pink-600 focus:outline-none relative" id="tab-upcoming">
                     Upcoming

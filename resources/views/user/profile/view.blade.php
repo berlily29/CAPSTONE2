@@ -1,8 +1,8 @@
 <x-app-layout>
-<div class="min-h-screen bg-gray-100 p-8">
+<div class="min-h-screen bg-white rounded-lg">
 
 <section class="bg-white p-8 rounded-lg shadow">
-    <h1 class="font-black text-[2rem] text-gray-600"> My Profile</h1>
+    <h1 class="font-black text-[2rem] text-gray-700"> My Profile</h1>
     <hr class="opacity-100 my-4">
   <div class="flex items-center mb-6">
     <img src="{{asset('storage/uploads/profilepic/' . $user->profile_picture )}}" alt="Profile Picture" class="w-24 h-24 rounded bg-gray-300 mr-4">
