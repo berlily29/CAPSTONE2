@@ -3,15 +3,15 @@
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     </head>
 
-    <div class="">
-        <div class="max-w-7xl mx-auto">
-            <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-gray-50 w-full">
+        <div class="w-full">
+            <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg pb-4">
 
                 <div class="p-4 max-w-full">
                     <h1 class="ml-2 mt-5 text-3xl font-bold text-black">Events</h1>
                 </div>
 
-                <div class="py-3 px-8  bg-white border-b border-gray-200">
+                <div class="py-3 px-8 bg-white ">
                     <!-- Navigation Tabs -->
                     <div class="flex border-b mb-4 relative">
                         <button id="open-events-tab" class="px-3 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black"
@@ -34,54 +34,37 @@
                     <div id="open-events" class="tab-content hidden px-4">
                         <h2 class="text-lg font-semibold text-gray-700">Find events that are currently open for participation.</h2>
 
-                        @foreach ([
-                            ['id' => 1, 'name' => 'Event 1', 'date' => 'January 15, 2025', 'venue' => 'Barangay Hall', 'category' => 'Sports'],
-                            ['id' => 2, 'name' => 'Event 2', 'date' => 'February 20, 2025', 'venue' => 'Barangay Hall', 'category' => 'Nature'],
-                            ['id' => 3, 'name' => 'Event 3', 'date' => 'March 25, 2025', 'venue' => 'Barangay Hall', 'category' => 'Sports']
-                        ] as $event)
-
-                            <div class="mt-4 event bg-white p-6 rounded-lg shadow-lg">
-                                <div class="flex justify-between items-center mb-4">
-                                    <h3 class="text-xl font-bold">{{ $event['name'] }}</h3>
-                                    <button class="bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition" onclick="toggleEventDetails('event{{ $event['id'] }}')">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 5l7 7-7 7" />
-                                        </svg>
-                                    </button>
-                                </div>
-
-                                <!-- Event Details -->
-                                <div id="event{{ $event['id'] }}-details" class="event-details hidden mt-4">
-                                    <div class="nav-tabs flex mb-4 space-x-4">
-                                        <button id="event{{ $event['id'] }}-detail-tab" class="px-3 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black"
-                                            onclick="showEventTab('event{{ $event['id'] }}', 'detail')">
-                                            Event Details
-                                        </button>
-                                        <button id="event{{ $event['id'] }}-organizer-tab" class="px-3 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black"
-                                            onclick="showEventTab('event{{ $event['id'] }}', 'organizer')">
-                                            Organizer Details
-                                        </button>
-                                    </div>
-
-                                    <!-- Content -->
-                                    <div id="event{{ $event['id'] }}-detail" class="tab-content mt-4 hidden">
-                                        <div class="text-black space-y-2">
-                                            <p><strong>Event Name:</strong> {{ $event['name'] }}</p>
-                                            <p><strong>Date:</strong> {{ $event['date'] }}</p>
-                                            <p><strong>Venue:</strong> {{ $event['venue'] }}</p>
-                                            <p><strong>Category:</strong> {{ $event['category'] }}</p>
-                                        </div>
-
-                                        <div class="mt-4">
-                                            <button class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition">
-                                                Join Event
-                                            </button>
+                        @foreach ($open_events as $event)
+                            <div class="mt-4 bg-white p-6  shadow-lg border border-gray-200 relative">
+                                <!-- Book Tag Highlight -->
+                                <span class="absolute top-0 left-0 h-full w-2 bg-pink-500 "></span>
+                                <div class="flex justify-between items-start pl-4">
+                                    <!-- Event Details -->
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">{{ $event->title }}</h3>
+                                        <p class="text-sm text-gray-600 mt-2"><strong>Date:</strong> {{ $event->date ?? 'TBA' }}</p>
+                                        <p class="text-sm text-gray-600 mt-1"><strong>Location:</strong> {{ $event->venue ?? 'TBA' }}</p>
+                                        <div class="flex flex-wrap gap-2 mt-2">
+                                            @if($event->event_category == 1 || $event->event_category == 6 || $event->event_category == 11 || $event->event_category == 16 || $event->event_category == 20)
+                                                <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
+                                                    {{ $event->category->name }}
+                                                </span>
+                                            @else
+                                                <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
+                                                    {{ $event->category->parent->name }}
+                                                </span>
+                                                <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
+                                                    {{ $event->category->name }}
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
-
-                                    <!-- Event organizer -->
-                                    <div id="event{{ $event['id'] }}-organizer" class="tab-content mt-4 hidden">
-                                        <p class="text-black">Event Organizer Details go here</p>
+                                    <!-- Action Button -->
+                                    <div class="flex items-center justify-center h-full">
+                                        <a href="" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2">
+                                            <span class="material-icons">info</span>
+                                            View Details
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -91,24 +74,54 @@
                     <!-- Nearby -->
                     <div id="nearby" class="tab-content hidden">
                         <h2 class="text-lg font-semibold text-gray-700">Discover events close to your location.</h2>
+
+                        @foreach ($nearby_events as $event)
+                            <div class="mt-4 bg-white p-6  shadow-lg border border-gray-200 relative">
+                                <!-- Book Tag Highlight -->
+                                <span class="absolute top-0 left-0 h-full w-2 bg-pink-500"></span>
+                                <div class="flex justify-between items-start pl-4">
+                                    <!-- Event Details -->
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">{{ $event->title }}</h3>
+                                        <p class="text-sm text-gray-600 mt-2"><strong>Date:</strong> {{ $event->date ?? 'TBA' }}</p>
+                                        <p class="text-sm text-gray-600 mt-1"><strong>Location:</strong> {{ $event->venue ?? 'TBA' }}</p>
+                                        <div class="flex flex-wrap gap-2 mt-2">
+                                            @if($event->event_category == 1 || $event->event_category == 6 || $event->event_category == 11 || $event->event_category == 16 || $event->event_category == 20)
+                                                <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
+                                                    {{ $event->category->name }}
+                                                </span>
+                                            @else
+                                                <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
+                                                    {{ $event->category->parent->name }}
+                                                </span>
+                                                <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
+                                                    {{ $event->category->name }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <!-- Action Button -->
+                                    <div class="flex items-center justify-center h-full">
+                                        <a href="" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2">
+                                            <span class="material-icons">info</span>
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
 
                     <!-- Recommended -->
                     <div id="recommended" class="tab-content hidden">
                         <h2 class="text-lg font-semibold text-gray-700">Events tailored based on your interests and history.</h2>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        function toggleEventDetails(eventId) {
-            const eventDetails = document.getElementById(`${eventId}-details`);
-            eventDetails.classList.toggle('hidden');
-        }
-
         function showTab(tabName) {
             // Hide all tabs
             const allTabs = document.querySelectorAll('.tab-content');
@@ -121,7 +134,7 @@
             // Reset active tab buttons
             const allTabButtons = document.querySelectorAll('.nav-tabs button');
             allTabButtons.forEach(button => {
-                button.classList.remove( 'text-pink-500');
+                button.classList.remove('text-pink-500');
                 button.classList.add('border-transparent', 'text-black');
             });
 
@@ -139,29 +152,9 @@
             }
         }
 
-        function showEventTab(eventId, tabType) {
-            const allTabs = document.querySelectorAll(`#${eventId}-details .tab-content`);
-            allTabs.forEach(function(tab) {
-                tab.classList.add('hidden');
-            });
-
-            const selectedTab = document.getElementById(`${eventId}-${tabType}`);
-            selectedTab.classList.remove('hidden');
-
-            const allTabButtons = document.querySelectorAll(`#${eventId}-details .nav-tabs button`);
-            allTabButtons.forEach(function(button) {
-                button.classList.remove( 'text-pink-500');
-                button.classList.add('border-transparent', 'text-black');
-            });
-
-            const activeButton = document.getElementById(`${eventId}-${tabType}-tab`);
-            activeButton.classList.add( 'text-pink-500');
-        }
-
         // Set default tab to "Open Events"
         document.addEventListener('DOMContentLoaded', function () {
             showTab('open-events');
         });
     </script>
-
 </x-app-layout>

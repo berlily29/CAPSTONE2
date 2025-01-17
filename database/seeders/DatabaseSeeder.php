@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
 
         //run other seeders
         $this->call(EventCategorySeeder::class);
+        $this->call(EventsSeeder::class);
 
 
 
@@ -68,7 +69,7 @@ class DatabaseSeeder extends Seeder
             'profile_points' => 100,  // Default points, if needed
             'email_verified'=> 1,
 
-            'account_status' => 'Pending',
+            'account_status' => 'Approved',
         ]);
 
         UsersLogin::create([

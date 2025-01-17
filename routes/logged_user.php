@@ -49,9 +49,8 @@ Route::middleware(['auth'])->group(function() {
 
     /// FIND EVENTS
 
-    Route::get('/user-find-events', function () {
-
-        return view('user.find-events.view'); })->name('find-events.index');
+    Route::get('/events', [FindEventsController::class, 'index'])->name('find-events.index');
+    Route::get('/events/{$id}', [FindEventsController::class, 'view_event'])->name('find-events.view');
 
 
 
