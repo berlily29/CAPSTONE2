@@ -54,6 +54,12 @@ class UserPreferencesController extends Controller
         if(!(ID::where('user_id', $user->user_id)->exists())){
             return redirect()-> route('auth.id')->with(['email', session('email')]);
         }
+
+        session([
+            'is_approved'=> $user->user->account_status === 'Pending' ? false : true
+        ]);
+
+
         FacadesAuth::login($user);
         return redirect()->route('user.dashboard');
     }

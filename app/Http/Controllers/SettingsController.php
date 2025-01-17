@@ -17,7 +17,6 @@ class SettingsController extends Controller
     {
 
         $user = Users::where('user_id', Auth::user()->user_id)->first();
-        //set address
 
 
         return view('user.settings.view')->with([
@@ -116,7 +115,7 @@ public function deleteProfilePic(Request $request) {
         Storage::disk('public')->delete($path . $user->profile_picture);
     }
 
-    
+
     $user->profile_picture = 'profile-picture.jpg';
     $user->save();
 
@@ -127,7 +126,7 @@ public function deleteProfilePic(Request $request) {
 
 }
 
-public function changePassword(Request $request) 
+public function changePassword(Request $request)
 {
     $user = Auth::user();
 

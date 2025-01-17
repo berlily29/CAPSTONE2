@@ -13,4 +13,8 @@ class EventCategories extends Model
     public function parent() {
         return $this-> belongsTo(EventCategories::class, 'parent_id');
     }
+
+    public function event() {
+        return $this-> belongsTo(Events::class, 'event_category','id');
+    }
 }

@@ -10,17 +10,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UsersLogin extends Authenticatable implements JWTSubject
 {
-    public function user() { 
-        return $this->hasOne(Users::class, 'user_id', 'user_id' ); 
+    public function user() {
+        return $this->hasOne(Users::class, 'user_id', 'user_id' );
     }
 
-    public function regtoken() { 
-        return $this->belongsTo(RegistrationTokens::class,'email','email'); 
+    public function regtoken() {
+        return $this->belongsTo(RegistrationTokens::class,'email','email');
+    }
+
+    public function event() {
+        return $this-> hasMany(Events::class, 'event_organizer', 'user_id');
     }
 
     use HasFactory, Notifiable, SoftDeletes;
-    protected $table = 'tbl_login'; 
-    protected $primaryKey = 'user_id'; 
+    protected $table = 'tbl_login';
+    protected $primaryKey = 'user_id';
     protected $keyType = 'string';
     protected $fillable = [
         'user_id',
@@ -41,7 +45,7 @@ class UsersLogin extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [
-            'role' => $this->role, 
+            'role' => $this->role,
             'sub' => $this->getKey(),
         ];
     }

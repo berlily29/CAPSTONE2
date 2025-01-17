@@ -8,8 +8,9 @@
     <!--Mat-Icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
@@ -75,7 +76,7 @@
                     <a @if(session('is_approved') == false) href = # @else href = "{{route('user.joinevents')}}" @endif
                     class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Request::is('user-joined-events*') ? 'active_link' : '' }}
-                    @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
+                @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
                         <span class="material-icons mr-3">check_circle</span>
                         Joined Events
                     </a>
@@ -84,7 +85,9 @@
 
                 <!-- Settings -->
                 <li class="mb-4">
-                    <a href="/settings" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all">
+                    <a href="{{route('user.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+                        {{ Request::is('user.settings*') ? 'active_link' : '' }}
+                      ">
                         <span class="material-icons mr-3">settings</span>
                         Settings
                     </a>
@@ -99,7 +102,7 @@
                 <li class="mb-4">
 
                     <a @if(session('is_approved') == false) href = # @else href = "{{route('find-events.index')}}" @endif
-                    class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.find-events*') ? 'active_link' : '' }}
+                    class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('find-events.index*') ? 'active_link' : '' }}
                      @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
 
                         <span class="material-icons mr-3">search</span>
@@ -109,7 +112,9 @@
 
                 <!-- Gallery -->
                 <li class="mb-4">
-                    <a href="/user-gallery" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all">
+                    <a href="{{route('gallery.index')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+                    {{ Route::is('gallery*') ? 'active_link' : '' }}
+                     ">
                         <span class="material-icons mr-3">image</span>
                         Gallery
                     </a>
@@ -120,20 +125,14 @@
                     <a href="{{route('user.leaderboards')}}" class="flex items-center p-3  text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                       {{ Route::is('user.leaderboards*') ? 'active_link' : '' }}
                        ">
-                        <span class="material-icons mr-3">leaderboard</span>
+                       <span class="material-icons mr-3">military_tech</span>
                         Top Volunteers
                     </a>
                 </li>
             </ul>
         </div>
 
-        <!-- Volunteer Button -->
-        <div class="w-full mt-8">
-            <button class="w-full bg-sky-400 text-white p-3 rounded-lg hover:bg-pink-700 transition-all flex items-center justify-center">
 
-                Volunteer to an Event
-            </button>
-        </div>
     </nav>
 
 
@@ -185,7 +184,7 @@
                     <a href="{{route('admin.manage-events')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('admin.manage-events*') ? 'active_link' : '' }}
                     ">
-                        <span class="material-icons mr-3">calendar_today </span>
+                        <span class="material-icons mr-3"> today </span>
                         Manage Events
                     </a>
                 </li>
@@ -194,7 +193,7 @@
                     <a href="{{route('admin.pending-request')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('admin.pending-request*') ? 'active_link' : '' }}
                     ">
-                        <span class="material-icons mr-3">pending_actions</span>
+                    <span class="material-icons mr-3">schedule</span>
                         Pending Requests
                     </a>
                 </li>

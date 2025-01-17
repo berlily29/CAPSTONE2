@@ -14,17 +14,17 @@ Route::middleware(['admin'])-> group(function() {
     //User dashboard
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-    //Admin Settings 
-    Route::get('/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
+    //Admin Settings
+    Route::get('/admin/settings', [AdminSettingsController::class, 'index'])->name('admin.settings');
 
     //Manage Events
-    Route::get('/manage-events', [ManageEventsController::class, 'index'])->name('admin.manage-events');
-    
-    //Pending Request 
-    Route::get('/pending-request', [PendingRequestController::class, 'index'])->name('admin.pending-request');
+    Route::get('/admin/manage-events', [ManageEventsController::class, 'index'])->name('admin.manage-events');
+
+    //Pending Request
+    Route::get('/admin/pending-request', [PendingRequestController::class, 'index'])->name('admin.pending-request');
 
     //User Management
-    Route::get('/user-management', [UserManagementController::class, 'index'])->name('admin.user-management');
+    Route::get('/admin/user-management', [UserManagementController::class, 'index'])->name('admin.user-management');
 });
 
 

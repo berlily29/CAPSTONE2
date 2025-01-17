@@ -37,6 +37,38 @@
       </div>
     </div>
 
+
+
+
+
+
+    <!-- 2nd row -->
+
+    <div class="grid grid-cols-1 md:grid-cols-[60%_20%_20%] gap-4 mb-4">
+      <div class="border border-gray-300 rounded-md p-4">
+        <h2 class="font-semibold mb-2 text-[0.8rem] text-gray-400">Mobile No.</h2>
+        <p class="font-bold text-lg text-gray-600">{{ $user->mobile_no }} </p>
+      </div>
+
+      <div class="border border-gray-300 rounded-md p-4">
+        <h2 class="font-semibold mb-2 text-[0.8rem] text-gray-400">Age</h2>
+        <p class="font-bold text-lg text-gray-600">{{ $user->age }}</p>
+      </div>
+
+      <div class="border border-gray-300 rounded-md p-4">
+        <h2 class="font-semibold mb-2 text-[0.8rem] text-gray-400">Gender</h2>
+        @if($user->gender === 'male')
+        <p class="font-bold text-lg text-gray-600">M</p>
+        @else
+        <p class="font-bold text-lg text-gray-600">F</p>
+        @endif
+      </div>
+
+
+    </div>
+
+
+
     <!-- address -->
     <h3 class="text-sm text-gray-400 mb-2 mt-4">Complete Address</h3>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
@@ -78,10 +110,7 @@
 
 
 
-    <div class="border border-gray-300 rounded-md p-4">
-      <h2 class="font-semibold mb-2 text-[0.8rem] text-gray-400">Mobile Number</h2>
-      <p class="font-bold text-lg text-gray-600">{{ $user->mobile_number }}</p>
-    </div>
+
   </div>
 
   <!-- Points -->
