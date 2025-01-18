@@ -26,6 +26,24 @@
          .active-link:hover {
             background-color: #F472B6;
          }
+
+        .scrollable-content::-webkit-scrollbar {
+            width: 6px; 
+        }
+
+        .scrollable-content::-webkit-scrollbar-track {
+            background: #ff4081;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background-color: #e91e64; 
+            border-radius: 20px; 
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb:hover {
+            background-color: #c91459; 
+        }
+
     </style>
 </head>
 <body class="bg-gray-100 font-sans">

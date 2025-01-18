@@ -35,7 +35,7 @@
                 <div class="flex items-center flex-col bg-gray-200 rounded-lg p-3">
                     <h2 class="w-full text-2xl font-bold text-gray-800 mb-4">Edit Profile Picture</h2>
 
-                    <img id='editImage' src="{{asset('storage/uploads/profilepic/' . $user->profile_picture )}}" alt="{{$user->profile_picture}}" class="w-48 h-48 rounded bg-gray-300 mr-4">
+                    <img id='editImage' src="{{ $user->profile_picture ? asset('storage/uploads/profilepic/' . $user->profile_picture) : asset('storage/uploads/profilepic/profile-picture.jpg') }}" alt="{{$user->profile_picture}}" class="w-48 h-48 rounded bg-gray-300 mr-4">
 
                     <div class='grid md:grid-cols-1 mt-2 text-center gap-5 lg:grid-cols-2'>
                         <div class='relative'>
@@ -78,10 +78,16 @@
                 <div class="p-5 w-full bg-gray-200 rounded-lg">
                     <h2 class="w-full text-2xl font-bold text-gray-800 mb-4">Change Password</h2>
 
-                    @if ($errors->any())
+                    @if ($errors->has('current_password') || $errors->has('new_password') || $errors->has('new_password_confirmation'))
                         <div class="bg-red-500 text-white p-4 rounded mb-4">
                             <ul>
-                                @foreach ($errors->all() as $error)
+                                @foreach ($errors->get('current_password') as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                                @foreach ($errors->get('new_password') as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                                @foreach ($errors->get('new_password_confirmation') as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
@@ -115,6 +121,18 @@
     <form id="editForm" action="{{ route('user.settings.storeUserInfo') }}" class='w-full h-full' method="POST">
         @csrf
         @method('PATCH')
+
+        @if ($errors->has('fname') || $errors->has('mname') || $errors->has('lname')|| $errors->has('age')
+        || $errors->has('gender')|| $errors->has('province')|| $errors->has('city')|| $errors->has('brgy')
+        || $errors->has('postal_code')|| $errors->has('house_no') || $errors->has('street'))
+                        <div class="bg-red-500 text-white p-4 rounded mb-4">
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
         <div class='grid md:grid-cols-1 lg:grid-cols-2 gap-4 mb-4'>
 
@@ -182,8 +200,7 @@
                     <div id="barangay_div">
                         <label for="barangay" class="block text-sm font-semibold text-gray-700">Barangay</label>
                         <select id="barangay" name="brgy" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
-                            <!-- Barangay options will be populated based on city selection -->
-                            ><
+                            <!-- Barangay options will be populated based on city selection -->                           
                         </select>
                     </div>
 
@@ -280,8 +297,8 @@
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'edit',
-            cancelButtonText: 'cancel'
+            confirmButtonText: 'Edit',
+            cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById('editForm').submit();
@@ -304,7 +321,7 @@
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Delete',
-            cancelButtonText: 'cancel'
+            cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById('deleteForm').submit();
@@ -322,7 +339,7 @@
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Change',
-            cancelButtonText: 'cancel'
+            cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById('passwordForm').submit();
@@ -673,5 +690,14 @@ citySelect.addEventListener('change', function() {
     </script>
 @endif
 
+@if ($errors->has('current_password') || $errors->has('new_password') || $errors->has('new_password_confirmation'))
+<script>
+    showTab('accountDetails')
+    </script>
+@else
+<script>
+    showTab('userInfo')
+    </script>
+@endif
 
 </x-app-layout>

@@ -13,7 +13,7 @@ class Users extends Model
     }
 
     public function id() {
-        return $this->hasMany(ID::class,'user_id', 'user_id');
+        return $this->hasOne(ID::class,'user_id', 'user_id');
     }
 
     protected $table = 'tbl_user_info';
@@ -37,6 +37,7 @@ class Users extends Model
         'profile_picture',
         'profile_points',
         'verified_status',
+        'account_status'
     ];
 
 }
