@@ -12,6 +12,8 @@ class ID extends Model
     }
 
     protected $table = 'tbl_valid_id';
+    protected $primaryKey = 'user_id';
+
 
     protected $fillable = [
         'user_id',

@@ -4,3 +4,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+.custom-scroll {
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+/* For WebKit browsers */
+.custom-scroll::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+}

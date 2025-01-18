@@ -58,7 +58,6 @@ class SettingsController extends Controller
     $user->postal_code = $request->input('postal_code');
 
 
-
     $user->save();
 
     return redirect()->route('user.settings')->with([
