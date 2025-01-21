@@ -28,7 +28,7 @@
          }
 
         .scrollable-content::-webkit-scrollbar {
-            width: 6px; 
+            width: 6px;
         }
 
         .scrollable-content::-webkit-scrollbar-track {
@@ -36,12 +36,12 @@
         }
 
         .scrollable-content::-webkit-scrollbar-thumb {
-            background-color: #e91e64; 
-            border-radius: 20px; 
+            background-color: #e91e64;
+            border-radius: 20px;
         }
 
         .scrollable-content::-webkit-scrollbar-thumb:hover {
-            background-color: #c91459; 
+            background-color: #c91459;
         }
 
     </style>
@@ -94,7 +94,7 @@
                 <li class="mb-4">
                     <a @if(session('is_approved') == false) href = # @else href = "{{route('user.joinevents')}}" @endif
                     class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Request::is('user-joined-events*') ? 'active_link' : '' }}
+                    {{ Request::is('user-joined-events*') ? 'active_link' : '' }}    {{ Request::is('user.channel.index') ? 'active_link' : '' }}
                 @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
                         <span class="material-icons mr-3">check_circle</span>
                         Joined Events

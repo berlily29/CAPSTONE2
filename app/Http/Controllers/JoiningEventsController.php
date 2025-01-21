@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Auth;
 class JoiningEventsController extends Controller
 {
     public function join_event($id) {
-        UserJoinedEvents::create([
-            'user_id'=> Auth::user()-> user_id,
-            'event_id'=> $id
-        ]);
+        if(!(UserJoinedEvents::where('event_id', $id)-> where('user_id', Auth::user()->user_id)->exists())) {
+            UserJoinedEvents::create([
+                'user_id'=> Auth::user()-> user_id,
+                'event_id'=> $id
+            ]);
+        }
 
-        dd('created');
+        return redirect()->route('user.joinevents')->with('joined',true);
     }
 }

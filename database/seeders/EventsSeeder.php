@@ -22,8 +22,10 @@ class EventsSeeder extends Seeder
 
         // Create 10 sample events
         for ($i = 0; $i < 10; $i++) {
+            $event_id = $faker->uuid;
             DB::table('events')->insert([
-                'event_id' => $faker->uuid,
+                'event_id' => $event_id,
+
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
                 'event_category' =>rand(1, 20),  // Alternating categories
@@ -33,6 +35,7 @@ class EventsSeeder extends Seeder
                 'target_location' =>$faker->randomElement(['Mabalacat','Angeles', 'Sanfernando']),  // Fixed target location
                 'status' => $faker->randomElement(['upcoming', 'ongoing', 'completed']),
                 'approved' => $faker->boolean,
+                'channel_id'=> $event_id,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
