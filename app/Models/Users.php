@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Users extends Model
 {
@@ -15,6 +16,21 @@ class Users extends Model
     public function id() {
         return $this->hasOne(ID::class,'user_id', 'user_id');
     }
+
+
+    public function joinedEvents(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Events::class,
+            'user_joined_events',
+            'user_id',
+            'event_id',
+            'user_id',
+            'event_id'
+        );
+    }
+
+
 
     protected $table = 'tbl_user_info';
     protected $primaryKey = 'user_id'; // Specify the primary key

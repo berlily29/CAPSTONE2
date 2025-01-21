@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('event_channels', function (Blueprint $table) {
-            $table->string('channel_id',255)->primary();
+        Schema::create('user_joined_events', function (Blueprint $table) {
+            $table->id();
+            $table->string('user_id');
             $table->string('event_id');
-
-            $table->foreign('event_id')->references('event_id') ->on('events') ->onDelete('cascade');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('user_id')->on('tbl_user_info')->onDelete('cascade');
+            $table->foreign('event_id')->references('event_id')->on('events')->onDelete('cascade');
+
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('event_channels');
+        Schema::dropIfExists('user_joined_events');
     }
 };
