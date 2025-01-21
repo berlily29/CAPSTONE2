@@ -7,8 +7,12 @@ export default {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Poppins', 'sans-serif'],
+              },
+
             colors: {
-                'custom-teal': '#1db1b3',  
+                'custom-teal': '#1db1b3',
             }
         },
     },

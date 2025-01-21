@@ -1,6 +1,5 @@
 <x-app-layout>
     <head>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0&icon_names=visibility" />
 
@@ -51,6 +50,8 @@
                     <div class="w-full">
                         <!-- Announcements Tab Content -->
                         <div id="announcements" class="tab-content hidden p-6">
+                        <h1 class="mb-4 text-3xl font-black text-gray-700">Announcements</h1>
+
 
                             <!-- Announcement Posts -->
                             <div class="space-y-6">

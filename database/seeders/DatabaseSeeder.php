@@ -62,8 +62,8 @@ class DatabaseSeeder extends Seeder
             'house_no' => '123',
             'street' => 'Main St.',
             'brgy' => 'Brgy. 1',
-            'city' => 'Metro City',
-            'province' => 'Metro Province',
+            'city' => 'Mabalacat',
+            'province' => 'Pampanga',
             'postal_code' => '12345',
             'mobile_no' => '09123456789',
             'profile_picture' => 'profile-pic.jpg', // Example image file path or URL

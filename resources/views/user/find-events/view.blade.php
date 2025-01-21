@@ -1,7 +1,5 @@
 <x-app-layout>
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    </head>
+
 
     <div class="w-full bg-white rounded-lg p-8">
         <div class="w-full">
