@@ -1,6 +1,9 @@
 <x-app-layout>
     <head>
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0&icon_names=visibility" />
+
     </head>
 
     <div class="w-full bg-white rounded-lg p-8">
@@ -48,9 +51,52 @@
                     <div class="w-full">
                         <!-- Announcements Tab Content -->
                         <div id="announcements" class="tab-content hidden p-6">
-                            <h2 class="text-2xl font-bold mb-4 text-sky-600">Announcements</h2>
-                            <p class="text-lg text-gray-700">This section contains the latest announcements for the channel. Stay tuned for updates!</p>
+
+                            <!-- Announcement Posts -->
+                            <div class="space-y-6">
+                                    @foreach($announcements as $announcement)
+                                    <div class="bg-white border border-gray-200 rounded-lg shadow-md p-6 relative">
+                                        <!-- Author and Date -->
+                                        <div class="flex justify-between items-start mb-4">
+                                            <div>
+                                                <p class="text-sm text-gray-500">Posted by: <span class="font-medium text-gray-800">{{ $announcement->channel->event->organizer->user->fullname }}</span></p>
+                                                <p class="text-sm text-gray-500">Date: {{ $announcement->created_at->format('F d, Y h:i A') }}</p>
+                                            </div>
+`
+
+                                            <!-- add the if button here -->
+                                                <!-- Mark as Read Button -->
+                                                <form method="POST" action="">
+                                                    @csrf`
+                                                    <button type="submit" class="text-sm text-sky-600 border border-sky-600 px-3 py-1 rounded-md hover:bg-sky-600 hover:text-white">
+                                                        Mark as Read
+                                                    </button>
+                                                </form>
+                                        </div>
+
+                                        <!-- Announcement Title -->
+                                        <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $announcement->title }}</h3>
+
+                                        <!-- Announcement Content -->
+                                        <p class="text-gray-700 leading-relaxed">{{ $announcement->content }}</p>
+
+                                        <hr class="opacity-65 my-4">
+                                        <div class="flex gap-2 items-center">
+                                            <span class="material-symbols-outlined text-gray-400">visibility</span>
+                                            <span class="text-sm text-gray-400">Read by {{$announcement->total_readers}} others</span>
+                                        </div>
+                                    </div>
+                                    @endforeach
+
+                                <!-- No Announcements Placeholder -->
+                                @if ($announcements->isEmpty())
+                                    <div class="text-center py-8 text-lg font-semibold text-gray-500">
+                                        No announcements yet. Stay tuned!
+                                    </div>
+                                @endif
+                            </div>
                         </div>
+
 
                         <!-- Stories Tab Content -->
                         <div id="stories" class="tab-content hidden p-6">

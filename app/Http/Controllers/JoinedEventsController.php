@@ -8,20 +8,13 @@ use Illuminate\Http\Request;
 
 class JoinedEventsController extends Controller
 {
-    private function getEvents()
-    {
-        return [
-            ['id' => 1, 'name' => 'General Assembly'],
-            ['id' => 2, 'name' => 'Youth Dev Training'],
-        ];
-    }
 
     public function index()
     {
 
 
         return view('user.joined-events.view')->with([
-            'events'=> Auth::user()->user->joinedEvents
+            'events'=> Auth::user()->user->joinedEvents()->orderBy('date','asc')->get()
         ]);
 
     }

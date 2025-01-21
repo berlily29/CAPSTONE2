@@ -13,10 +13,10 @@
             <!-- Sidebar for Tabs -->
             <div class="w-1/5 bg-white border-r border-gray-200">
                 <nav class="flex flex-col">
-                    <button class="tab-button text-center p-4  font-semibold border-b border-gray-200 text-gray-800 hover:text-pink-600 focus:outline-none relative" id="tab-upcoming">
+                    <button class="tab-button text-center p-4  font-bold border-b border-gray-200 text-gray-700 hover:text-pink-600 focus:outline-none relative" id="tab-upcoming">
                         Upcoming
                     </button>
-                    <button class="tab-button p-4 text-center font-semibold text-gray-800 hover:text-pink-600 focus:outline-none relative" id="tab-completed">
+                    <button class="tab-button p-4 text-center font-bold text-gray-700 hover:text-pink-600 focus:outline-none relative" id="tab-completed">
                         Completed
                     </button>
                 </nav>
@@ -28,7 +28,7 @@
                     <!-- Upcoming Events -->
                     <div id="upcoming-events" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @if($events->where('date', '>=', now())->isEmpty())
-                            <div class="col-span-3 text-center py-8 text-lg font-semibold text-gray-600">
+                            <div class="col-span-3 text-center py-8 text-lg font-semibold text-gray-400">
                                 No upcoming events
                             </div>
                         @else
@@ -59,7 +59,7 @@
                     <!-- Completed Events (Hidden by Default) -->
                     <div id="completed-events" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @if($events->where('date', '<', now())->isEmpty())
-                            <div class="col-span-3 text-center py-8 text-lg font-semibold text-gray-600">
+                            <div class="col-span-3 text-center py-8 text-lg font-semibold text-gray-400">
                                 No completed events
                             </div>
                         @else
@@ -114,10 +114,10 @@
         function setActiveTab(tabElement) {
             // Remove active background from all tabs
             const tabs = document.querySelectorAll(".tab-button");
-            tabs.forEach(tab => tab.classList.remove("bg-pink-500", "text-white", "font-semibold"));
+            tabs.forEach(tab => tab.classList.remove("bg-pink-500", "text-white", "font-black"));
 
             // Add active background and text color to the selected tab
-            tabElement.classList.add("bg-pink-500", "text-white", "font-semibold");
+            tabElement.classList.add("bg-pink-500", "text-white", "font-black");
         }
 
         tabUpcoming.addEventListener("click", () => {

@@ -17,6 +17,14 @@ class Users extends Model
         return $this->hasOne(ID::class,'user_id', 'user_id');
     }
 
+    public function getFullnameAttribute()
+{
+    return $this->lname . ', ' . $this->fname . ' ' . $this->mname;
+}
+
+
+
+
 
     public function joinedEvents(): BelongsToMany
     {

@@ -120,13 +120,13 @@
     <script>
         document.getElementById('joinEventButton').addEventListener('click', function() {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "Do you want to join this event?",
+                title: 'Confirm Your Action',
+                text: "Are you sure you want to join this event? Once confirmed, you'll be added to the event's channel.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, join it!'
+                confirmButtonText: 'Join'
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Submit the form to join the event
