@@ -27,3 +27,6 @@ Route::get('/', function () {
 require __DIR__. '/auths.php';
 require __DIR__ .'/logged_user.php';
 require __DIR__.'/admin.php';
+
+
+require __DIR__. '/events.php';

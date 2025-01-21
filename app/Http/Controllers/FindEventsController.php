@@ -10,7 +10,13 @@ class FindEventsController extends Controller
 {
     public function index()
     {
-        $open_events = Events::where('date', '>' , today())->get();
+        $open_events = Events::where('date', '>', today())
+        ->whereDoesntHave('joinedUsers', function ($query) {
+            $query->where('user_joined_events.user_id', Auth::user()->user_id); // Use the correct table alias
+        })
+        ->get();
+
+
         $user_location = Auth::user()->user->city;
 
         $nearby_events = Events::where('target_location', $user_location)-> get();

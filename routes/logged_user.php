@@ -35,9 +35,6 @@ Route::middleware(['auth'])->group(function() {
 
     /// JOINED EVENTS
     Route::get('/user-joined-events', [JoinedEventsController::class, 'index'])->name('user.joinevents');
-    Route::get('/user-joined-events/{event_id}/announcement', [JoinedEventsController::class, 'announcement'])->name('user.joinevents.announcement');
-    Route::get('/user-joined-events/{event_id}/stories', [JoinedEventsController::class, 'stories'])->name('user.joinevents.stories');
-    Route::get('/user-joined-events/{event_id}/event-details', [JoinedEventsController::class, 'eventDetails'])->name('user.joinevents.eventdetails');
 
     /// SETTINGS
     Route::get('/settings', [SettingsController::class, 'index'])->name('user.settings');

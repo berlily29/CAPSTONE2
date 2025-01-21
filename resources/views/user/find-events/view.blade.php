@@ -1,7 +1,5 @@
 <x-app-layout>
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    </head>
+
 
     <div class="w-full bg-white rounded-lg p-8">
         <div class="w-full">
@@ -46,7 +44,7 @@
                                             @if($event->event_category == 1 || $event->event_category == 6 || $event->event_category == 11 || $event->event_category == 16 || $event->event_category == 20)
                                                 <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
                                                     {{ $event->category->name }}
-                                                </span>`
+                                                </span>
                                             @else
                                                 <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
                                                     {{ $event->category->parent->name }}

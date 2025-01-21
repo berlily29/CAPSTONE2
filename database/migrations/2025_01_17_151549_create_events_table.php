@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('target_location', 255)->nullable();
             $table-> string('status')-> default('upcoming');
             $table-> integer('approved')-> default(0);
-
+            $table->string('channel_id')->nullable();
             $table->timestamps();
         });
     }

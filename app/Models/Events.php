@@ -3,6 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+
+
 
 class Events extends Model
 {
@@ -15,6 +19,30 @@ class Events extends Model
     public function organizer(){
          return $this->hasOne(UsersLogin::class, 'user_id', 'event_organizer');
     }
+
+
+
+
+    public function channel() {
+
+        return $this-> hasOne(EventChannels::class,'event_id', 'event_id');
+
+    }
+
+
+    public function joinedUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Users::class,
+            'user_joined_events',
+            'event_id',
+            'user_id',
+            'event_id',
+            'user_id'
+        );
+    }
+
+
 
     protected $primaryKey = 'event_id';
     protected $casts = [
