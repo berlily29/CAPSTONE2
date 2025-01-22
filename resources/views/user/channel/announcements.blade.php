@@ -1,6 +1,6 @@
 
 <div class="p-4">
-    <h1 class="mb-4 text-3xl font-black text-gray-700">Announcements</h1>
+
 
     <!-- Announcement Posts -->
     <div class="space-y-6">

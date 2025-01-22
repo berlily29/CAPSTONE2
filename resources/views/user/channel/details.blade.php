@@ -11,7 +11,7 @@
                     <div class="flex flex-wrap lg:flex-nowrap gap-8">
 
                         <!-- Event Details -->
-                        <div class="w-full lg:w-1/2 py-4 px-8">
+                    <div class="w-full lg:w-1/2 py-4 px-8">
                             <div class="flex flex-col gap-4">
                                 <div>
                                     <span class="text-sm text-gray-400">Event Title</span>
