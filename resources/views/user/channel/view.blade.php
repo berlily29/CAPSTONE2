@@ -39,6 +39,9 @@
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
                                 onclick="showTab('event-details')">Event Details</button>
 
+                        <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
+                        onclick="showTab('attendance')">Attendance</button>
+
                         <div id="tab-highlight" class="absolute bottom-0 left-0 w-1/3 h-1 bg-pink-500 transition-all duration-300 ease-in-out"></div>
                     </div>
 
@@ -58,6 +61,12 @@
                         <div id="event-details" class="tab-content hidden">
                             @include('user.channel.details')
                         </div>
+
+                        <!-- Attendance Tab -->
+                        <div id="attendance" class="tab-content hidden">
+                            @include('user.channel.stories')
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -147,5 +147,12 @@
 
         // Initialize the default tab as 'Upcoming'
         tabUpcoming.click();
+
+
+
+
+
+        //reset the default tab in viewing a channel
+        sessionStorage.setItem("activeTab", 'announcements');
     </script>
 </x-app-layout>

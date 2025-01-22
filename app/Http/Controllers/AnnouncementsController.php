@@ -26,7 +26,6 @@ class AnnouncementsController extends Controller
             'user_id' => Auth::user()->user_id,
         ]);
 
-        // Return the updated count of likes
         $totalReaders = AnnouncementsReaders::where('post_id', $post)->count();
 
         return response()->json([
@@ -43,7 +42,6 @@ class AnnouncementsController extends Controller
 
         $liker->delete();
 
-        // Return the updated count of likes
         $totalReaders = AnnouncementsReaders::where('post_id', $post)->count();
 
         return response()->json([
