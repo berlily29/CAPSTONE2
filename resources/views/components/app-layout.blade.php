@@ -7,7 +7,7 @@
 
     <!--Mat-Icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=social_leaderboard" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,10 +79,10 @@ body {
             </div>
 
             <!-- Account Section -->
-            <h1 class="text-lg font-bold mb-4 text-pink-600">Account</h1>
-            <ul>
+            <h1 class="text-lg font-bold  text-pink-600 mb-2">Account</h1>
+            <ul class="">
                 <!-- Profile -->
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('user.profile')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('user.profile*') ? 'active_link' : '' }}">
 
@@ -92,14 +92,14 @@ body {
                 </li>
 
                 <!-- Dashboard -->
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('user.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all  {{ Route::is('user.dashboard*') ? 'active_link' : '' }}">
                         <span class="material-icons mr-3">dashboard</span>
                         My Dashboard
                     </a>
                 </li>
 
-                <li class="mb-4">
+                <li class="">
                     <a @if(session('is_approved') == false) href = # @else href = "{{route('user.joinevents')}}" @endif
                     class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Request::is('user-joined-events*') ? 'active_link' : '' }}    {{ Request::is('user.channel.index') ? 'active_link' : '' }}
@@ -111,7 +111,7 @@ body {
 
 
                 <!-- Settings -->
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('user.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                         {{ Request::is('user.settings') ? 'active_link' : '' }}
                       ">
@@ -123,10 +123,10 @@ body {
 
             <!-- Features Section -->
             <hr class="my-6 border-gray-200">
-            <h1 class="text-lg font-bold mb-4 text-pink-600">Features</h1>
+            <h1 class="text-lg font-bold  text-pink-600 mb-2">Features</h1>
             <ul>
                 <!-- Find Events -->
-                <li class="mb-4">
+                <li class="">
 
                     <a @if(session('is_approved') == false) href = # @else href = "{{route('find-events.index')}}" @endif
                     class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('find-events.index*') ? 'active_link' : '' }}
@@ -138,7 +138,7 @@ body {
                 </li>
 
                 <!-- Gallery -->
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('gallery.index')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('gallery*') ? 'active_link' : '' }}
                      ">
@@ -148,11 +148,11 @@ body {
                 </li>
 
                 <!-- Top Volunteers -->
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('user.leaderboards')}}" class="flex items-center p-3  text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                       {{ Route::is('user.leaderboards*') ? 'active_link' : '' }}
                        ">
-                       <span class="material-icons mr-3">military_tech</span>
+                       <span class="material-symbols-outlined mr-3">social_leaderboard</span>
                         Top Volunteers
                     </a>
                 </li>
@@ -189,7 +189,7 @@ body {
             <ul>
 
 
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('admin.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('admin.dashboard*') ? 'active_link' : '' }}
                     ">
@@ -198,7 +198,7 @@ body {
                     </a>
                 </li>
 
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('admin.user-management')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('admin.user-management*') ? 'active_link' : '' }}
                     ">
@@ -207,7 +207,7 @@ body {
                     </a>
                 </li>
 
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('admin.manage-events')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('admin.manage-events*') ? 'active_link' : '' }}
                     ">
@@ -216,7 +216,7 @@ body {
                     </a>
                 </li>
 
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('admin.pending-request')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('admin.pending-request*') ? 'active_link' : '' }}
                     ">
@@ -225,7 +225,7 @@ body {
                     </a>
                 </li>
 
-                <li class="mb-4">
+                <li class="">
                     <a href="{{route('admin.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('admin.settings*') ? 'active_link' : '' }}
                     ">

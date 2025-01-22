@@ -35,7 +35,7 @@
                 <div class="flex items-center flex-col bg-gray-200 rounded-lg p-3">
                     <h2 class="w-full text-2xl font-bold text-gray-800 mb-4">Edit Profile Picture</h2>
 
-                    <img id='editImage' src="{{ $user->profile_picture ? asset('storage/uploads/profilepic/' . $user->profile_picture) : asset('storage/uploads/profilepic/profile-picture.jpg') }}" alt="{{$user->profile_picture}}" class="w-48 h-48 rounded bg-gray-300 mr-4">
+                    <img id='editImage' src="{{ $user->profile_picture ? asset('storage/uploads/profilepic/' . $user->profile_picture) : asset('images/default-dp.jpg') }}" alt="{{$user->profile_picture}}" class="w-48 h-48 rounded bg-gray-300 mr-4">
 
                     <div class='grid md:grid-cols-1 mt-2 text-center gap-5 lg:grid-cols-2'>
                         <div class='relative'>

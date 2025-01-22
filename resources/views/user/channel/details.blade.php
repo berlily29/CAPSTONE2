@@ -1,21 +1,9 @@
-<x-app-layout>
+
     <div class="bg-gray-50 w-full">
         <div class="w-full">
             <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg pb-4">
 
-                <a href="{{ route('find-events.index') }}"
-                   class="inline-flex items-center mx-8 mt-8 mb-4 px-4 py-2 bg-pink-600 text-white border border-pink-600 font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-offset-2 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
-                    Return to Previous
-                </a>
 
-                <div class="px-8 max-w-full pb-4 gap-[-1rem] flex flex-col">
-                    <h1 class="text-[2rem] font-black text-gray-700">Event Details</h1>
-                </div>
-
-                <hr class="opacity-65">
 
                 <!-- Main Content -->
                 <div class="bg-white shadow-lg rounded-lg">
@@ -89,50 +77,8 @@
                         </div>
                     </div>
 
-                    <!-- Agreement Clause -->
-                    <hr>
-                    <div class="px-8 py-8">
-                        <h3 class="text-2xl font-semibold text-gray-800">Terms & Conditions</h3>
-                        <p class="text-lg text-gray-700 mt-2">
-                            By joining this event, you agree to the terms and conditions. <a href="#" class="text-pink-500">Learn more</a>.
-                        </p>
-                    </div>
 
-                    <!-- Join Event Button -->
-                    <div class="px-8 pb-4">
-                        <form action="{{route('events.join', ['id'=> $event->event_id])}}" method = "POST">
-                            @csrf
-
-                            <button type = "button" id="joinEventButton"
-                                    class="px-6 py-3 bg-pink-600 text-white rounded-lg shadow-lg hover:bg-pink-700 transition">
-                                Join Event
-                            </button>
-
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- SweetAlert2 Script -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.getElementById('joinEventButton').addEventListener('click', function() {
-            Swal.fire({
-                title: 'Confirm Your Action',
-                text: "Are you sure you want to join this event? Once confirmed, you'll be added to the event's channel.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Join'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Submit the form to join the event
-                    this.closest('form').submit();
-                }
-            });
-        });
-    </script>
-</x-app-layout>
