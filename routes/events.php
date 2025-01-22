@@ -22,6 +22,9 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/join_event/{id}',[JoiningEventsController::class, 'join_event'])->name('events.join');
 
 
+    //leaving event
+    Route::delete('/leave_event/{id}', [JoiningEventsController::class, 'leave_event'])->name('events.leave');
+
 
     //viewing channels
     Route::get('/event/{id}/channel/',[EventsChannelController::class,'index'])->name('user.channel.index');

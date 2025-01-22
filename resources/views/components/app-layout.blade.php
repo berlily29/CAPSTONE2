@@ -104,7 +104,7 @@ body {
                     class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Request::is('user-joined-events*') ? 'active_link' : '' }}    {{ Request::is('user.channel.index') ? 'active_link' : '' }}
                 @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
-                        <span class="material-icons mr-3">check_circle</span>
+                        <span class="material-icons mr-3">today</span>
                         Joined Events
                     </a>
                 </li>

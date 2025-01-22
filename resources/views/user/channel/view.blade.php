@@ -2,13 +2,27 @@
 
     <div class="w-full bg-white rounded-lg p-8">
         <div class="w-full">
-            <a href="{{ route('user.joinevents') }}"
-               class="inline-flex items-center mt-8 mb-4 px-4 py-2 bg-pink-600 text-white border border-pink-600 font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-offset-2 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-                Return to my events
-            </a>
+
+            <div class="flex justify-between items-center pr-4">
+
+                <a href="{{ route('user.joinevents') }}"
+                class="inline-flex items-center mt-8 mb-4 px-4 py-2 bg-pink-600 text-white border border-pink-600 font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-offset-2 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Return to my events
+                </a>
+
+                <form method = "POST" action="{{route('events.leave', ['id'=>  $event->event_id])}}">
+                    @csrf
+                    @method('DELETE')
+                    <button  type="button" id = "leave_event" class="inline-flex items-center mt-8 mb-4 px-4 py-2 bg-red-600 text-white border border-red-600 font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 transition gap-4">
+                    <span class="material-icons">exit_to_app</span>
+                    CANCEL PARTICIPATION</button>
+                </form>
+
+            </div>
+
 
             <div class="bg-white overflow-hidden shadow-sm">
                 <h1 class="text-sm font-medium text-gray-500">Channel</h1>
@@ -50,6 +64,11 @@
         </div>
     </div>
 
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     <script>
 
         function showTab(tabName) {
@@ -87,5 +106,28 @@
                 showTab(defTab);
             }
         });
+
+
+
+
+
+
+        //confirmation
+        document.getElementById('leave_event').addEventListener("click",()=> {
+            Swal.fire({
+                title: 'Confirm Your Action',
+                text: "Are you sure you want to leave this event? Once confirmed, you'll be removed fromm the event's channel.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Leave Event'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the form to join the event
+                    document.getElementById('leave_event').closest('form').submit();
+                }
+            });
+        })
     </script>
 </x-app-layout>
