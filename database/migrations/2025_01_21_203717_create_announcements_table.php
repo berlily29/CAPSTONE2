@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('announcements', function (Blueprint $table) {
-            $table->string('post_id')->primary()->autoIncrement();
+            $table->id('post_id');
             $table-> string('title');
             $table->longText('content');
             $table->string('channel_id');

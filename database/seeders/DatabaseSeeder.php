@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             'province' => 'Metro Province',
             'postal_code' => '12345',
             'mobile_no' => '09123456789',
-            'profile_picture' => 'profile-pic.jpg', // Example image file path or URL
+            'profile_picture' => '', // Example image file path or URL
             'profile_points' => 100,  // Default points, if needed
             'email_verified'=> 1,
             'account_status' => 'Approved',
@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
             'province' => 'Pampanga',
             'postal_code' => '12345',
             'mobile_no' => '09123456789',
-            'profile_picture' => 'profile-pic.jpg', // Example image file path or URL
+            'profile_picture' => '', // Example image file path or URL
             'profile_points' => 100,  // Default points, if needed
             'email_verified'=> 1,
 

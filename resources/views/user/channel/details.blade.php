@@ -1,12 +1,12 @@
 
     <div class="bg-gray-50 w-full">
         <div class="w-full">
-            <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg pb-4">
+            <div class="mt-4 bg-white overflow-hidden  sm:rounded-lg pb-4">
 
 
 
                 <!-- Main Content -->
-                <div class="bg-white shadow-lg rounded-lg">
+                <div class="bg-white rounded-lg">
                     <!-- Event Details and Contact Information Container -->
                     <div class="flex flex-wrap lg:flex-nowrap gap-8">
 
@@ -57,7 +57,7 @@
                             <h3 class="text-[2rem] font-black text-gray-700">Contact Information</h3>
                             <div class="mt-6 flex flex-col gap-4">
                                 @if($event->organizer->user->profile_picture !== null)
-                                <img src="{{ asset('storage/uploads/profilepic/' . $event->organizer->user->profile_picture) }}" alt="" class="w-32 h-32">
+                                <img src="{{ $event->organizer->user->profile_picture ? asset('storage/uploads/profilepic/' . $event->organizer->user->profile_picture) : asset('images/default-dp.jpg') }}" alt="" class="w-32 h-32">
                                 @endif
                                 <div class="flex flex-col w-full gap-2 justify-center">
                                     <div class="border border-gray-300 p-2">

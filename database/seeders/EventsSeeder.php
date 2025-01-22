@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Announcements;
 use App\Models\EventChannels;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -51,8 +52,7 @@ class EventsSeeder extends Seeder
             // Add 2–3 announcements for the channel
             $numAnnouncements = rand(2, 3);
             for ($j = 0; $j < $numAnnouncements; $j++) {
-                DB::table('announcements')->insert([
-                    'post_id' => $faker->uuid,
+                Announcements::create([
                     'title' => $faker->sentence,
                     'content' => $faker->paragraph,
                     'channel_id' => $event_id,

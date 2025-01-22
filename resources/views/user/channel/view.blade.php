@@ -51,8 +51,11 @@
     </div>
 
     <script>
-        // Function to show the selected tab and hide others
+
         function showTab(tabName) {
+
+            sessionStorage.setItem("activeTab", tabName);
+
             // Hide all tabs
             const allTabs = document.querySelectorAll('.tab-content');
             allTabs.forEach(tab => tab.classList.add('hidden'));
@@ -77,7 +80,12 @@
 
         // Initialize the page with the default tab
         document.addEventListener('DOMContentLoaded', function () {
-            showTab('announcements'); // Set the default tab to "announcements"
+            const defTab = sessionStorage.getItem("activeTab")
+            if(!defTab ) {
+                showTab('announcements');
+            } else {
+                showTab(defTab);
+            }
         });
     </script>
 </x-app-layout>

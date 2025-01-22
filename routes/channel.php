@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventsChannelController;
 use App\Http\Controllers\LeaderboardsController;
@@ -17,14 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function() {
 
-
-    //joining event
-    Route::post('/join_event/{id}',[JoiningEventsController::class, 'join_event'])->name('events.join');
-
+    //Liking announcement
+    Route::post('/event/{id}/channel/{post}',[AnnouncementsController::class, 'like_announcement'])->name('announcement.like');
 
 
-    //viewing channels
-    Route::get('/event/{id}/channel/',[EventsChannelController::class,'index'])->name('user.channel.index');
+    Route::delete('/event/{id}/channel/{post}', [AnnouncementsController::class, 'dislike_announcement'] )-> name('announcement.dislike');
 
 
 

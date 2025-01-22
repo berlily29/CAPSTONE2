@@ -30,3 +30,4 @@ require __DIR__.'/admin.php';
 
 
 require __DIR__. '/events.php';
+require __DIR__.'/channel.php';

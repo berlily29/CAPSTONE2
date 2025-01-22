@@ -17,4 +17,8 @@ class AnnouncementsReaders extends Model
     }
 
     protected $table = 'announcements_readers';
+
+    protected $fillable = [
+        'post_id' , 'user_id'
+    ];
 }

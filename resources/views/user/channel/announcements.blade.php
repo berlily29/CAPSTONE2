@@ -1,44 +1,60 @@
-
 <div class="p-4">
-
-
     <!-- Announcement Posts -->
     <div class="space-y-6">
         @foreach($announcements as $announcement)
-            <div class="bg-white border border-gray-300 p-6 relative">
+            <div class="bg-white border border-gray-300 p-6 relative" data-post-id="{{ $announcement->post_id }}">
                 <!-- Author and Date -->
                 <div class="flex justify-between items-start mb-4">
                     <div class="flex gap-4">
-
                         <div>
-
-                            <img src="{{$announcement->channel->event->organizer->user->profile_picture ? asset('storage/uploads/profilepic/' . $announcement->channel->event->organizer->user->profile_picture) : asset('images/default-dp.jpg') }}" alt="" class="w-[40px] h-[40px] rounded-full">
-
+                            <img src="{{ $announcement->channel->event->organizer->user->profile_picture
+                                ? asset('storage/uploads/profilepic/' . $announcement->channel->event->organizer->user->profile_picture)
+                                : asset('images/default-dp.jpg') }}"
+                                alt=""
+                                class="w-[40px] h-[40px] rounded-full">
                         </div>
                         <div class="flex flex-col">
                             <p class="text-sm text-gray-500"><span class="font-semibold text-gray-800">{{ $announcement->channel->event->organizer->user->fullname }}</span></p>
                             <p class="text-sm text-gray-500">Date: {{ $announcement->created_at->format('F d, Y h:i A') }}</p>
                         </div>
                     </div>
-
                 </div>
                 <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $announcement->title }}</h3>
                 <p class="text-gray-700 leading-relaxed">{{ $announcement->content }}</p>
                 <hr class="opacity-65 my-4">
 
                 <div class="w-full flex gap-4">
-                    <form method="POST" action="">
-                        @csrf
-                        <button type="submit" class="text-sm text-sky-600 border border-sky-600 px-3 py-1 rounded-md hover:bg-sky-600 hover:text-white flex items-center justify-center gap-2" alt = "Like Post">
-                            <span class="material-icons">favorite</span>
-                            Like this Post
-                        </button>
-                    </form>
+                    <!-- Like/Dislike Button -->
+                    <button
+                        class="like-btn text-sm px-3 py-1 rounded-md flex items-center justify-center gap-2
+                            {{ $announcement->readers->contains('user_id', Auth::user()->user_id) ? 'bg-sky-600 text-white' : 'text-sky-600 border border-sky-600' }}"
+                        data-liked="{{ $announcement->readers->contains('user_id', Auth::user()->user_id) ? 'true' : 'false' }}"
+                        data-route-like="{{ route('announcement.like', ['id'=> $announcement->channel->channel_id, 'post'=> $announcement->post_id]) }}"
+                        data-route-dislike="{{ route('announcement.dislike', ['id'=> $announcement->channel->channel_id, 'post'=> $announcement->post_id]) }}">
+                        <span class="material-icons">
+                            {{ $announcement->readers->contains('user_id', Auth::user()->user_id) ? 'favorite' : 'favorite_border' }}
+                        </span>
+                        <span>{{ $announcement->readers->contains('user_id', Auth::user()->user_id) ? 'Liked' : 'Like this post' }}</span>
+                    </button>
 
-
+                    <!-- Likes Counter -->
                     <div class="flex gap-2 items-center">
-                        <span class="material-icons text-gray-400">visibility</span>
-                        <span class="text-sm text-gray-400">Liked by {{ $announcement->total_readers }} others</span>
+                        <span class="material-icons text-gray-400">favorite</span>
+                        <span class="text-sm text-gray-400 like-counter">
+                            @if($announcement->total_readers > 0)
+                                @if($announcement->readers->contains('user_id', Auth::user()->user_id))
+                                    @if($announcement->total_readers == 1)
+                                        Liked by You
+                                    @else
+                                        Liked by You and {{ $announcement->total_readers - 1 }} member/s
+                                    @endif
+                                @else
+                                    Liked by {{ $announcement->total_readers }} member/s
+                                @endif
+                            @else
+                                No likes
+                            @endif
+                        </span>
                     </div>
                 </div>
             </div>
@@ -51,3 +67,75 @@
         @endif
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const likeButtons = document.querySelectorAll('.like-btn');
+
+        likeButtons.forEach(button => {
+            // Initialize button styles on page load
+            const isLiked = button.dataset.liked === 'true';
+            updateButtonStyles(button, isLiked);
+
+            button.addEventListener('click', function () {
+                const currentlyLiked = button.dataset.liked === 'true';
+                const route = currentlyLiked ? button.dataset.routeDislike : button.dataset.routeLike;
+                const method = currentlyLiked ? 'delete' : 'post';
+
+                axios({
+                    method: method,
+                    url: route,
+                    data: { _token: '{{ csrf_token() }}' }
+                })
+                    .then(response => {
+                        if (response.data.success) {
+                            const postDiv = button.closest('.relative');
+                            const likeCounter = postDiv.querySelector('.like-counter');
+
+                            // Toggle like state
+                            const newLikeState = !currentlyLiked;
+                            button.dataset.liked = newLikeState ? 'true' : 'false';
+
+                            // Update button styles and text
+                            updateButtonStyles(button, newLikeState);
+
+                            // Update the like counter text
+                            const totalReaders = response.data.totalReaders;
+                            likeCounter.textContent = newLikeState
+                                ? `Liked by You${totalReaders > 1 ? ' and ' + (totalReaders - 1) + ' member/s' : ''}`
+                                : totalReaders > 0
+                                    ? `Liked by ${totalReaders} member/s`
+                                    : 'No likes';
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            });
+        });
+
+        /**
+         * Updates the styles of the like button based on its state.
+         * @param {HTMLElement} button - The like button element.
+         * @param {boolean} isLiked - Whether the button is in the liked state.
+         */
+        function updateButtonStyles(button, isLiked) {
+            if (isLiked) {
+                button.classList.add('bg-sky-600', 'text-white');
+                button.classList.remove('text-sky-600', 'border', 'border-sky-600');
+                button.innerHTML = `
+                    <span class="material-icons">favorite</span>
+                    <span>Liked</span>
+                `;
+            } else {
+                button.classList.remove('bg-sky-600', 'text-white');
+                button.classList.add('text-sky-600', 'border', 'border-sky-600');
+                button.innerHTML = `
+                    <span class="material-icons">favorite_border</span>
+                    <span>Like this post</span>
+                `;
+            }
+        }
+    });
+</script>
