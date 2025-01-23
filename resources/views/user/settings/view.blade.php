@@ -1,246 +1,64 @@
 <x-app-layout>
 
 <div class="bg-white rounded-lg p-8">
-        <div class="max-w-7xl ">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="max-w-7xl ">
+        <div class=" overflow-hidden shadow-sm sm:rounded-lg">
 
-                <div class=" max-w-full">
-                    <h1 class="text-3xl font-black text-gray-700">Settings</h1>
-                </div>
+                    <div class="max-w-full">
+                        <h1 class="text-3xl font-black text-black">Settings</h1>
+                    </div>
 
 
-                <div class="bg-white border-b border-gray-200">
+            <div class="border-b border-gray-200 grid lg:grid-cols-3">
 
                 <!-- Navigation -->
-                    <div  class="nav-tabs flex border-b relative">
+                <div class="nav-tabs md:col-span-3 lg:col-span-1 flex flex-col w-full p-4 relative">
                     <button
-                        id="accountDetails-tab"
-                         onclick="showTab('accountDetails')"
-                        class="px-3 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black">
-                        Account Settings
+                    id="profileSettings-tab"
+                    onclick="showTab('profileSettings')"
+                    class="text-left px-3 py-2 font-medium border-r-4 hover:bg-gray-100 border-transparent text-black">
+                        <div class='flex flex-row items-center'>
+                            <span class='material-icons mx-2'>person</span> 
+                            <p>Profile</p>
+                        </div>
                     </button>
                     <button
-                        id="userInfo-tab"
-                       onclick="showTab('userInfo')"
-                        class="px-3 py-2 font-medium border-b-2 focus:outline-none border-transparent text-black">
-                        Personal Information Settings
+                    id="informationSettings-tab"
+                    onclick="showTab('informationSettings')"
+                    class="text-left px-3 py-2 font-medium border-r-4 hover:bg-gray-100 border-transparent text-black">
+                        <div class='flex flex-row items-center'>
+                            <span class='material-icons mx-2'>import_contacts</span> 
+                            <p>Personal Information</p>
+                        </div>
                     </button>
-
-                    <div id="tab-highlight" class="absolute bottom-0 left-0 w-1/3 h-1 bg-pink-500 transition-all"></div>
-
+                    
+                    <button
+                    id="passwordSettings-tab"
+                    onclick="showTab('passwordSettings')"
+                    class="text-left px-3 py-2 font-medium border-r-4 hover:bg-gray-100 border-transparent text-black">
+                        <div class='flex flex-row items-center'>
+                            <span class='material-icons mx-2'>password</span> 
+                            <p>Password</p>
+                        </div>
+                    </button>
                 </div>
 
-            <div id='accountDetails' class='tab-content grid md:grid-cols-1 gap-2 lg:grid-cols-2 p-3'>
-                <div class="flex items-center flex-col bg-gray-200 rounded-lg p-3">
-                    <h2 class="w-full text-2xl font-bold text-gray-800 mb-4">Edit Profile Picture</h2>
-
-                    <img id='editImage' src="{{ $user->profile_picture ? asset('storage/uploads/profilepic/' . $user->profile_picture) : asset('storage/uploads/profilepic/profile-picture.jpg') }}" alt="{{$user->profile_picture}}" class="w-48 h-48 rounded bg-gray-300 mr-4">
-
-                    <div class='grid md:grid-cols-1 mt-2 text-center gap-5 lg:grid-cols-2'>
-                        <div class='relative'>
-                            <form id="changeProfilePicForm" enctype="multipart/form-data" action="{{route('user.settings.storeProfilePic')}}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <label for='changeProfileButton' class='flex items-center justify-center cursor-pointer rounded-2xl p-4 text-white hover:bg-pink-600 bg-pink-500'>
-                                    <span class="material-icons mx-2">
-                                        file_upload
-                                    </span>
-                                    <p>Upload Photo </p>
-                                </label>
-                                <input type='file' id='changeProfileButton' name='changeProfileButton' class='hidden bg-gray-200 rounded-2xl cursor-pointer hover:bg-pink-600 bg-pink-500'>
-                            </form>
-                        </div>
-
-                        <div>
-                            <form id='deleteForm' action="{{route('user.settings.deleteProfilePic')}}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <button type="button" id='deleteButton' class="flex w-full items-center justify-center cursor-pointer rounded-2xl p-4 text-white hover:bg-pink-600 bg-pink-500 rounded">
-                                <span class="material-icons mx-2">&#xE872;</span>
-                                <p>Delete Photo</p>
-
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="mt-2 text-center w-full flex flex-row-reverse ">
-                         <button id="saveButton" class="flex items-center justify-center transition-colors hidden mx-3 py-2 px-5 bg-pink-500 hover:bg-pink-600 text-white rounded-2xl">
-                            <span class="material-icons mx-2">
-                                save
-                            </span>                         </button>
-                    </div>
-
-
-                </div>
-
-                <div class="p-5 w-full bg-gray-200 rounded-lg">
-                    <h2 class="w-full text-2xl font-bold text-gray-800 mb-4">Change Password</h2>
-
-                    @if ($errors->has('current_password') || $errors->has('new_password') || $errors->has('new_password_confirmation'))
-                        <div class="bg-red-500 text-white p-4 rounded mb-4">
-                            <ul>
-                                @foreach ($errors->get('current_password') as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                                @foreach ($errors->get('new_password') as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                                @foreach ($errors->get('new_password_confirmation') as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form id='passwordForm' action="{{ route('user.settings.changePassword') }}" method="POST">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="current_password" class="block text-sm font-medium text-gray-700">Current Password</label>
-                            <input type="password" name="current_password" id="current_password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-pink-500 focus:border-pink-500 p-2" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="new_password" class="block text-sm font-medium text-gray-700">New Password</label>
-                            <input type="password" name="new_password" id="new_password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-pink-500 focus:border-pink-500 p-2" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700">Confirm New Password</label>
-                            <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-pink-500 focus:border-pink-500 p-2" required>
-                        </div>
-                        <button id='changePasswordButton' type="button" class="flex items-center justify-center w-full bg-pink-500 text-white font-semibold py-2 rounded-md hover:bg-pink-600 transition duration-200">
-                            <span class="material-icons mx-2">edit</span>Change Password
-                        </button>
-                    </form>
-                </div>
+            <div id='profileSettings' class='tab-content grid grid-cols-1 col-span-2 p-3'>
+                @include('user.settings.profile')
             </div>
 
-                <div id='userInfo' class='tab-content hidden pt-4'>
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Edit User Information</h2>
-
-    <form id="editForm" action="{{ route('user.settings.storeUserInfo') }}" class='w-full h-full' method="POST">
-        @csrf
-        @method('PATCH')
-
-        @if ($errors->has('fname') || $errors->has('mname') || $errors->has('lname')|| $errors->has('age')
-        || $errors->has('gender')|| $errors->has('province')|| $errors->has('city')|| $errors->has('brgy')
-        || $errors->has('postal_code')|| $errors->has('house_no') || $errors->has('street'))
-                        <div class="bg-red-500 text-white p-4 rounded mb-4">
-                            <ul>
-                            @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-        <div class='grid md:grid-cols-1 lg:grid-cols-2 gap-4 mb-4'>
-
-        <div class="pr-5">
-            <label for="fname" class=" w-full block text-sm font-medium text-gray-700">First Name</label>
-            <input type="text" id="fname" name="fname" class="text-xl px-4 py-2 w-full mt-1 block rounded-md border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->fname }}" required>
-        </div>
-
-        <div class="pr-5">
-            <label for="mname" class="w-full block text-sm font-medium text-gray-700">Middle Name</label>
-            <input type="text" id="mname" name="mname" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->mname }}" required>
-        </div>
-
-        <div class="pr-5">
-            <label for="lname" class="w-full block text-sm font-medium text-gray-700">Last Name</label>
-            <input type="text" id="lname" name="lname" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300  rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->lname }}" required>
-        </div>
-
-        <div class="pr-5">
-            <label for="age" class="w-full block text-sm font-medium text-gray-700">Age</label>
-            <input type="text" id="age" name="age" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" value="{{ $user->age }}" required>
-        </div>
-
-        <div class="pr-5">
-            <label for="gender" class="w-full block text-sm font-medium text-gray-700">Gender</label>
-            <select id="gender" name="gender" class="text-xl w-full px-4 py-2 block border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Male</option>
-                <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Female</option>
-            </select>
-        </div>
-
-        </div>
-
-
-    <h2 class="text-2xl font-bold text-gray-800 mb-4 w-full">Edit Address</h2>
-
-                <div class="space-y-4 w-full">
-                    <!-- Province (Fixed to Pampanga) -->
-                    <div>
-                        <label for="province" class="block text-sm font-semibold text-gray-700">Province</label>
-                        <input type="text" id="province" name="province" value="Pampanga" readonly
-                            class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-200 text-gray-600" required>
-                    </div>
-
-                    <div id="city_div">
-                        <label for="city" class="block text-sm font-semibold text-gray-700">City</label>
-                        <select id="city" name="city" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
-                        @php
-            $cities = [
-                'Angeles', 'Apalit', 'Arayat', 'Candaba', 'Floridablanca',
-                'Guagua', 'Lubao', 'Mabalacat', 'Macabebe', 'Magalang',
-                'Masantol', 'Mexico', 'Minalin', 'Porac', 'San Fernando',
-                'San Luis', 'San Simon', 'Santo Tomas', 'Santa Ana',
-                'Santa Rita', 'Sasmuan'
-            ];
-        @endphp
-
-        @foreach ($cities as $city)
-            <option value="{{ $city }}" {{ $user->city == $city ? 'selected' : '' }}>{{ $city }}</option>
-        @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Barangay (to be populated based on city selection) -->
-                    <div id="barangay_div">
-                        <label for="barangay" class="block text-sm font-semibold text-gray-700">Barangay</label>
-                        <select id="barangay" name="brgy" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
-                            <!-- Barangay options will be populated based on city selection -->                           
-                        </select>
-                    </div>
-
-                    <!-- Hidden Fields (House No., Street, Postal Code) -->
-                    <div id="address_fields" class="hidden">
-
-                        <!-- Postal Code -->
-                        <div>
-                            <label for="postal_code" class="block text-sm font-semibold text-gray-700">Postal Code</label>
-                            <input readonly type="text" id="postal_code" value="{{$user->postal_code}}" name="postal_code" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-200 text-gray-600" required>
-                        </div>
-                        <!-- House No. -->
-                        <div>
-                            <label for="house_no" class="block text-sm font-semibold text-gray-700">House No.</label>
-                            <input type="text" id="house_no" name="house_no" value="{{$user->house_no}}" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
-                        </div>
-
-                        <!-- Street -->
-                        <div>
-                            <label for="street" class="block text-sm font-semibold text-gray-700">Street</label>
-                            <input type="text" id="street" name="street" value="{{$user->street}}" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
-                        </div>
-                    </div>
-
-                </div>
-            </form>
-
-
-    <div class="mt-2 text-center w-full flex flex-row-reverse">
-        <button id="editButton" class="flex items-center justify-center w-12 h-12  mx-2 my-2  bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
-            <span class="material-icons mx-2">edit</span>
-
-        </button>
-
-    </div>
-
-
-                </div>
+            <div id='informationSettings' class='tab-content w-full grid grid-cols-1 col-span-2 p-3 hidden'>
+                @include('user.settings.accountDetails')
             </div>
+
+            <div id='passwordSettings' class="tab-content grid grid-cols-1 col-span-2 p-3 hidden">
+                @include('user.settings.password')
+            </div>
+
+
         </div>
     </div>
+</div>
 
 
 
@@ -263,29 +81,31 @@
     });
 
     function showTab(tabName) {
-        const allTabs = document.querySelectorAll(`.tab-content`);
-        allTabs.forEach(function(tab) {
-            tab.classList.add('hidden');
-        });
 
-        const selectedTab = document.getElementById(`${tabName}`);
-        selectedTab.classList.remove('hidden');
+    sessionStorage.setItem('active_tab', tabName);
 
-        const allTabButtons = document.querySelectorAll(`.nav-tabs>button`);
-        allTabButtons.forEach(function(button) {
-            button.classList.remove('text-pink-500');
-            button.classList.add('border-transparent', 'text-black');
-        });
+    const allTabs = document.querySelectorAll(`.tab-content`);
+    allTabs.forEach(function(tab) {
+        tab.classList.add('hidden');
+    });
 
-        const activeButton = document.getElementById(`${tabName}-tab`);
-        activeButton.classList.add('text-pink-500');
+    // Show the selected tab content
+    const selectedTab = document.getElementById(`${tabName}`);
+    selectedTab.classList.remove('hidden');
 
-         // Adjust the tab highlight under the active tab
-         const highlight = document.getElementById('tab-highlight');
-            if (highlight && activeButton) {
-                highlight.style.left = activeButton.offsetLeft + 'px';
-                highlight.style.width = activeButton.offsetWidth + 'px';
-            }
+    const allTabButtons = document.querySelectorAll(`.nav-tabs > button`);
+    allTabButtons.forEach(function(button) {
+        button.classList.remove('border-pink-500','bg-gray-100', 'text-pink-500');
+        button.classList.add('border-transparent', 'text-black');
+    });
+
+    // Add active styles to the clicked tab button
+    const activeButton = document.getElementById(`${tabName}-tab`);
+    if (activeButton) {
+        activeButton.classList.add('border-pink-500','bg-gray-100', 'text-pink-500');
+        activeButton.classList.remove('border-transparent','text-black');
+    }
+    
     }
 
     document.getElementById('editButton').addEventListener('click', function() {
@@ -657,7 +477,7 @@ citySelect.addEventListener('change', function() {
 @if(session('page') == "1")
     <script>
          document.addEventListener('DOMContentLoaded', function () {
-            showTab('accountDetails');
+            showTab('profileSettings');
         });
 
         Swal.fire({
@@ -671,9 +491,8 @@ citySelect.addEventListener('change', function() {
 
 @elseif(session('page') == "2")
 <script>
-
     document.addEventListener('DOMContentLoaded', function () {
-                showTab('userInfo')
+                showTab('informationSettings')
             });
 
         Swal.fire({
@@ -684,23 +503,45 @@ citySelect.addEventListener('change', function() {
 
         });
     </script>
+@elseif(session('page') == "3")
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+                showTab('passwordSettings')
+            });
 
+        Swal.fire({
+            text: "{{session('msg')}}",
+            icon: "success",
+            showConfirmButton: false,
+            timer:1500
+
+        });
+    </script>
 @else
 <script>
-    showTab('accountDetails')
+      let active_tab = sessionStorage.getItem('active_tab')
+            if (!active_tab) {
+                showTab('profileSettings');
+            } else {
+                showTab(active_tab)
+            }
     </script>
 @endif
 
 @if($errors)
     @if ($errors->has('current_password') || $errors->has('new_password') || $errors->has('new_password_confirmation'))
     <script>
-        showTab('accountDetails')
+        showTab('passwordSettings')
         </script>
     @elseif ($errors->has('fname') || $errors->has('mname') || $errors->has('lname')|| $errors->has('age')
         || $errors->has('gender')|| $errors->has('province')|| $errors->has('city')|| $errors->has('brgy')
         || $errors->has('postal_code')|| $errors->has('house_no') || $errors->has('street'))
     <script>
-        showTab('userInfo')
+        showTab('informationSettings')
+        </script>
+    @else 
+    <script>
+        showTab('profileSettings')
         </script>
     @endif
 @endif

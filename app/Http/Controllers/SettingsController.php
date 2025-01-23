@@ -115,7 +115,7 @@ public function deleteProfilePic(Request $request) {
     }
 
 
-    $user->profile_picture = 'profile-picture.jpg';
+    $user->profile_picture = '';
     $user->save();
 
     return redirect()->route('user.settings')->with([
@@ -142,7 +142,7 @@ public function changePassword(Request $request)
 
     return redirect()->route('user.settings')->with([
         'msg' => 'Password Changed!',
-        'page' => '1']);
+        'page' => '3']);
 
 
 
