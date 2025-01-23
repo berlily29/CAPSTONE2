@@ -1,9 +1,12 @@
+
+<head><meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
 <x-app-layout>
     <div class="w-full bg-white rounded-lg p-8 flex flex-col">
         <h1 class="text-sm font-medium text-gray-500">Request</h1>
         <h1 class="mb-4 text-3xl font-black text-gray-700">New Event</h1>
 
-        <form action="{{route('org.request-event.store')}}" method="POST" id="eventForm" class="w-full flex flex-col">
+        <form action="{{route('eo.request-event.store')}}" method="POST" id="eventForm" class="w-full flex flex-col">
             @csrf
 
             <!-- Title -->
@@ -104,7 +107,14 @@
                 </button>
             </div>
         </form>
+
+
     </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script>
         const parentDropdown = document.getElementById('parent_category');
@@ -127,5 +137,67 @@
                 childCategoriesDiv.classList.add('hidden');
             }
         });
+
+
+        const eventForm = document.getElementById('eventForm');
+
+eventForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Serialize form data
+    const formData = new FormData(this);
+
+    try {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+        if (!csrfToken) {
+            throw new Error('CSRF token not found. Ensure it is included in the HTML head.');
+        }
+
+        // Send POST request
+        const response = await fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+            },
+            body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.response === 'success') {
+            // Show success alert using Swal
+            Swal.fire({
+                title: 'Success!',
+                text: result.message,
+                icon: 'success',
+
+            }).then(() => {
+                    // Optionally reload the page or redirect
+                    window.location.href = "{{route('')";
+
+                });
+        } else {
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while submitting your request.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        }
+    } catch (error) {
+        console.error('Error:', error.message);
+        Swal.fire({
+            title: 'Error!',
+            text: 'An unexpected error occurred. ' + error.message,
+            icon: 'error',
+            confirmButtonText: 'OK',
+        });
+    }
+});
+
+
+
+
     </script>
 </x-app-layout>

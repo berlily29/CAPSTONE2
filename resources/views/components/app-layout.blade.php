@@ -7,7 +7,7 @@
 
     <!--Mat-Icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=social_leaderboard" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,179 +67,22 @@ body {
 
 
 
-    @if(Auth::user()->role =='User')
-
-
-    <nav class="w-64 bg-white text-gray-900 p-6 flex flex-col justify-between h-screen border-r border-gray-200">
-        <div>
-            <!-- Profile -->
-            <div class="flex flex-col items-center">
-                <img src="{{asset('images/logo/logo.png')}}" alt="" class="w-66 h-66 rounded-full" />
-
-            </div>
-
-            <!-- Account Section -->
-            <h1 class="text-lg font-bold  text-pink-600 mb-2">Account</h1>
-            <ul class="">
-                <!-- Profile -->
-                <li class="">
-                    <a href="{{route('user.profile')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('user.profile*') ? 'active_link' : '' }}">
-
-                     <span class="material-icons mr-3">account_circle</span>
-                        Profile
-                    </a>
-                </li>
-
-                <!-- Dashboard -->
-                <li class="">
-                    <a href="{{route('user.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all  {{ Route::is('user.dashboard*') ? 'active_link' : '' }}">
-                        <span class="material-icons mr-3">dashboard</span>
-                        My Dashboard
-                    </a>
-                </li>
-
-                <li class="">
-                    <a @if(session('is_approved') == false) href = # @else href = "{{route('user.joinevents')}}" @endif
-                    class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Request::is('user-joined-events*') ? 'active_link' : '' }}    {{ Request::is('user.channel.index') ? 'active_link' : '' }}
-                @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
-                        <span class="material-icons mr-3">today</span>
-                        Joined Events
-                    </a>
-                </li>
-
-
-                <!-- Settings -->
-                <li class="">
-                    <a href="{{route('user.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                        {{ Request::is('user.settings') ? 'active_link' : '' }}
-                      ">
-                        <span class="material-icons mr-3">settings</span>
-                        Settings
-                    </a>
-                </li>
-            </ul>
-
-            <!-- Features Section -->
-            <hr class="my-6 border-gray-200">
-            <h1 class="text-lg font-bold  text-pink-600 mb-2">Features</h1>
-            <ul>
-                <!-- Find Events -->
-                <li class="">
-
-                    <a @if(session('is_approved') == false) href = # @else href = "{{route('find-events.index')}}" @endif
-                    class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('find-events.index*') ? 'active_link' : '' }}
-                     @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
-
-                        <span class="material-icons mr-3">search</span>
-                        Find Events
-                    </a>
-                </li>
-
-                <!-- Gallery -->
-                <li class="">
-                    <a href="{{route('gallery.index')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('gallery*') ? 'active_link' : '' }}
-                     ">
-                        <span class="material-icons mr-3">image</span>
-                        Gallery
-                    </a>
-                </li>
-
-                <!-- Top Volunteers -->
-                <li class="">
-                    <a href="{{route('user.leaderboards')}}" class="flex items-center p-3  text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                      {{ Route::is('user.leaderboards*') ? 'active_link' : '' }}
-                       ">
-                       <span class="material-symbols-outlined mr-3">social_leaderboard</span>
-                        Top Volunteers
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-
-    </nav>
-
-
-
+    @if(Auth::user()->role ==='User' || Auth::user()->role ==='Organizer' && !(Route::is('eo.*'))    )
+            @include('components.user-sidebar')
     @endif
-
-
 
 
     <!--
-
-
-        START OF ADMIN SIDEBAR
+    ADMIN SIDEBAR
     -->
 
-
     @if(Auth::user()->role === 'Admin')
-    <!-- sidebar of admin here ========================================================================= -->
-    <nav class="w-64 bg-white text-gray-900 p-6 flex flex-col justify-between h-screen border-r border-gray-200">
-        <div>
-            <!-- Profile -->
-            <div class="flex flex-col items-center">
-                <img src="{{asset('images/logo/logo.png')}}" alt="" class="w-66 h-66 rounded-full" />
-
-            </div>
-
-            <ul>
-
-
-                <li class="">
-                    <a href="{{route('admin.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.dashboard*') ? 'active_link' : '' }}
-                    ">
-                        <span class="material-icons mr-3">dashboard </span>
-                        Dashboard
-                    </a>
-                </li>
-
-                <li class="">
-                    <a href="{{route('admin.user-management')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.user-management*') ? 'active_link' : '' }}
-                    ">
-                        <span class="material-icons mr-3">group </span>
-                        User Management
-                    </a>
-                </li>
-
-                <li class="">
-                    <a href="{{route('admin.manage-events')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.manage-events*') ? 'active_link' : '' }}
-                    ">
-                        <span class="material-icons mr-3"> today </span>
-                        Manage Events
-                    </a>
-                </li>
-
-                <li class="">
-                    <a href="{{route('admin.pending-request')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.pending-request*') ? 'active_link' : '' }}
-                    ">
-                    <span class="material-icons mr-3">schedule</span>
-                        Pending Requests
-                    </a>
-                </li>
-
-                <li class="">
-                    <a href="{{route('admin.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.settings*') ? 'active_link' : '' }}
-                    ">
-                        <span class="material-icons mr-3">settings </span>
-                        Settings
-                    </a>
-                </li>
-
-            </ul>
-        </div>
-    </nav>
-
+            @include('components.admin-sidebar')
     @endif
 
+    @if(Auth::user()->role === 'Organizer' && Route::is('eo.*'))
+        @include('components.organizer-sidebar')
+    @endif
 
 
 

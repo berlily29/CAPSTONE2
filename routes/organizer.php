@@ -14,12 +14,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['organizer'])->group(function() {
+
+    //eo dashboard
+    Route::get('/portal/dashboard', function() {
+        return view('organizer.dashboard');
+    })->name('eo.dashboard');
 
     //Requesting event
-    Route::get('/request/event', [EventOrganizerController::class, 'request_event_index'])->name('org.request-event');
+    Route::get('/portal/request/event', [EventOrganizerController::class, 'request_event_index'])->name('eo.request-event');
 
-    Route::post('/request/event', [EventOrganizerController::class, 'submit_request_event'])->name('org.request-event.store');
+    Route::post('/portal/request/event', [EventOrganizerController::class, 'submit_request_event'])->name('eo.request-event.store');
 
 
 

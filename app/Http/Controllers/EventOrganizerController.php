@@ -38,13 +38,15 @@ class EventOrganizerController extends Controller
             'date'=> $request->date,
             'venue'=> $request-> venue,
             'target_location'=> $request->target_location,
-            'channel_id'=> $eid,
+            'channel_id'=> null,
             'status'=> 'upcoming',
             'approved'=> 0
         ]);
 
-        dd('created');
-
+        return response()->json([
+            'response' => 'success',
+            'message' => 'Your event request has been successfully submitted!',
+        ]);
 
     }
 }
