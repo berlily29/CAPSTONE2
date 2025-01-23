@@ -38,8 +38,6 @@ Schema::create('tbl_user_info', function (Blueprint $table) {
 
 
 
-
-
 // Create tbl_login table
 Schema::create('tbl_login', function (Blueprint $table) {
     $table->string('user_id', 20)->primary();

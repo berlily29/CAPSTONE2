@@ -69,7 +69,7 @@
                             <h3 class="text-[2rem] font-black text-gray-700">Contact Information</h3>
                             <div class="mt-6 flex flex-col gap-4">
                                 @if($event->organizer->user->profile_picture !== null)
-                                <img src="{{ asset('storage/uploads/profilepic/' . $event->organizer->user->profile_picture) }}" alt="" class="w-32 h-32">
+                                <img src="{{ $event->organizer->user->profile_picture ? asset('storage/uploads/profilepic/' . $event->organizer->user->profile_picture) : asset('images/default-dp.jpg') }}" alt="" class="w-32 h-32">
                                 @endif
                                 <div class="flex flex-col w-full gap-2 justify-center">
                                     <div class="border border-gray-300 p-2">
@@ -99,7 +99,7 @@
                     </div>
 
                     <!-- Join Event Button -->
-                    <div class="px-8 pb-8">
+                    <div class="px-8 pb-4">
                         <form action="{{route('events.join', ['id'=> $event->event_id])}}" method = "POST">
                             @csrf
 

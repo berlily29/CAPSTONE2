@@ -26,11 +26,11 @@
             <!-- Email Input -->
             <div class="mb-6">
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input 
-                    type="email" 
-                    name="email" 
-                    value="{{ old('email') }}" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400" 
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                     placeholder="Enter your email address"
                     required
                 >
@@ -42,10 +42,10 @@
             <!-- Password Input -->
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400" 
+                <input
+                    type="password"
+                    name="password"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                     placeholder="Enter your password"
                     required
                 >
@@ -60,8 +60,8 @@
             </div>
 
             <!-- Login Button -->
-            <button 
-                type="submit" 
+            <button
+                type="submit"
                 class="w-full py-3 text-white bg-sky-500 hover:bg-sky-600 rounded-lg font-medium tracking-wide transition duration-300"
             >
                 LOGIN
@@ -76,7 +76,7 @@
 
             <!-- Signup Section -->
             <p class="text-center text-gray-600 mt-8">
-                Don't have an account? 
+                Don't have an account?
                 <a href="{{route('auth.register')}}" class="text-sky-500 font-semibold hover:underline">Sign up here</a>
             </p>
         </form>
@@ -86,7 +86,7 @@
     <div class="w-5/12 bg-gradient-to-b from-sky-100 via-white to-sky-50 flex justify-center items-center">
         <div class="text-center">
             <h1 class="text-3xl font-bold text-gray-700">GALLERY</h1>
-         
+
         </div>
     </div>
 </div>

@@ -22,6 +22,7 @@ class Announcements extends Model
     }
 
 
+
     protected $primaryKey = 'post_id';
     protected $fillable = [
         'post_id',

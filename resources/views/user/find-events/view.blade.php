@@ -3,7 +3,7 @@
 
     <div class="w-full bg-white rounded-lg p-8">
         <div class="w-full">
-            <div class=" bg-white overflow-hidden shadow-sm sm:rounded-lg ">
+            <div class=" bg-white overflow-hidden shadow-sm ">
                     <h1 class="ml-2 mt-5 text-3xl font-black text-gray-700">Events</h1>
 
 
@@ -41,18 +41,16 @@
                                         <p class="text-sm text-gray-600 mt-2"><strong>Date:</strong> {{ $event->date ?? 'TBA' }}</p>
                                         <p class="text-sm text-gray-600 mt-1"><strong>Location:</strong> {{ $event->venue ?? 'TBA' }}</p>
                                         <div class="flex flex-wrap gap-2 mt-2">
-                                            @if($event->event_category == 1 || $event->event_category == 6 || $event->event_category == 11 || $event->event_category == 16 || $event->event_category == 20)
+                                            @foreach($event->event_category as $category_id)
+                                                @php
+                                                    $category = \App\Models\EventCategories::find($category_id)
+                                                @endphp
+
                                                 <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
-                                                    {{ $event->category->name }}
+                                                    {{ $category->name }}
                                                 </span>
-                                            @else
-                                                <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
-                                                    {{ $event->category->parent->name }}
-                                                </span>
-                                                <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
-                                                    {{ $event->category->name }}
-                                                </span>
-                                            @endif
+
+                                            @endforeach
                                         </div>
                                     </div>
                                     <!-- Action Button -->

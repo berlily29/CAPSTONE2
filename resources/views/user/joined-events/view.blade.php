@@ -99,7 +99,20 @@
                 icon: 'success',
                 title: 'Successfully Joined!',
                 text: 'You have successfully joined the event.',
-                confirmButtonText: 'OK',
+
+                confirmButtonText: 'CLOSE',
+            });
+        </script>
+    @endif
+
+    @if(session('deleted'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                icon: 'info',
+                title: 'You’ve Left the Event/Channel',
+                text: 'You have successfully left the event/channel. We hope to see you again soon!',
+                confirmButtonText: 'CLOSE',
             });
         </script>
     @endif
@@ -134,5 +147,12 @@
 
         // Initialize the default tab as 'Upcoming'
         tabUpcoming.click();
+
+
+
+
+
+        //reset the default tab in viewing a channel
+        sessionStorage.setItem("activeTab", 'announcements');
     </script>
 </x-app-layout>

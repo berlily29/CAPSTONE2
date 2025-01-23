@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Events;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +16,11 @@ class PendingRequestController extends Controller
 
         $users = Users::where('account_status', "Pending")
         ->where('email_verified', 1)->with(['login','id'])->get();
-        
+        $events = Events::where('approved', 0)->get();
+
         return view('admin.pending-request.view')->with([
-            'users' => $users
+            'users' => $users,
+            'events'=> $events
         ]);
     }
 
@@ -33,6 +36,14 @@ class PendingRequestController extends Controller
         $user_ID->update(['status' => $request->approveButton]);
 
         return redirect()->route('admin.pending-request')->with(['msg'=> 'Success!']);
-    
+
+    }
+
+
+    public function view_event($id) {
+        return view('admin.pending-request.view-event')->with([
+            'event'=> Events::where('event_id', $id)->first()
+        ]);
+
     }
 }
