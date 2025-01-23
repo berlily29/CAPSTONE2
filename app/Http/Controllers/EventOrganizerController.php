@@ -49,4 +49,7 @@ class EventOrganizerController extends Controller
         ]);
 
     }
+
+
+
 }

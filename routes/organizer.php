@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EOPendingsController;
 use App\Http\Controllers\EventOrganizerController;
 use App\Http\Controllers\LeaderboardsController;
 use App\Http\Controllers\PasswordResetController;
@@ -20,6 +21,10 @@ Route::middleware(['organizer'])->group(function() {
     Route::get('/portal/dashboard', function() {
         return view('organizer.dashboard');
     })->name('eo.dashboard');
+
+
+    //Pending Requests Page
+    Route::get('/portal/pending-requests',[EOPendingsController::class, 'index'])->name('eo.pending-requests');
 
     //Requesting event
     Route::get('/portal/request/event', [EventOrganizerController::class, 'request_event_index'])->name('eo.request-event');

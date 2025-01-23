@@ -1,65 +1,123 @@
+<nav id="sidebar" class="w-64 bg-white text-gray-900 p-6 flex flex-col justify-between h-screen border-r border-gray-200 transition-all duration-300">
+    <div>
+        <button
+            id="toggleSidebar"
+            class="text-pink-600 hover:bg-pink-100 rounded-full p-2 transition-all duration-300 mb-4 focus:outline-none"
+        >
+            <span class="material-icons" id="toggleIcon">chevron_left</span>
+        </button>
 
-    <nav class="w-64 bg-white text-gray-900 p-6 flex flex-col justify-between h-screen border-r border-gray-200">
-        <div>
+        <h1 class="text-sm font-bold text-gray-400 sidebar-label">Event Organizer</h1>
+        <h1 class="text-[2rem] font-black text-pink-600 mb-2 sidebar-label">My Portal</h1>
 
-        <h1 class="text-sm font-bold  text-gray-400">Event Organizer</h1>
+        <hr class="my-4 opacity-65">
+        <ul>
+            <li>
+                <a href="{{route('eo.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.dashboard') ? 'active_link' : '' }}">
+                    <span class="material-icons mr-3 sidebar-icon">dashboard</span>
+                    <span class="sidebar-label">Dashboard</span>
+                </a>
+            </li>
 
-            <h1 class=" text-[2rem] font-black text-pink-600 mb-2">My Portal</h1>
+            <li>
+                <a href="{{route('eo.pending-requests')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.pending-requests*') ? 'active_link' : '' }}">
+                    <span class="material-icons mr-3 sidebar-icon">schedule</span>
+                    <span class="sidebar-label">Event Requests</span>
+                </a>
+            </li>
 
+            <li>
+                <a href="{{route('admin.manage-events')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('admin.manage-events*') ? 'active_link' : '' }}">
+                    <span class="material-icons mr-3 sidebar-icon">tab</span>
+                    <span class="sidebar-label">Channels</span>
+                </a>
+            </li>
 
-            <hr class="my-4 opacity-65" >
-            <ul>
+            <li>
+                <a href="{{route('admin.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('admin.settings*') ? 'active_link' : '' }}">
+                    <span class="material-icons mr-3 sidebar-icon">settings</span>
+                    <span class="sidebar-label">Settings</span>
+                </a>
+            </li>
 
+            <hr class="opacity-65 my-4">
+            <li>
+                <a href="{{route('user.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('admin.settings*') ? 'active_link' : '' }}">
+                    <span class="material-icons mr-3 sidebar-icon">keyboard_return</span>
+                    <span class="sidebar-label">Return to User Dashboard</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-                <li class="">
-                    <a href="{{route('eo.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('eo.dashboard') ? 'active_link' : '' }}
-                    ">
-                        <span class="material-icons mr-3">dashboard </span>
-                        Dashboard
-                    </a>
-                </li>
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleButton = document.getElementById('toggleSidebar');
+    const toggleIcon = document.getElementById('toggleIcon');
+    const labels = document.querySelectorAll('.sidebar-label');
+    const icons = document.querySelectorAll('.sidebar-icon');
 
-                <li class="">
-                    <a href="{{route('admin.user-management')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.user-management*') ? 'active_link' : '' }}
-                    ">
-                        <span class="material-icons mr-3">schedule </span>
-                        Pending Request
-                    </a>
-                </li>
+    // Function to update the sidebar state in localStorage
+    function updateSidebarState() {
+        const isCollapsed = sidebar.classList.contains('w-20');
+        localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
+    }
 
-                <li class="">
-                    <a href="{{route('admin.manage-events')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.manage-events*') ? 'active_link' : '' }}
-                    ">
-                        <span class="material-icons mr-3"> tab </span>
-                        Channels
-                    </a>
-                </li>
+    // Initialize sidebar state on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedState = localStorage.getItem('sidebarState');
+        if (savedState === 'collapsed') {
+            sidebar.classList.add('w-20');
+            sidebar.classList.remove('w-64');
+            toggleIcon.textContent = 'chevron_right';
+            labels.forEach(label => label.classList.add('hidden'));
+            icons.forEach(icon => icon.classList.add('mx-auto'));  // Center icons in collapsed state
+        } else {
+            sidebar.classList.add('w-64');
+            sidebar.classList.remove('w-20');
+            toggleIcon.textContent = 'chevron_left';
+            labels.forEach(label => label.classList.remove('hidden'));
+            icons.forEach(icon => icon.classList.remove('mx-auto'));
+        }
+    });
 
+    // Toggle sidebar and save state on button click
+    toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('w-20');
+        sidebar.classList.toggle('w-64');
+        toggleIcon.textContent = sidebar.classList.contains('w-20') ? 'chevron_right' : 'chevron_left';
+        labels.forEach(label => label.classList.toggle('hidden'));
+        icons.forEach(icon => icon.classList.toggle('mx-auto'));
+        updateSidebarState();
+    });
+</script>
 
+<style>
+    .sidebar-icon {
+        min-width: 24px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
 
-                <li class="">
-                    <a href="{{route('admin.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.settings*') ? 'active_link' : '' }}
-                    ">
-                        <span class="material-icons mr-3">settings </span>
-                        Settings
-                    </a>
-                </li>
+    .sidebar-label {
+        transition: opacity 0.3s, transform 0.3s;
+    }
 
-                <hr class="opacity-65 my-4">
-                <li class="">
-                    <a href="{{route('user.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.settings*') ? 'active_link' : '' }}
-                    ">
-                        <span class="material-icons mr-3">keyboard_return </span>
-                        Return to User Dashboard
-                    </a>
-                </li>
+    .w-20 .sidebar-label {
+        display: none;
+    }
 
+    .w-20 .sidebar-icon {
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-            </ul>
-        </div>
-    </nav>
+    .sidebar-label.hidden {
+        display: none;
+    }
+
+    .sidebar-label {
+        opacity: 1;
+    }
+</style>

@@ -37,7 +37,7 @@
                     onclick="showTab('passwordSettings')"
                     class="text-left px-3 py-2 font-medium border-r-4 hover:bg-gray-100 border-transparent text-black">
                         <div class='flex flex-row items-center'>
-                            <span class='material-icons mx-2'>password</span>
+                            <span class='material-symbols-outlined mx-2'>password</span>
                             <p>Password</p>
                         </div>
                     </button>

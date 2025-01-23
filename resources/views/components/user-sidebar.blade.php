@@ -68,9 +68,30 @@
                     <span class="sidebar-label">Top Volunteers</span>
                 </a>
             </li>
+
+            <hr class="my-4 opacity-65">
+            <!-- Conditional Links -->
+            @if(Auth::user()->role === 'Organizer')
+                <li>
+                    <a href="{{ route('eo.dashboard') }}"
+                        class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.dashboard*') ? 'active_link' : '' }}">
+                        <span class="material-symbols-outlined sidebar-icon">deployed_code_account</span>
+                        <span class="sidebar-label">My Portal</span>
+                    </a>
+                </li>
+            @else
+                <li>
+                    <a href="{{ route('user.leaderboards') }}"
+                        class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('apply.organizer*') ? 'active_link' : '' }}">
+                        <span class="material-symbols-outlined sidebar-icon">send</span>
+                        <span class="sidebar-label">Apply as Event Organizer</span>
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>
+
 
 <script>
     const sidebar = document.getElementById('sidebar');
@@ -78,11 +99,35 @@
     const toggleIcon = document.getElementById('toggleIcon');
     const labels = document.querySelectorAll('.sidebar-label');
 
+    // Function to update the sidebar state in localStorage
+    function updateSidebarState() {
+        const isCollapsed = sidebar.classList.contains('w-20');
+        localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
+    }
+
+    // Initialize sidebar state on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedState = localStorage.getItem('sidebarState');
+        if (savedState === 'collapsed') {
+            sidebar.classList.add('w-20');
+            sidebar.classList.remove('w-64');
+            toggleIcon.textContent = 'chevron_right';
+            labels.forEach(label => label.classList.add('hidden'));
+        } else {
+            sidebar.classList.add('w-64');
+            sidebar.classList.remove('w-20');
+            toggleIcon.textContent = 'chevron_left';
+            labels.forEach(label => label.classList.remove('hidden'));
+        }
+    });
+
+    // Toggle sidebar and save state on button click
     toggleButton.addEventListener('click', () => {
         sidebar.classList.toggle('w-20');
         sidebar.classList.toggle('w-64');
         toggleIcon.textContent = sidebar.classList.contains('w-20') ? 'chevron_right' : 'chevron_left';
         labels.forEach(label => label.classList.toggle('hidden'));
+        updateSidebarState();
     });
 </script>
 
