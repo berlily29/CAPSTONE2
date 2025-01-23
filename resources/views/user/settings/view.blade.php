@@ -18,7 +18,7 @@
                     onclick="showTab('profileSettings')"
                     class="text-left px-3 py-2 font-medium border-r-4 hover:bg-gray-100 border-transparent text-black">
                         <div class='flex flex-row items-center'>
-                            <span class='material-icons mx-2'>person</span> 
+                            <span class='material-icons mx-2'>person</span>
                             <p>Profile</p>
                         </div>
                     </button>
@@ -27,17 +27,17 @@
                     onclick="showTab('informationSettings')"
                     class="text-left px-3 py-2 font-medium border-r-4 hover:bg-gray-100 border-transparent text-black">
                         <div class='flex flex-row items-center'>
-                            <span class='material-icons mx-2'>import_contacts</span> 
+                            <span class='material-icons mx-2'>import_contacts</span>
                             <p>Personal Information</p>
                         </div>
                     </button>
-                    
+
                     <button
                     id="passwordSettings-tab"
                     onclick="showTab('passwordSettings')"
                     class="text-left px-3 py-2 font-medium border-r-4 hover:bg-gray-100 border-transparent text-black">
                         <div class='flex flex-row items-center'>
-                            <span class='material-icons mx-2'>password</span> 
+                            <span class='material-symbols-outlined mx-2'>password</span>
                             <p>Password</p>
                         </div>
                     </button>
@@ -105,7 +105,7 @@
         activeButton.classList.add('border-pink-500','bg-gray-100', 'text-pink-500');
         activeButton.classList.remove('border-transparent','text-black');
     }
-    
+
     }
 
     document.getElementById('editButton').addEventListener('click', function() {
@@ -539,7 +539,7 @@ citySelect.addEventListener('change', function() {
     <script>
         showTab('informationSettings')
         </script>
-    @else 
+    @else
     <script>
         showTab('profileSettings')
         </script>

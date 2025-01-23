@@ -21,8 +21,6 @@ class Events extends Model
     }
 
 
-
-
     public function channel() {
 
         return $this-> hasOne(EventChannels::class,'event_id', 'event_id');
