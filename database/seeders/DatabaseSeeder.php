@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
         //run other seeders
         $this->call(EventCategorySeeder::class);
-        $this->call(EventsSeeder::class);
+        // $this->call(EventsSeeder::class);
 
 
 

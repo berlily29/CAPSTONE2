@@ -46,7 +46,9 @@ class Events extends Model
 
     protected $primaryKey = 'event_id';
     protected $casts = [
-        'event_id'=> 'string'
+        'event_id'=> 'string',
+        'event_category'=> 'json',
+        'date'=> 'date'
     ];
 
     protected $fillable = [
@@ -58,6 +60,7 @@ class Events extends Model
         'date',
         'venue',
         'target_location',
+        'channel_id',
 
         'status',
         'approved'

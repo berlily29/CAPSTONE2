@@ -15,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['auth'])->group(function() {
+
+    //Requesting event
     Route::get('/request/event', [EventOrganizerController::class, 'request_event_index'])->name('org.request-event');
+
+    Route::post('/request/event', [EventOrganizerController::class, 'submit_request_event'])->name('org.request-event.store');
+
+
+
 });
 
 

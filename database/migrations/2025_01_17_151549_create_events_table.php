@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('event_id', 255)->primary();
             $table->string('title', 255)-> nullable();
             $table->longText('description')-> nullable();
-            $table->integer('event_category')-> nullable();
+            $table->json('event_category')-> nullable();
             $table->string('event_organizer')->nullable();
             $table->date('date')->nullable();
             $table->string('venue', 500)->nullable();

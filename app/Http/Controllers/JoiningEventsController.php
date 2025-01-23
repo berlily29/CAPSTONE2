@@ -19,6 +19,7 @@ class JoiningEventsController extends Controller
             ]);
         }
 
+
         return redirect()->route('user.joinevents')->with('joined',true);
     }
 

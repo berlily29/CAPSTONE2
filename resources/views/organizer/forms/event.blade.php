@@ -3,13 +3,14 @@
         <h1 class="text-sm font-medium text-gray-500">Request</h1>
         <h1 class="mb-4 text-3xl font-black text-gray-700">New Event</h1>
 
-        <form action="" method="POST" id="eventForm">
+        <form action="{{route('org.request-event.store')}}" method="POST" id="eventForm" class="w-full flex flex-col">
             @csrf
 
             <!-- Title -->
             <div class="mb-4">
                 <label for="title" class="block text-sm font-medium text-pink-600">Event Title</label>
                 <input type="text" name="title" id="title"
+
                     class="mt-1 block w-full border border-gray-200 py-4 px-4 focus:border-pink-600 focus:ring-pink-600 sm:text-sm"
                     required>
             </div>
@@ -26,7 +27,7 @@
                 <label for="parent_category" class="block text-sm font-medium text-pink-600">Event Category</label>
                 <select name="parent_category" id="parent_category"
                     class="mt-1 block w-full border border-gray-200 py-4 px-4 focus:border-pink-600 focus:ring-pink-600 sm:text-sm">
-                    <option value="">Select a Parent Category</option>
+                    <option value="">Select a Category</option>
                     @foreach ($categories as $parent)
                         <option value="{{ $parent->id }}">{{ $parent->name }}</option>
                     @endforeach
@@ -51,22 +52,52 @@
             </div>
 
             <!-- Date and Venue -->
-            <div class="w-full grid grid-cols-[30%_70%] gap-4 mb-4">
-                <div>
+            <div class="w-full grid grid-cols-[30%_70%] mb-4">
+                <div class="flex flex-col pr-4 gap-2">
                     <label for="date" class="text-sm font-medium text-pink-600">Date</label>
                     <input type="date" name="date" id="date"
                         class="border border-gray-200 py-4 px-4 focus:border-pink-600 focus:ring-pink-600 sm:text-sm">
                 </div>
 
-                <div>
+                <div class="flex flex-col gap-2">
                     <label for="venue" class="text-sm font-medium text-pink-600">Venue</label>
                     <input type="text" name="venue" id="venue"
                         class="border border-gray-200 py-4 px-4 focus:border-pink-600 focus:ring-pink-600 sm:text-sm">
                 </div>
             </div>
 
+            <!-- target location  -->
+            <div class="mt-2">
+                    <label for="city" class="block text-sm font-semibold text-pink-600">Target Location</label>
+                    <select id="city" name="target_location" class="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
+                        <option value="" disabled selected>Select a City</option>
+                        <!-- Cities here -->
+                        <option value="Angeles">Angeles</option>
+                        <option value="Apalit">Apalit</option>
+                        <option value="Arayat">Arayat</option>
+                        <option value="Candaba">Candaba</option>
+                        <option value="Floridablanca">Floridablanca</option>
+                        <option value="Guagua">Guagua</option>
+                        <option value="Lubao">Lubao</option>
+                        <option value="Mabalacat">Mabalacat</option>
+                        <option value="Macabebe">Macabebe</option>
+                        <option value="Magalang">Magalang</option>
+                        <option value="Masantol">Masantol</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Minalin">Minalin</option>
+                        <option value="Porac">Porac</option>
+                        <option value="San Fernando">San Fernando</option>
+                        <option value="San Luis">San Luis</option>
+                        <option value="San Simon">San Simon</option>
+                        <option value="Santo Tomas">Santo Tomas</option>
+                        <option value="Santa Ana">Santa Ana</option>
+                        <option value="Santa Rita">Santa Rita</option>
+                        <option value="Sasmuan">Sasmuan</option>
+                    </select>
+                </div>
+
             <!-- Submit Button -->
-            <div class="flex justify-end">
+            <div class="flex justify-end my-4">
                 <button type="submit"
                     class="px-6 py-2 bg-pink-600 text-white font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-offset-2 transition">
                     Submit Request
