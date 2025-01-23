@@ -24,7 +24,7 @@
                 <!-- Tab Contents -->
                 <div id="all" class="tab-content">
                     <!-- All Events -->
-                    <div class="grid grid-cols-2 gap-6 mt-4">
+                    <div class="grid xs:grid-cols-1 grid-cols-2 gap-6 mt-4">
                         @foreach($submittedEvents as $event)
                             <div class="bg-white p-6 shadow-lg border border-gray-200 rounded-lg relative">
                                 <span class="absolute top-0 left-0 h-full w-2 bg-pink-500"></span>
