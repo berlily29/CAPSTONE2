@@ -5,7 +5,7 @@
 
                 <div class="flex justify-between">
                     <div flex flex-col>
-                        <h1 class="ml-2 text-sm font-bold text-gray-500">Events</h1>
+                        <h1 class="ml-2 text-sm  text-gray-500">Events</h1>
                         <h1 class="ml-2 text-3xl font-black text-gray-700">Pending Requests</h1>
                     </div>
 

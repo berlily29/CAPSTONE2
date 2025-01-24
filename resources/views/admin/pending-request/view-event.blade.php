@@ -10,6 +10,10 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+
+        a {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -19,27 +23,34 @@
             <div class="bg-white rounded-lg">
                 <div class="flex flex-wrap lg:flex-nowrap gap-4">
                     <!-- Event Details -->
-                    <div class="w-full lg:w-1/2 py-4 px-8">
+                    <div class="w-full py-4 px-8">
                         <!-- Header -->
-                        <div class="flex justify-between">
+                        <div class="w-full flex justify-between pb-2">
                             <div class="flex flex-col gap-0">
                                 <h1 class="text-lg text-gray-500 font-semibold">Admin Approval</h1>
                                 <h1 class="text-3xl font-black text-gray-700">Event Request</h1>
                             </div>
-                            <div class="flex gap-2">
-                                <form action="{{route('admin.pending-request.approve-event',['id'=> $event->event_id])}}" method ="POST">
+                            <div class="w-[30%]">
+
+                                <form class="" action="{{route('admin.pending-request.approve-event',['id'=> $event->event_id])}}" method ="POST">
                                     @csrf
-
-
                                     <button type = "button" id="approveButton"
-                                        class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-200">
+                                        class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-200">
                                         Approve
                                     </button>
                                 </form>
-                                <button id="rejectButton"
-                                    class="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition duration-200">
-                                    Reject
-                                </button>
+
+
+
+
+                                <div class="w-full">
+                                    <a id="rejectButton"
+                                        class="w-full px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition duration-200 cursor-pointer">
+                                        Terminate
+                                    </a>
+
+                                </div>
+
                             </div>
                         </div>
                         <hr class="w-full opacity-65 my-4">
@@ -146,6 +157,9 @@
                                 icon: 'success',
                                 title: 'Success',
                                 text: 'Event has been approved',
+                                showConfirmButton: false,
+                                timer: 1500
+
                             }).then(() => {
                                 window.close(); // Close the current window
                                 window.opener.location.reload(); // Reload the parent window
@@ -172,22 +186,10 @@
 
     // Reject Button Click Handler
     document.getElementById('rejectButton').addEventListener('click', function () {
-        Swal.fire({
-            title: "Do you want to reject this event?",
-            showCancelButton: true,
-            confirmButtonText: "Reject",
-            cancelButtonText: "Cancel",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Event has been rejected',
-                }).then(() => {
-                    window.close();
-                    window.opener.location.reload();
-                });
-            }
-        });
+
+                let event_id = "{{$event->event_id}}";
+                console.log(event_id);
+                window.location.href = `/admin/pending-request/event/${event_id}/termination`;
+
     });
 </script>

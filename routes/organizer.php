@@ -27,14 +27,39 @@ Route::middleware(['organizer'])->group(function() {
         ]);
     })->name('eo.dashboard');
 
-
+    /**
+     *
+     *
+     *
+     *
+     *
+     */
     //Pending Requests Page
     Route::get('/portal/pending-requests',[EOPendingsController::class, 'index'])->name('eo.pending-requests');
 
-    //Requesting event
-    Route::get('/portal/request/event', [EventOrganizerController::class, 'request_event_index'])->name('eo.request-event');
 
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     */
+    //Forms - Requesting event
+    Route::get('/portal/request/event', [EventOrganizerController::class, 'request_event_index'])->name('eo.request-event');
     Route::post('/portal/request/event', [EventOrganizerController::class, 'submit_request_event'])->name('eo.request-event.store');
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     */
+    //Channels
+    Route::get('/portal/channels', [EventOrganizerController::class, 'channels_index'])->name('eo.channels') ;
+
 
 
 

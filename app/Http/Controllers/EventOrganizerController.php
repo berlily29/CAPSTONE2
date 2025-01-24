@@ -6,6 +6,7 @@ use App\Models\EventCategories;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\EventOrgHelper;
+use App\Models\EventChannels;
 use App\Models\Events;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,11 +21,39 @@ class EventOrganizerController extends Controller
     }
 
 
+
+    /***
+     *
+     *
+     *
+     VIEWS
+     *
+     *
+     */
+
     public function request_event_index() {
 
         $categories = EventCategories::with('subcategories')->whereNull('parent_id')->get();
         return view('organizer.forms.event', compact('categories'));
     }
+
+    public function channels_index() {
+        $events = Events::where('approved',1)-> where('status', 'upcoming')->get() ;
+        return view('organizer.channels.view')->with([
+            'events'=> $events
+        ]);
+    }
+
+
+     /***
+     *
+     *
+     *
+     SUBMIT METHODS
+     *
+     *
+     */
+
 
 
     public function submit_request_event(Request $request) {
@@ -49,6 +78,8 @@ class EventOrganizerController extends Controller
         ]);
 
     }
+
+
 
 
 

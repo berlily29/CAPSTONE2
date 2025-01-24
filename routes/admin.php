@@ -28,6 +28,7 @@ Route::middleware(['admin'])-> group(function() {
     Route::put('/admin/pending-request/rejectStatus/{userId}', [PendingRequestController::class, 'rejectStatus'])->name('admin.pending-request.rejectStatus');
 
     Route::get('/admin/pending-request/event/{id}', [PendingRequestController::class, 'view_event'])->name('admin.pending-request.view-event');
+    Route::get('/admin/pending-request/event/{id}/termination', [PendingRequestController::class,'view_termination'])->name('admin.pending-request.view-termination');
 
     Route::post('/admin/pending-request/event/{id}/approve',[AdminPendingsController::class, 'approve_event'])->name('admin.pending-request.approve-event');
 

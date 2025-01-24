@@ -1,4 +1,4 @@
-<div class="w-full grid grid-cols-3 gap-6 mt-4">
+<div class="w-full grid grid-cols-2 gap-6 mt-4">
 
 
 

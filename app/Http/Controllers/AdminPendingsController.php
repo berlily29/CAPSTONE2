@@ -35,9 +35,7 @@ class AdminPendingsController extends Controller
     }
 
     public function reject_event(Request $request, $id){
-        return response()->json([
-            'success'=> true
-        ]);
+
         $event = Events::where('event_id' , $id)-> first();
         $event-> update([
             'approved'=>2
@@ -51,6 +49,11 @@ class AdminPendingsController extends Controller
         $event->update([
             'termination_id'=> $term_id
         ]);
+
+        return response()->json([
+            'success'=> true
+        ]);
+
 
 
 

@@ -84,7 +84,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => 2,
             'email' => 'officialdaletv@gmail.com',
             'password'=> Hash::make('userpass'),
-            'role'=> 'User'
+            'role'=> 'Organizer'
         ]);
 
 
