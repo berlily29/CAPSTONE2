@@ -61,6 +61,7 @@ class Events extends Model
         'venue',
         'target_location',
         'channel_id',
+        'termination_id',
 
         'status',
         'approved'

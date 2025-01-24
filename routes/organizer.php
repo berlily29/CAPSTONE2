@@ -36,7 +36,8 @@ Route::middleware(['organizer'])->group(function() {
      */
     //Pending Requests Page
     Route::get('/portal/pending-requests',[EOPendingsController::class, 'index'])->name('eo.pending-requests');
-
+    Route::get('/portal/pending-requests/event/{id}', [EventOrganizerController::class, 'view_event_index'])->name('eo.pending-requests.view-event');
+    Route::delete('portal/pending-requests/event/{id}', [EventOrganizerController::class, 'hard_delete_termination'])->name('eo.pending-requests.hard-delete');
 
 
     /**

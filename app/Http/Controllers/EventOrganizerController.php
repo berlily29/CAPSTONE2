@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\EventOrgHelper;
 use App\Models\EventChannels;
 use App\Models\Events;
+use App\Models\EventTerminations;
 use Illuminate\Support\Facades\Auth;
 
 class EventOrganizerController extends Controller
@@ -44,6 +45,13 @@ class EventOrganizerController extends Controller
         ]);
     }
 
+    public function view_event_index($id) {
+        return view('organizer.pending-requests.view-event')->with([
+            'event'=> Events::where('event_id', $id)->first()
+        ]);
+
+    }
+
 
      /***
      *
@@ -75,6 +83,17 @@ class EventOrganizerController extends Controller
         return response()->json([
             'response' => 'success',
             'message' => 'Your event request has been successfully submitted!',
+        ]);
+
+    }
+
+
+    public function hard_delete_termination($id) {
+        Events::where('event_id', $id)->delete();
+        EventTerminations::where('event_id', $id)->delete();
+
+        return response()-> json([
+            'success'=>true
         ]);
 
     }

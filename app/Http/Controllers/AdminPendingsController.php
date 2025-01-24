@@ -37,13 +37,15 @@ class AdminPendingsController extends Controller
     public function reject_event(Request $request, $id){
 
         $event = Events::where('event_id' , $id)-> first();
-        $event-> update([
-            'approved'=>2
-        ]);
 
         $term_id = DB::table('event_terminations')->insertGetId([
             'event_id'=> $event->event_id,
-            'reason'=> $request->reason
+            'reason'=> $request->reason,
+            'created_at'=> now(),
+            'updated_at'=> now()
+        ]);
+        $event-> update([
+            'approved'=>2
         ]);
 
         $event->update([

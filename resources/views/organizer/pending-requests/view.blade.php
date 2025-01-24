@@ -65,6 +65,10 @@
     <script>
         function showTab(tabName) {
             // Hide all tabs
+
+            sessionStorage.setItem('active_tab', tabName)
+
+
             const allTabs = document.querySelectorAll('.tab-content');
             allTabs.forEach(tab => tab.classList.add('hidden'));
 
@@ -95,7 +99,15 @@
 
         // Set default tab to "All Events"
         document.addEventListener('DOMContentLoaded', function () {
-            showTab('pending');
+            let active_tab =sessionStorage.getItem('active_tab');
+            if(!active_tab) {
+                showTab('pending');
+            } else {
+
+                showTab(active_tab)
+            }
+
+
         });
     </script>
 </x-app-layout>

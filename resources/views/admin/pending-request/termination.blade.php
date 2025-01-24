@@ -64,7 +64,7 @@
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: 'Yes, terminate it!',
+            confirmButtonText: 'Terminate   ',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
