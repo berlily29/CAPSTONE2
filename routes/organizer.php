@@ -38,6 +38,7 @@ Route::middleware(['organizer'])->group(function() {
 
 
 
+
 });
 
 

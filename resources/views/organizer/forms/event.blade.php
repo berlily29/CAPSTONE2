@@ -174,7 +174,7 @@ eventForm.addEventListener('submit', async function (e) {
 
             }).then(() => {
                     // Optionally reload the page or redirect
-                    window.location.href = "{{route('')";
+                    window.location.href = "/portal/pending-requests";
 
                 });
         } else {
