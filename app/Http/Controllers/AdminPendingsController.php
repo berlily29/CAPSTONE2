@@ -24,6 +24,10 @@ class AdminPendingsController extends Controller
             'event_id'=> $id
         ]);
 
+        $event->update([
+            'channel_id'=> $id
+        ]);
+
         return response()->json([
             'success'=> true
         ]);

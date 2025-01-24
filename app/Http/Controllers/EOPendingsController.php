@@ -10,7 +10,12 @@ class EOPendingsController extends Controller
 {
     public function index() {
         return view('organizer.pending-requests.view')-> with([
-            'submittedEvents'=> Events::where('event_organizer',Auth::user()->user_id)->get()
+            'pendings'=> Events::where('event_organizer',Auth::user()->user_id)
+            ->where('approved',0)
+            ->get(),
+            'terminated'=> Events::where('event_organizer',Auth::user()->user_id)
+            ->where('approved',2)
+            ->get(),
 
         ]);
 
