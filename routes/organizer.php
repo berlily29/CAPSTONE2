@@ -60,6 +60,22 @@ Route::middleware(['organizer'])->group(function() {
      */
     //Channels
     Route::get('/portal/channels', [EventOrganizerController::class, 'channels_index'])->name('eo.channels') ;
+    Route::get('portal/channels/{id}' ,[EventOrganizerController::class, 'view_channel'])->name('eo.channels.view');
+
+    /*****
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+    //Posts/Announcements
+    //from channel
+    Route::get('/portal/channels/{id}/create/post',[EventOrganizerController::class, 'create_post_index'])->name('eo.channels.post.view');
+
+
+
 
 
 

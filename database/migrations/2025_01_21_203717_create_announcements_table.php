@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('post_id');
             $table-> string('title');
             $table->longText('content');
+            $table->json('images')->nullable();
             $table->string('channel_id');
             $table->timestamps();
         });

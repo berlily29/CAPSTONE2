@@ -28,6 +28,7 @@ class Announcements extends Model
         'post_id',
         'title',
         'content',
+        'images',
         'channel_id'
     ];
 }

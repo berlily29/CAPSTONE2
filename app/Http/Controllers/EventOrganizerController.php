@@ -6,6 +6,7 @@ use App\Models\EventCategories;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\EventOrgHelper;
+use App\Models\Announcements;
 use App\Models\EventChannels;
 use App\Models\Events;
 use App\Models\EventTerminations;
@@ -49,8 +50,16 @@ class EventOrganizerController extends Controller
         return view('organizer.pending-requests.view-event')->with([
             'event'=> Events::where('event_id', $id)->first()
         ]);
-
     }
+
+    public function view_channel($id) {
+        return view('organizer.channels.channel.view')->with([
+            'event'=> Events::where('event_id', $id)->first(),
+            'announcements'=>  Announcements::where('channel_id', $id)->get()
+        ]);
+    }
+
+    public function create_post_index($id)
 
 
      /***

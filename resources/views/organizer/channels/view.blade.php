@@ -25,7 +25,7 @@
 
                     <div class="p-6 flex flex-col justify-left">
                             <div class="flex gap-2 mb-2   ">
-                                <a href=""
+                                <a href="{{route('eo.channels.view', ['id'=> $event->channel_id])}}"
                                 class=" gap-2 flex items-center justify-center rounded-md bg-sky-500 text-white py-2 px-2 hover:bg-sky-600 text-sm font-semibold transition duration-400 ease-in-out">
                                 <span class="material-symbols-outlined">folder_managed</span>
                                 Manage
