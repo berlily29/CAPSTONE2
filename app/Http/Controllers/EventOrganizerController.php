@@ -10,6 +10,7 @@ use App\Models\Announcements;
 use App\Models\EventChannels;
 use App\Models\Events;
 use App\Models\EventTerminations;
+use App\Models\Users;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -51,14 +52,18 @@ class EventOrganizerController extends Controller
 
     public function view_event_index($id) {
         return view('organizer.pending-requests.view-event')->with([
-            'event'=> Events::where('event_id', $id)->first()
+            'event'=> Events::where('event_id', $id)->first(),
+            'users'=> Events::where()
         ]);
     }
 
     public function view_channel($id) {
+        $event = Events::where('event_id', $id)->first();
+
         return view('organizer.channels.channel.view')->with([
-            'event'=> Events::where('event_id', $id)->first(),
-            'announcements'=>  Announcements::where('channel_id', $id)->orderBy('created_at', 'desc')->get()
+            'event'=> $event,
+            'announcements'=>  Announcements::where('channel_id', $id)->orderBy('created_at', 'desc')->get(),
+            'users'=>$event->joinedUsers
         ]);
     }
 
@@ -66,6 +71,13 @@ class EventOrganizerController extends Controller
         return view('organizer.channels.channel.create.post')->with([
             'event'=> Events::where('event_id', $id)-> first()
         ]);
+    }
+
+    public function view_user($id) {
+        return view('organizer.channels.channel.view-user-details')->with([
+            'user'=>Users::where('user_id', $id)-> first()
+        ]);
+
     }
 
 

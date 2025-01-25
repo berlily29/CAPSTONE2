@@ -21,6 +21,29 @@
                 </div>
                 <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $announcement->title }}</h3>
                 <p class="text-gray-700 leading-relaxed">{{ $announcement->content }}</p>
+
+
+                @if($announcement->images)
+            <div class="w-[50%] mt-4 grid gap-2
+                @if($announcement->images && count(json_decode($announcement->images)) === 1)
+                    grid-cols-1
+                @elseif($announcement->images && count(json_decode($announcement->images)) === 2)
+                    grid-cols-2
+                @elseif($announcement->images)
+                    grid-cols-2
+                @endif
+                    ">
+                @foreach(json_decode($announcement->images) as $image)
+                    <div class="relative">
+                        <img src="{{ asset('storage/uploads/posts/' . $announcement->channel_id . '/' . $announcement->post_id . '/' . $image) }}"
+                            alt="Announcement Image"
+                            class="w-full object-cover rounded-md cursor-pointer"
+                            onclick="openImageModal('{{ asset('storage/uploads/posts/' . $announcement->channel_id . '/' . $announcement->post_id . '/' . $image) }}')"/>
+
+                    </div>
+                @endforeach
+            </div>
+        @endif
                 <hr class="opacity-65 my-4">
 
                 <div class="w-full flex gap-4">
@@ -60,6 +83,16 @@
             </div>
         @endforeach
 
+
+         <!-- Modal for Expanded Image -->
+         <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden z-50">
+                <div class="relative">
+                    <img id="modalImage" src="" alt="Expanded Image" class="rounded-lg max-w-full max-h-[90vh]">
+                    <button class="absolute top-2 right-2 bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg"
+                        onclick="closeImageModal()">×</button>
+                </div>
+            </div>
+
         @if ($announcements->isEmpty())
             <div class="text-center py-8 text-lg font-semibold text-gray-500">
                 No announcements yet. Stay tuned!
@@ -71,6 +104,19 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+function openImageModal(imageUrl) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = imageUrl;
+        modal.classList.remove('hidden');
+    }
+
+    function closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+    }
+
+
     document.addEventListener('DOMContentLoaded', function () {
         const likeButtons = document.querySelectorAll('.like-btn');
 
