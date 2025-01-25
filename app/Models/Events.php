@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Events extends Model
 {
 
-
+    public function termination() {
+        return $this->hasOne(EventTerminations::class,'termination_id', 'termination_id');
+    }
     public function category() {
         return $this->hasOne(EventCategories::class,'id', 'event_category');
     }
@@ -59,6 +61,7 @@ class Events extends Model
         'venue',
         'target_location',
         'channel_id',
+        'termination_id',
 
         'status',
         'approved'

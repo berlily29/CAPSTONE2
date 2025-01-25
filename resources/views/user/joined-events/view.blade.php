@@ -110,8 +110,8 @@
         <script>
             Swal.fire({
                 icon: 'info',
-                title: 'You’ve Left the Event/Channel',
-                text: 'You have successfully left the event/channel. We hope to see you again soon!',
+                title: 'You’ve Left the Event',
+                text: 'You have successfully left the event. We hope to see you again soon!',
                 confirmButtonText: 'CLOSE',
             });
         </script>

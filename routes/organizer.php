@@ -27,14 +27,63 @@ Route::middleware(['organizer'])->group(function() {
         ]);
     })->name('eo.dashboard');
 
-
+    /**
+     *
+     *
+     *
+     *
+     *
+     */
     //Pending Requests Page
     Route::get('/portal/pending-requests',[EOPendingsController::class, 'index'])->name('eo.pending-requests');
+    Route::get('/portal/pending-requests/event/{id}', [EventOrganizerController::class, 'view_event_index'])->name('eo.pending-requests.view-event');
+    Route::delete('portal/pending-requests/event/{id}', [EventOrganizerController::class, 'hard_delete_termination'])->name('eo.pending-requests.hard-delete');
 
-    //Requesting event
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     */
+    //Forms - Requesting event
     Route::get('/portal/request/event', [EventOrganizerController::class, 'request_event_index'])->name('eo.request-event');
-
     Route::post('/portal/request/event', [EventOrganizerController::class, 'submit_request_event'])->name('eo.request-event.store');
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     */
+    //Channels
+    Route::get('/portal/channels', [EventOrganizerController::class, 'channels_index'])->name('eo.channels') ;
+    Route::get('portal/channels/{id}' ,[EventOrganizerController::class, 'view_channel'])->name('eo.channels.view');
+
+    Route::get('portal/users/{id}',[EventOrganizerController::class, 'view_user'])->name('eo.channels.view-user');
+
+    /*****
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+    //Posts/Announcements
+    //from channel
+    Route::get('/portal/channels/{id}/create/post',[EventOrganizerController::class, 'create_post_index'])->name('eo.channels.post.view');
+    Route::post('/portal/channels/{id}/create/post', [EventOrganizerController::class,'publish_post'])->name('eo.channel.post.publish');
+
+
+
+
+
+
+
+
 
 
 

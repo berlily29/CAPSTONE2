@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcements;
 use App\Models\Events;
 use Illuminate\Http\Request;
 
@@ -16,5 +17,13 @@ class EventOrgHelper extends Controller
         } while (Events::where('event_id', $eid)->exists());
 
         return $eid;
+    }
+
+    public function generate_post_id(){
+        do {
+            $pid = Str::random(4) . '-' . Str::random(11);
+        } while(Announcements::where('post_id', $pid)->exists()) ;
+
+        return $pid;
     }
 }

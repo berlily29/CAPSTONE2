@@ -20,8 +20,6 @@ Route::middleware(['auth'])->group(function() {
 
     //Liking announcement
     Route::post('/event/{id}/channel/{post}',[AnnouncementsController::class, 'like_announcement'])->name('announcement.like');
-
-
     Route::delete('/event/{id}/channel/{post}', [AnnouncementsController::class, 'dislike_announcement'] )-> name('announcement.dislike');
 
 

@@ -22,14 +22,14 @@
             <li>
                 <a href="{{route('eo.pending-requests')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.pending-requests*') ? 'active_link' : '' }}">
                     <span class="material-icons mr-3 sidebar-icon">schedule</span>
-                    <span class="sidebar-label">Event Requests</span>
+                    <span class="sidebar-label">Requests</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{route('admin.manage-events')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('admin.manage-events*') ? 'active_link' : '' }}">
-                    <span class="material-icons mr-3 sidebar-icon">tab</span>
-                    <span class="sidebar-label">Channels</span>
+                <a href="{{route('eo.channels')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.channels*') ? 'active_link' : '' }}">
+                    <span class="material-icons mr-3 sidebar-icon">event</span>
+                    <span class="sidebar-label">My Events</span>
                 </a>
             </li>
 

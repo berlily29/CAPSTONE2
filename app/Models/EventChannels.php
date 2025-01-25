@@ -14,7 +14,7 @@ class EventChannels extends Model
         return $this->hasMany(Announcements::class, 'channel_id', 'channel_id');
     }
 
-    protected $primaryKey = 'event_id';
+    protected $primaryKey = 'channel_id';
     protected $fillable = [
         'channel_id', 'event_id'
     ];

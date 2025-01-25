@@ -35,7 +35,7 @@
                                 {{ $event->organizer->user->fullname}}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ \Carbon\Carbon::parse($event->date)->format('F j, Y') }}
+                                {{ \Carbon\Carbon::parse($event->date)->format('m-d-Y') }}
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

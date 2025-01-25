@@ -1,79 +1,78 @@
 <head>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-<style>
-    body {
-        font-family: 'Poppins';
-    }
-</style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <div class="bg-gray-50 w-full">
     <div class="w-full">
         <div class="mt-4 bg-white overflow-hidden sm:rounded-lg pb-4">
-
-
-
-            <!-- Main Content -->
             <div class="bg-white rounded-lg">
-                <!-- Event Details and Contact Information Container -->
                 <div class="flex flex-wrap lg:flex-nowrap gap-4">
-
-
-
                     <!-- Event Details -->
-                    <div class="w-full lg:w-1/2 py-4 px-8">
+                    <div class="w-full py-4 px-8">
+                        <!-- Header -->
+                        <div class="w-full flex justify-between pb-2">
+                            <div class="flex flex-col gap-0">
+                                <h1 class="text-lg text-gray-500 font-semibold">Admin Approval</h1>
+                                <h1 class="text-3xl font-black text-gray-700">Event Request</h1>
+                            </div>
+                            <div class="w-[30%]">
 
-                               <!-- header -->
-                    <div class="flex justify-between">
-                        <div class="flex flex-col gap-0">
-                            <h1 class="text-lg text-gray-500 font-semibold">Admin Approval</h1>
-                            <h1 class="text-3xl font-black text-gray-700">Event Request</h1>
+                                <form class="" action="{{route('admin.pending-request.approve-event',['id'=> $event->event_id])}}" method ="POST">
+                                    @csrf
+                                    <button type = "button" id="approveButton"
+                                        class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-200">
+                                        Approve
+                                    </button>
+                                </form>
+
+
+
+
+                                <div class="w-full">
+                                    <a id="rejectButton"
+                                        class="w-full px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition duration-200 cursor-pointer">
+                                        Terminate
+                                    </a>
+
+                                </div>
+
+                            </div>
                         </div>
+                        <hr class="w-full opacity-65 my-4">
 
-                        <div class="flex gap-2">
-                            <form action="">
-                            <button class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg  focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-50 transition duration-200">
-                                Approve
-                            </button>
-
-                            </form>
-
-                            <form action="">
-                            <button class="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg  focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 transition duration-200">
-                                Reject
-                            </button>
-
-                            </form>
-
-                        </div>
-                    </div>
-
-                    <hr class="w-full opacity-65 my-4">
-
-
+                        <!-- Event Information -->
                         <div class="flex flex-col gap-4">
                             <div>
                                 <span class="text-sm text-gray-400">Event Title</span>
                                 <h2 class="text-3xl font-bold text-gray-900">{{ $event->title }}</h2>
                             </div>
-
                             <div>
                                 <span class="text-gray-400">Date</span>
                                 <h2 class="text-sm font-bold text-gray-700">{{ \Carbon\Carbon::parse($event->date)->format('F j, Y') }}</h2>
                             </div>
-
                             <div>
                                 <span class="text-gray-400">Location</span>
                                 <h2 class="text-sm font-bold text-gray-700">{{ $event->venue }}</h2>
                             </div>
-
                             <div>
                                 <h3 class="text-sm text-gray-400">Event Description</h3>
                                 <p class="text-lg font-bold text-gray-700">{{ $event->description }}</p>
                             </div>
-
                             <div>
                                 <h3 class="text-2xl font-semibold text-gray-800">Categories</h3>
                                 <div class="flex flex-wrap gap-2 mt-2">
@@ -81,7 +80,6 @@
                                         @php
                                             $category = \App\Models\EventCategories::find($category_id)
                                         @endphp
-
                                         @if ($category)
                                             <span class="px-3 py-1 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
                                                 {{ $category->name }}
@@ -124,3 +122,74 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Approve Button Click Handler
+    document.getElementById('approveButton').addEventListener('click', function () {
+        Swal.fire({
+            title: "Do you want to approve this event?",
+            showCancelButton: true,
+            confirmButtonText: "Approve",
+            cancelButtonText: "Cancel",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.getElementById('approveButton').closest('form'); // Get the form
+                const actionUrl = form.getAttribute('action'); // Form action URL
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Get CSRF token
+
+                // Send the approval request via fetch
+                fetch(actionUrl, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Event has been approved',
+                                showConfirmButton: false,
+                                timer: 1500
+
+                            }).then(() => {
+                                window.close(); // Close the current window
+                                window.opener.location.reload(); // Reload the parent window
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to approve the event. Please try again.',
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An unexpected error occurred. Please try again later.',
+                        });
+                    });
+            }
+        });
+    });
+
+    // Reject Button Click Handler
+    document.getElementById('rejectButton').addEventListener('click', function () {
+
+                let event_id = "{{$event->event_id}}";
+                console.log(event_id);
+                window.location.href = `/admin/pending-request/event/${event_id}/termination`;
+
+    });
+</script>

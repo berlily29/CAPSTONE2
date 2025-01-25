@@ -171,10 +171,12 @@ eventForm.addEventListener('submit', async function (e) {
                 title: 'Success!',
                 text: result.message,
                 icon: 'success',
+                showConfirmButton:false,
+                timer: 1500
 
             }).then(() => {
                     // Optionally reload the page or redirect
-                    window.location.href = "{{route('')";
+                    window.location.href = "/portal/pending-requests";
 
                 });
         } else {

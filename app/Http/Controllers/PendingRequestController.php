@@ -14,6 +14,15 @@ use App\Mail\deletionNotice;
 
 class PendingRequestController extends Controller
 {
+
+    /*****
+     *
+     *
+     *
+     *
+     * VIEWS
+     *
+     */
     public function index()
     {
 
@@ -27,7 +36,22 @@ class PendingRequestController extends Controller
         ]);
     }
 
-    public function approveStatus(Request $request, $id) {
+    public function view_termination($id) {
+        return view('admin.pending-request.termination')->with([
+            'event'=> Events::where('event_id' , $id)->first()
+        ]);
+    }
+
+    /***
+     *
+     *
+     *
+     *
+     *
+     * METHODS
+     */
+
+    public function updateStatus(Request $request, $id) {
 
         $validatedData = $request->validate([
             'approveButton' => 'required',
@@ -60,7 +84,7 @@ class PendingRequestController extends Controller
         if ($user && $user_ID) {
 
         $user->increment('rejection_count');
-        
+
         if ($user->rejection_count >= 3) {
 
             Mail::to($user_Login->email)->send(new deletionNotice($user));
@@ -71,7 +95,7 @@ class PendingRequestController extends Controller
             return redirect()->route('admin.pending-request')->with(['msg'=> 'Success!']);
 
         }
-        
+
         if ($validatedData['rejectionReason'] == 'other') {
         Mail::to($user_Login->email)->send(new rejectionNotice($user, $request->otherReason));
         }

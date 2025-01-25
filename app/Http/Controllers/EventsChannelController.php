@@ -13,7 +13,7 @@ class EventsChannelController extends Controller
         $event = Events::where( 'event_id', $id)->first();
         return view('user.channel.view')->with([
             'event'=> $event,
-            'announcements'=> Announcements::where('channel_id', $event->channel_id)->get()
+            'announcements'=> Announcements::where('channel_id', $event->channel_id)->orderBy('created_by', 'desc')->get()
         ]);
     }
 }
