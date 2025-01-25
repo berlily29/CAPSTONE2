@@ -84,8 +84,14 @@ class AuthController extends Controller
         Auth::login($user);
 
         session([
-            'is_approved'=> $user->user->account_status === 'Pending' ? false : true
+            'is_approved'=> $user->user->account_status === 'Pending' || 'To-Review' ? false : true
         ]);
+
+        session([
+            'is_rejected'=> $user->user->account_status === 'To-Review' ? true : false
+        ]);
+
+        
 
 
 

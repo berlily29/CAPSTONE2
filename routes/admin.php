@@ -22,7 +22,8 @@ Route::middleware(['admin'])-> group(function() {
 
     //Pending Request
     Route::get('/admin/pending-request', [PendingRequestController::class, 'index'])->name('admin.pending-request');
-    Route::put('/admin/pending-request/updateStatus/{userId}', [PendingRequestController::class, 'updateStatus'])->name('admin.pending-request.updateStatus');
+    Route::put('/admin/pending-request/approveStatus/{userId}', [PendingRequestController::class, 'approveStatus'])->name('admin.pending-request.approveStatus');
+    Route::put('/admin/pending-request/rejectStatus/{userId}', [PendingRequestController::class, 'rejectStatus'])->name('admin.pending-request.rejectStatus');
 
     Route::get('/admin/pending-request/event/{id}', [PendingRequestController::class, 'view_event'])->name('admin.pending-request.view-event');
 

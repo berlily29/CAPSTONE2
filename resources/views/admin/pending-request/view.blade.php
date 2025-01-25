@@ -39,7 +39,7 @@
 
     <!-- Modal Structure -->
     <div id="myModal" class="modal hidden fixed inset-0 bg-gray-700 bg-opacity-25 flex items-center justify-center">
-        <div class="modal-content p-5 bg-white shadow-2xl rounded-2xl w-full max-w-3xl h-auto max-h-[90vh] overflow-auto relative">
+        <div class="modal-content p-5 bg-white shadow-2xl rounded-2xl w-full max-w-3xl h-auto max-h-[90vh] overflow-y-auto relative">
             <span class="absolute right-6 text-white close-modal cursor-pointer material-icons bg-red-500 w-10 p-2 hover:bg-red-600 rounded-xl mt-2">close</span>
             <div id="modal-body">
                 <!-- User details will be populated here -->
@@ -187,7 +187,7 @@
                     </div>
                 </div>
 
-                <form action="/admin/pending-request/updateStatus/${userId}" method='POST' class='approvalForm flex flex-row-reverse' >
+                <form action="/admin/pending-request/approveStatus/${userId}" method='POST' class='approvalForm flex flex-row-reverse' >
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="approveButton" id="approveButtonInput">
@@ -198,11 +198,70 @@
 
                     `;
                     modal.classList.remove('hidden');
+
+                    document.querySelectorAll('.approvalForm>Button').forEach((button) => {
+                        button.addEventListener('click', (event) => {
+                            event.preventDefault();
+
+                            const form = button.closest('.approvalForm'); 
+                            const action = button.value; 
+                            document.getElementById('approveButtonInput').value = action;
+
+                            Swal.fire({
+                                title: `Are you sure you want to mark the user as '${action}'?`,
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#10b981',
+                                cancelButtonColor: '#ef4444',
+                                confirmButtonText: "Yes",
+                                cancelButtonText: "No",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+                                    if (action == 'Approved') {
+                                    form.submit(); 
+                                    }
+                                    else if(action == 'To-Review') {
+
+                                        document.getElementById('modal-body').innerHTML =
+                                        `
+                                        <h3 class="text-lg font-bold mt-2 text-gray-700 mb-2">Rejection Form</h3>
+                                        <form action="/admin/pending-request/rejectStatus/${userId}" method='POST' class='approvalForm'>
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input type="hidden" name="_method" value="PUT">
+                                            
+                                            <label for="rejectionReason" class="block mb-2 text-sm font-medium text-gray-700">Reason for Rejection:</label>
+                                            <select name="rejectionReason" id="rejectionReason" class="border border-gray-300 rounded-md p-2 mb-4 w-full" onchange="toggleOtherField()">
+                                                <option value="" disabled selected>Select a reason</option>
+                                                <option value="wrong_document">Submitted Wrong Document</option>
+                                                <option value="fake_document">Fake Document</option>
+                                                <option value="not_eligible">Not Eligible</option>
+                                                <option value="other">Other</option>
+                                            </select>
+
+                                            <!-- Text field for "Other" reason -->
+                                            <div id="otherReasonContainer" class="hidden mb-4">
+                                                <label for="otherReason" class="block mb-2 text-sm font-medium text-gray-700">Please specify:</label>
+                                                <input type="text" name="otherReason" id="otherReason" class="border border-gray-300 rounded-md p-2 w-full" placeholder="Enter your reason here">
+                                            </div>
+                                            <div class='flex flex-row-reverse w-full'>
+                                            <button type='submit' value='Reject' class='mx-2 bg-red-500 w-32 hover:bg-red-600 p-4 text-white rounded-2xl'>Send Notice</button>
+                                            </div>
+                                        </form>`;
+                                                                                
+                                    }
+
+                                }
+                            });
+                        });
+                    });
+
                 });
             });
 
             closeModalSpan.addEventListener('click', function () {
                 modal.classList.add('hidden');
+                
             });
 
             window.addEventListener('click', function (event) {
@@ -210,7 +269,21 @@
                     modal.classList.add('hidden');
                 }
             });
+
         });
+
+        function toggleOtherField() {
+            const rejectionReason = document.getElementById('rejectionReason').value;
+            const otherReasonContainer = document.getElementById('otherReasonContainer');
+
+            if (rejectionReason === 'other') {
+                otherReasonContainer.classList.remove('hidden');
+            } else {
+                otherReasonContainer.classList.add('hidden');
+            }
+    }
+
+        
     </script>
 
     @if(session('msg'))

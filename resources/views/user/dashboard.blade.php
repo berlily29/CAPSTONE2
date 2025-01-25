@@ -10,16 +10,23 @@
 
 
       @if($is_approved == false)
-      <div class="bg-green-500 text-white p-4  shadow-md flex items-center space-x-3 mb-4">
-            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 0a9 9 0 11-9-9 9 9 0 019 9z" />
+         <div class="{{ $is_rejected == true ? 'bg-red-500' : 'bg-green-500' }} text-white p-4 shadow-md flex items-center space-x-3 mb-4">
+            <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 0a9 9 0 11-9-9 9 9 0 019 9z" />
             </svg>
             <div>
-                <p class="font-semibold">Account Under Approval</p>
-                <p>Your account is currently under approval. Kindly wait for an email notification. Once approved, you will gain access to all features.</p>
+                  @if($is_rejected == true)
+                     <p class="font-semibold">Submitted ID Rejected</p>
+                     <p>Your account needs a valid ID for approval. Please provide a valid ID to continue.</p>
+                  @else
+                     <p class="font-semibold">Account Under Approval</p>
+                     <p>Your account is currently under approval. Kindly wait for an email notification. Once approved, you will gain access to all features.</p>
+                  @endif
             </div>
-        </div>
-        @endif
+         </div>
+      @endif
+
+      
 
 
       <!-- Notifications and Events -->

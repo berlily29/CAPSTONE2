@@ -18,7 +18,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', function() {
 
         return view('user.dashboard')->with([
-            'is_approved'=> session('is_approved')
+            'is_approved'=> session('is_approved'),
+            'is_rejected' => session('is_rejected')
         ]);
 
 
