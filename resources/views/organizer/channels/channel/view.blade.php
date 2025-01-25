@@ -113,22 +113,6 @@
 
 
 
-        //confirmation
-        document.getElementById('leave_event').addEventListener("click",()=> {
-            Swal.fire({
-                title: 'Confirm Your Action',
-                text: "Are you sure you want to leave this event? Once confirmed, you'll be removed fromm the event's channel.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Leave Event'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Submit the form to join the event
-                    document.getElementById('leave_event').closest('form').submit();
-                }
-            });
-        })
+
     </script>
 </x-app-layout>

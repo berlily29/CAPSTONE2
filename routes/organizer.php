@@ -73,6 +73,7 @@ Route::middleware(['organizer'])->group(function() {
     //Posts/Announcements
     //from channel
     Route::get('/portal/channels/{id}/create/post',[EventOrganizerController::class, 'create_post_index'])->name('eo.channels.post.view');
+    Route::post('/portal/channels/{id}/create/post', [EventOrganizerController::class,'publish_post'])->name('eo.channel.post.publish');
 
 
 

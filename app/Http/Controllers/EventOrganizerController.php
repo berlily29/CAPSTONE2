@@ -10,7 +10,10 @@ use App\Models\Announcements;
 use App\Models\EventChannels;
 use App\Models\Events;
 use App\Models\EventTerminations;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EventOrganizerController extends Controller
 {
@@ -55,11 +58,15 @@ class EventOrganizerController extends Controller
     public function view_channel($id) {
         return view('organizer.channels.channel.view')->with([
             'event'=> Events::where('event_id', $id)->first(),
-            'announcements'=>  Announcements::where('channel_id', $id)->get()
+            'announcements'=>  Announcements::where('channel_id', $id)->orderBy('created_at', 'desc')->get()
         ]);
     }
 
-    public function create_post_index($id)
+    public function create_post_index($id) {
+        return view('organizer.channels.channel.create.post')->with([
+            'event'=> Events::where('event_id', $id)-> first()
+        ]);
+    }
 
 
      /***
@@ -103,6 +110,56 @@ class EventOrganizerController extends Controller
 
         return response()-> json([
             'success'=>true
+        ]);
+
+    }
+
+
+    /***
+     *
+     *
+     *
+     * ANNOUNCEMENTS
+     */
+
+    public function publish_post(Request $request, $id) {
+        $event = Events::where('event_id', $id)->first() ;
+
+        //generate the post_id
+        $post_id = DB::table('announcements')->insertGetId([
+
+            'title'=> $request->title,
+            'content'=> $request->content,
+
+            'channel_id'=> $event->channel_id,
+            'created_at'=> now(),
+            'updated_at'=> now()
+        ]);
+
+
+        //create directory for the file upload
+        $path_url= 'uploads/posts/' . $event->channel_id . '/' . $post_id ;
+        if(!Storage::disk('public')->exists($path_url)) {
+            Storage::disk('public')-> makeDirectory($path_url);
+        }
+
+
+        $images = [];
+        if($request->hasFile('images')) {
+            foreach($request->file('images') as $image) {
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $image->storeAs($path_url, $filename, 'public');
+                $images[] = $filename; // Add to the images array
+            };
+
+            Announcements::where('post_id',$post_id)->update([
+                'images'=> json_encode($images)
+            ]);
+        }
+
+
+        return response()->json([
+            'success'=> true
         ]);
 
     }
