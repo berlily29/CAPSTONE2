@@ -12,6 +12,7 @@ class FindEventsController extends Controller
     {
         $open_events = Events::where('date', '>', today())
         ->where('approved', 1)
+        // ->where('event_organizer', '!=', Auth::user()->user_id)
         ->whereDoesntHave('joinedUsers', function ($query) {
             $query->where('user_joined_events.user_id', Auth::user()->user_id); // Use the correct table alias
         })

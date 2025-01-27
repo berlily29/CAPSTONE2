@@ -26,7 +26,7 @@
          </div>
       @endif
 
-      
+
 
 
       <!-- Notifications and Events -->

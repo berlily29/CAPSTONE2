@@ -99,8 +99,8 @@
                 icon: 'success',
                 title: 'Successfully Joined!',
                 text: 'You have successfully joined the event.',
-
-                confirmButtonText: 'CLOSE',
+                showConfirmButton: false,
+                timer: 1500
             });
         </script>
     @endif
@@ -112,7 +112,8 @@
                 icon: 'info',
                 title: 'You’ve Left the Event',
                 text: 'You have successfully left the event. We hope to see you again soon!',
-                confirmButtonText: 'CLOSE',
+                showConfirmButton: false,
+                timer: 1500
             });
         </script>
     @endif

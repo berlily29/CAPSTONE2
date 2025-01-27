@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="bg-gray-50 w-full">
         <div class="w-full">
-            <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg pb-4">
+            <div class="mt-4 bg-white overflow-hidden sm:rounded-lg pb-4">
 
                 <a href="{{ route('find-events.index') }}"
                    class="inline-flex items-center mx-8 mt-8 mb-4 px-4 py-2 bg-pink-600 text-white border border-pink-600 font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-offset-2 transition">
@@ -18,7 +18,7 @@
                 <hr class="opacity-65">
 
                 <!-- Main Content -->
-                <div class="bg-white shadow-lg rounded-lg">
+                <div class="bg-white rounded-lg">
                     <!-- Event Details and Contact Information Container -->
                     <div class="flex flex-wrap lg:flex-nowrap gap-8">
 
