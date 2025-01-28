@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcements;
 use App\Models\AnnouncementsReaders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AnnouncementsController extends Controller
 {
+
+    protected $methods;
+
+    public function __construct()
+    {
+        $this->methods = new HelperMethods();
+    }
+
+
     public function like_announcement($event, $post) {
 
 
@@ -48,6 +59,72 @@ class AnnouncementsController extends Controller
             'success' => true,
             'message' => 'Disliked successfully',
             'totalReaders' => $totalReaders,
+        ]);
+    }
+
+    public function delete_announcement($id) {
+        // Fetch the post
+        $post = Announcements::where('post_id', $id)->first();
+
+        // Ensure the post exists
+        if (!$post) {
+            return response()->json(['success' => false, 'message' => 'Post not found'], 404);
+        }
+
+        // Get the channel ID
+        $channel = $post->channel_id;
+
+        // Delete the post
+        $post->delete();
+
+        // Delete related readers
+        AnnouncementsReaders::where('post_id', $id)->delete();
+
+        // Build the media path
+        $media_path = 'uploads/posts/' . $channel . '/' . $id;
+
+        // Check if the directory exists and delete it
+        if (Storage::disk('public')->exists($media_path)) {
+            Storage::disk('public')->deleteDirectory($media_path);
+        }
+
+        // Return success response
+        return response()->json(['success' => true]);
+    }
+
+
+
+    public function edit_announcement(Request $request, $id) {
+        $post = Announcements::where('post_id', $id)-> first();
+        $post->update([
+            'title'=> $request->title,
+            'content'=>$request->content
+        ]);
+
+        if($request->hasFiles('images')){
+
+             //create directory for the file upload
+            $path_url= 'uploads/posts/' . $post->channel->event->channel_id . '/' . $post->post_id ;
+            if(!Storage::disk('public')->exists($path_url)) {
+                Storage::disk('public')-> makeDirectory($path_url);
+            }
+
+            //delete all imagges in the path (post before edit)
+            $this->methods->delete_existing_files($id, $post->channel->event->channel_id);
+
+
+            $images = [];
+            foreach($request->file('images') as $image) {
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $image->storeAs($path_url, $filename, 'public');
+                $images[] = $filename; // Add to the images array
+            }
+        }
+
+
+
+        return response()->json([
+            'success'=> true
         ]);
     }
 }

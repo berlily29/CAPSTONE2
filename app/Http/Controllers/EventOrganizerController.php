@@ -12,6 +12,7 @@ use App\Models\Events;
 use App\Models\EventTerminations;
 use App\Models\Users;
 use Illuminate\Console\Scheduling\Event;
+use Illuminate\Database\Schema\PostgresSchemaState;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -175,7 +176,6 @@ class EventOrganizerController extends Controller
         ]);
 
     }
-
 
 
 

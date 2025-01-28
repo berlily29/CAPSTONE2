@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EOPendingsController;
 use App\Http\Controllers\EventOrganizerController;
@@ -76,6 +77,7 @@ Route::middleware(['organizer'])->group(function() {
     //from channel
     Route::get('/portal/channels/{id}/create/post',[EventOrganizerController::class, 'create_post_index'])->name('eo.channels.post.view');
     Route::post('/portal/channels/{id}/create/post', [EventOrganizerController::class,'publish_post'])->name('eo.channel.post.publish');
+    Route::delete('/delete/{id}',[AnnouncementsController::class,'delete_announcement'] )->name('eo.channel.post.delete');
 
 
 
