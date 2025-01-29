@@ -23,6 +23,9 @@ class Users extends Model
 }
 
 
+    public function story(){
+        return $this->hasMany(Stories::class,'user_id', 'user_id');
+    }
 
 
 

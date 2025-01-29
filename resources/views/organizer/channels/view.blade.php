@@ -1,65 +1,79 @@
 <x-app-layout>
-    <div class="bg-white w-full p-8">
-        <div class="">
-            <!-- Title Section -->
-            <h1 class="text-sm text-gray-500">Channels</h1>
-            <h1 class="text-3xl font-black text-gray-700 mb-6">My Events</h1>
+    <div class="w-full p-8 bg-white">
+        <!-- Header Section -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-black text-gray-700 md:text-4xl">My Events</h1>
+            <p class="mt-1 text-sm text-gray-500">Manage your event channels</p>
+        </div>
 
-            @if($events->count()==0)
-                <div class="w-full py-[4rem] flex items-center justify-center">
-                    <div class="border border-gray-400 flex flex-col items-center justify-center p-[5rem] rounded-xl text-gray-700 hover:border-gray-600 transition duration-300 ease-in-out hover:scale-105 gap-2">
-                        <!-- <span class="material-icons text-[10rem]">event_busy</span> -->
-                         <img src="{{asset('images/icons/unavailable.png')}}" alt="">
-                        <h1 class="">No Events Available</h1>
-                    </div>
-                </div>
-            @endif
-            <!-- Event Cards Section -->
-            <div class="w-full grid grid-cols-3 gap-8">
-                @foreach($events as $event)
-                    <div class="bg-white border border-gray-200 hover:border-gray-300 overflow-hidden transition duration-400 ease-in-out transform hover:scale-101">
-
-                    <!-- Action Button -->
-
-
-
-                    <div class="p-6 flex flex-col justify-left">
-                            <div class="flex gap-2 mb-2   ">
-                                <a href="{{route('eo.channels.view', ['id'=> $event->channel_id])}}"
-                                class=" gap-2 flex items-center justify-center rounded-md bg-sky-500 text-white py-2 px-2 hover:bg-sky-600 text-sm font-semibold transition duration-400 ease-in-out">
-                                <span class="material-symbols-outlined">folder_managed</span>
-                                Manage
-                                </a>
-
-                                <a href=""
-                                class=" gap-2 flex items-center justify-center rounded-md bg-red-500 text-white py-2 px-2 hover:bg-red-600 text-sm font-semibold transition duration-400 ease-in-out">
-                                <span class="material-symbols-outlined">delete</span>
-                                Delete
-                                </a>
-
-                            </div>
-                            <!-- Event Title -->
-                            <h2 class="text-lg font-black text-gray-700">{{ $event->title }}</h2>
-
-
-
-
-                            <div class="w-full flex text-gray-400 gap-2 items-center ">
-                                <span class="material-icons">group</span>
-                                    <h1 class="ml-[-2rem]s">
-                                        @if($event-> joinedUsers->count() == 0)
-                                            No volunteers
-                                        @else
-                                            {{$event-> joinedUsers->count()}} {{$event-> joinedUsers->count() == 1 ? 'volunteer' : 'volunteers'}}
-                                        @endif
-                                    </h1>
-                            </div>
-
-
-                        </div>
-                    </div>
-                @endforeach
+        <!-- Empty State -->
+        @if($events->isEmpty())
+        <div class="flex flex-col items-center justify-center min-h-[60vh] text-center">
+            <div class="p-12 border border-gray-400 rounded-xl hover:border-gray-600 transition-colors">
+                <img src="{{ asset('images/icons/unavailable.png') }}" class="w-32 h-32 mx-auto mb-6" alt="No events">
+                <h3 class="text-xl font-bold text-gray-700">No Events Available</h3>
             </div>
         </div>
+        @else
+        <!-- Events Grid -->
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            @foreach($events as $event)
+            <div class="overflow-hidden transition-all duration-300 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-lg">
+                <!-- Event Content -->
+                <div class="p-6">
+                    <!-- Event Header -->
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-lg font-black text-gray-700">{{ $event->title }}</h3>
+                        <span class="px-2 py-1 text-xs rounded-full bg-sky-100 text-sky-600">
+                            {{ $event->channel->name }}
+                        </span>
+                    </div>
+
+                    <!-- Event Details -->
+                    <div class="space-y-3 text-sm text-gray-600">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            {{ $event->created_at->format('M d, Y') }}
+                        </div>
+
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            {{ $event->joinedUsers->count() }}
+                            {{ Str::plural('Volunteer', $event->joinedUsers->count()) }}
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-2 mt-6">
+                        <a href="{{ route('eo.channels.view', $event->channel_id) }}"
+                           class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition-colors bg-sky-500 rounded-lg hover:bg-sky-600">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                            </svg>
+                            Manage
+                        </a>
+
+                        <form action="" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button"
+                                    onclick="confirm('Are you sure? This action cannot be undone!') && this.form.submit()"
+                                    class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
     </div>
 </x-app-layout>

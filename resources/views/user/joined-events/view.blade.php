@@ -64,7 +64,7 @@
                                         </div>
                                         <a href="{{route('user.channel.index', ['id'=> $event->channel_id])}}"
                                            class="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-pink-500 to-sky-600 text-white rounded-xl font-semibold text-sm hover:shadow-lg transition-all">
-                                            Join Channel
+                                            View Channel
                                             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                                             </svg>

@@ -35,7 +35,7 @@
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
                                 onclick="showTab('announcements')">Announcements</button>
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
-                                onclick="showTab('stories')">Stories</button>
+                                onclick="showTab('stories')">Gallery</button>
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
                                 onclick="showTab('event-details')">Event Details</button>
 

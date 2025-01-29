@@ -128,5 +128,106 @@
             });
         });
     });
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Image Upload Toggle Functionality
+        const toggleEditBtn = document.getElementById('toggleEditImages');
+        const imageInput = document.getElementById('images');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const imagesChangedInput = document.getElementById('images_changed');
+
+        if (toggleEditBtn) {
+            toggleEditBtn.addEventListener('click', function() {
+                // Toggle file input disabled state
+                imageInput.disabled = !imageInput.disabled;
+
+                // Toggle edit mode styling
+                const previews = imagePreviewContainer.querySelectorAll('.edit-image-preview');
+                previews.forEach(preview => {
+                    preview.classList.toggle('edit-mode');
+                });
+
+                // Handle file input visibility
+                if (imageInput.disabled) {
+                    imageInput.classList.add('hidden');
+                } else {
+                    imageInput.classList.remove('hidden');
+                    imagesChangedInput.value = "1";
+                }
+            });
+        }
+
+        // Handle image preview for new uploads
+        imageInput.addEventListener('change', function(e) {
+            imagePreviewContainer.innerHTML = ''; // Clear existing previews
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const div = document.createElement('div');
+                    div.className = 'relative';
+                    div.innerHTML = `
+                        <img src="${event.target.result}"
+                             class="w-full h-24 object-cover rounded-lg border">
+                        <button type="button"
+                                class="absolute top-0 right-0 p-1 text-white bg-red-500 rounded-full hover:bg-red-600"
+                                onclick="this.parentElement.remove()">
+                            ×
+                        </button>
+                    `;
+                    imagePreviewContainer.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Handle existing image removal in edit mode
+        document.querySelectorAll('.edit-image-preview').forEach(preview => {
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'absolute top-0 right-0 p-1 text-white bg-red-500 rounded-full hover:bg-red-600';
+            removeBtn.innerHTML = '×';
+            removeBtn.onclick = function() {
+                preview.remove();
+                imagesChangedInput.value = "1";
+            };
+            preview.appendChild(removeBtn);
+        });
+    });
+
+
+
+
+
+
 </script>
+
+<!-- Add this style section -->
+<style>
+    .edit-image-preview {
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .edit-image-preview.edit-mode {
+        opacity: 0.7;
+        border: 2px dashed #ec4899;
+    }
+
+    .edit-image-preview.edit-mode::after {
+        content: "Click to remove";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        text-align: center;
+        font-size: 0.8rem;
+        padding: 2px;
+    }
+</style>
+
+
 </x-app-layout>

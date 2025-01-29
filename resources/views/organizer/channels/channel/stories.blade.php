@@ -1,54 +1,93 @@
-<!-- Main Container -->
-<div class="max-w-6xl mx-auto px-4 py-8">
+<!-- Stories Table -->
+<div class="overflow-x-auto border border-gray-200 bg-white">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Preview</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Caption</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posted</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            @foreach($stories as $story)
+                @php
+                    $imagePath = asset('storage/uploads/story/' . $event->event_id . '/' . $story->image);
+                @endphp
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <img src="{{ $imagePath }}"
+                             class="w-16 h-16 object-cover rounded-md border border-gray-200"
+                             alt="Story preview"
+                        >
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
+                        {{ Str::limit($story->caption, 40) }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ $story->user->fullname }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ $story->created_at->diffForHumans() }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <button
+                            onclick="openModal('modal-{{ $story->id }}')"
+                            class="flex items-center gap-2 text-white p-2 rounded-md bg-pink-600 hover:bg-pink-700 transition-colors"
+                        >
+                            <span class="material-icons">info</span>
+                            View Details
+                        </button>
 
-        <!-- MyDay Grid -->
-        <h2 class="text-pink-600 text-2xl font-bold mb-6">MyDay Feed</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- Day Card 1 -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
-                <div class="relative h-48">
-                    <img src="https://source.unsplash.com/random/600x600/?mountain"
-                         class="w-full h-full object-cover">
-                    <div class="absolute bottom-2 left-2 bg-sky-600 text-white px-3 py-1 rounded-full text-xs">
-                        2h ago
-                    </div>
-                </div>
-                <div class="p-4">
-                    <h3 class="text-pink-600 font-semibold mb-2">Mountain Adventure</h3>
-                    <p class="text-pink-500 text-sm">Exploring the Swiss Alps with friends</p>
-                </div>
-            </div>
+                        <!-- Modal -->
+                        <div id="modal-{{ $story->id }}" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+                            <div class="bg-white rounded-lg max-w-2xl w-full mx-4">
+                                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                                    <h3 class="text-lg font-bold text-gray-700">{{ $story->caption }}</h3>
+                                    <button
+                                        onclick="closeModal('modal-{{ $story->id }}')"
+                                        class="text-gray-400 hover:text-gray-600"
+                                    >
+                                        <span class="material-icons">close</span>
+                                    </button>
+                                </div>
+                                <div class="p-6">
+                                    <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden mb-4">
+                                        <img src="{{ $imagePath }}" class="w-full h-full object-cover" alt="Story image">
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-3">
+                                            <span class="text-sm font-medium text-pink-600">{{ $story->user->fullname }}</span>
+                                            <span class="text-sm text-gray-500">{{ $story->created_at->diffForHumans() }}</span>
+                                        </div>
+                                        <p class="text-gray-700 text-sm">{{ $story->caption }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
 
-            <!-- Day Card 2 -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
-                <div class="relative h-48">
-                    <img src="https://source.unsplash.com/random/600x600/?coffee"
-                         class="w-full h-full object-cover">
-                    <div class="absolute bottom-2 left-2 bg-sky-600 text-white px-3 py-1 rounded-full text-xs">
-                        5h ago
-                    </div>
-                </div>
-                <div class="p-4">
-                    <h3 class="text-pink-600 font-semibold mb-2">Coffee Break</h3>
-                    <p class="text-pink-500 text-sm">New café downtown discovery</p>
-                </div>
-            </div>
+            @if($stories->isEmpty())
+                <tr>
+                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                        No stories available
+                    </td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
+</div>
 
-            <!-- Day Card 3 -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
-                <div class="relative h-48">
-                    <img src="https://source.unsplash.com/random/600x600/?concert"
-                         class="w-full h-full object-cover">
-                    <div class="absolute bottom-2 left-2 bg-sky-600 text-white px-3 py-1 rounded-full text-xs">
-                        8h ago
-                    </div>
-                </div>
-                <div class="p-4">
-                    <h3 class="text-pink-600 font-semibold mb-2">Music Night</h3>
-                    <p class="text-pink-500 text-sm">Friday night live concert</p>
-                </div>
-            </div>
+<!-- Simple JavaScript to toggle modals -->
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.remove('hidden');
+    }
 
-            <!-- Add more day cards here -->
-        </div>
-    </div>
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+    }
+</script>

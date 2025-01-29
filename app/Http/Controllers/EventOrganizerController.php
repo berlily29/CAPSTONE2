@@ -10,6 +10,7 @@ use App\Models\Announcements;
 use App\Models\EventChannels;
 use App\Models\Events;
 use App\Models\EventTerminations;
+use App\Models\Stories;
 use App\Models\Users;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Database\Schema\PostgresSchemaState;
@@ -64,6 +65,7 @@ class EventOrganizerController extends Controller
         return view('organizer.channels.channel.view')->with([
             'event'=> $event,
             'announcements'=>  Announcements::where('channel_id', $id)->orderBy('created_at', 'desc')->get(),
+            'stories'=> Stories::where('channel_id', $id)->orderBy('created_at' ,'desc')-> get(),
             'users'=>$event->joinedUsers
         ]);
     }
