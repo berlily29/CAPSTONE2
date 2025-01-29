@@ -3,17 +3,29 @@
         <div class="bg-white shadow-md rounded-lg p-6">
             <div class="flex flex-col items-center py-4 gap-0">
                 <h1 class="text-sm text-gray-500 mb-[-0.5rem]">{{$event->title}}</h1>
-                <h1 class="text-2xl font-black text-gray-700 mb-4">New Post</h1>
+                @if($editmode)
+                    <h1 class="text-2xl font-black text-gray-700 mb-4">Edit Post</h1>
+                @else
+                    <h1 class="text-2xl font-black text-gray-700 mb-4">New Post</h1>
+                @endif
             </div>
 
-            <form id="createPostForm" action="{{route('eo.channel.post.publish',['id'=>$event->event_id])}}" method="POST" enctype="multipart/form-data">
+            <form id="createPostForm"
+                @if($editmode)
+                    action="{{route('eo.channel.post.edit',['id'=>$post->post_id])}}"
+                @else
+                    action="{{route('eo.channel.post.publish',['id'=>$event->event_id])}}"
+                @endif
+                method="POST" enctype="multipart/form-data">
+
                 @csrf
 
                 <!-- Title -->
                 <div class="mb-4">
                     <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                     <input type="text" name="title" id="title"
-                        class="mt-1 block w-full rounded-md p-4 border border-gray-300  focus:border-pink-500 focus:ring-pink-500 sm:text-sm"
+                        @if($editmode) value="{{$post->title}}" @endif
+                        class="mt-1 block w-full rounded-md p-4 border border-gray-300 focus:border-pink-500 focus:ring-pink-500 sm:text-sm"
                         placeholder="Enter the title" required>
                 </div>
 
@@ -21,116 +33,127 @@
                 <div class="mb-4">
                     <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
                     <textarea name="content" id="content" rows="5"
-                        class="mt-1 block w-full rounded-md p-4 border border-gray-300  focus:border-pink-500 focus:ring-pink-500 sm:text-sm"
-                        placeholder="Enter the content" required></textarea>
+                        class="mt-1 block w-full rounded-md p-4 border border-gray-300 focus:border-pink-500 focus:ring-pink-500 sm:text-sm"
+                        placeholder="Enter the content" required>@if($editmode){{$post->content}}@endif</textarea>
                 </div>
 
-                <!-- Image Upload -->
+                <!-- Image Upload & Preview -->
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700">Upload Images (Max: 4)</label>
-                    <input type="file" name="images[]" id="images" accept="image/*" multiple
-                        class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-pink-100 file:text-pink-700 hover:file:bg-pink-200" />
+                    <label class="block text-sm font-medium text-gray-700">Images</label>
 
-                    <!-- Image Previews -->
-                    <div id="imagePreviewContainer" class="mt-4 grid grid-cols-4 gap-4"></div>
+                    <!-- Edit Images Button -->
+                    <button type="button" id="toggleEditImages"
+                        class="mb-2 px-3 py-1 text-sm bg-gray-200 rounded-lg hover:bg-gray-300">Edit Images</button>
+
+                    <!-- Image Previews (Default) -->
+                    <div id="imagePreviewContainer" class="mt-4 grid grid-cols-4 gap-4">
+                        @if($editmode && $post->images)
+                            @foreach(json_decode($post->images) as $image)
+                                @php
+                                    $imagePath = asset('storage/uploads/posts/' . $post->channel_id . '/' . $post->post_id . '/' . $image);
+                                @endphp
+                                <div class="relative edit-image-preview">
+                                    <img src="{{ $imagePath }}" class="w-full h-24 object-cover rounded-lg border">
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+
+                    <!-- Hidden File Upload (Initially Disabled) -->
+                    <input type="file" name="images[]" id="images" accept="image/*" multiple disabled
+                        class="hidden mt-2 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-pink-100 file:text-pink-700 hover:file:bg-pink-200" />
+
+                    <!-- Hidden Input to Track Image Changes -->
+                    <input type="hidden" name="images_changed" id="images_changed" value="0">
                 </div>
 
                 <!-- Submit Button -->
                 <div class="flex justify-end">
                     <button type="submit"
                         class="inline-flex items-center px-4 py-2 bg-pink-600 text-white font-semibold text-sm uppercase rounded-lg hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-offset-2 transition">
-                        Create Post
+                        @if($editmode) Update Post @else Create Post @endif
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- JavaScript for Image Preview and Form Submission -->
+    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-        // Image Preview Logic
-        document.getElementById('images').addEventListener('change', function (event) {
-            const files = event.target.files;
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('createPostForm');
+            const fileInput = document.getElementById('images');
             const previewContainer = document.getElementById('imagePreviewContainer');
-            previewContainer.innerHTML = ""; // Clear previous previews
+            const toggleEditBtn = document.getElementById('toggleEditImages');
+            const imagesChangedInput = document.getElementById('images_changed');
 
-            if (files.length > 4) {
-                alert("You can only upload up to 4 images.");
-                event.target.value = ""; // Reset the file input
-                return;
-            }
+            let originalImages = Array.from(previewContainer.children);
+            let editing = false;
 
-            Array.from(files).forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const wrapper = document.createElement('div');
-                    wrapper.className = "relative group";
-
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = "w-full h-24 object-cover rounded-lg border";
-
-                    const removeBtn = document.createElement('button');
-                    removeBtn.textContent = "×";
-                    removeBtn.className = "absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity";
-                    removeBtn.addEventListener('click', () => {
-                        wrapper.remove();
-                        // Remove the corresponding file from the input
-                        const dataTransfer = new DataTransfer();
-                        Array.from(files).forEach((f, i) => {
-                            if (i !== index) dataTransfer.items.add(f);
-                        });
-                        event.target.files = dataTransfer.files;
-                    });
-
-                    wrapper.appendChild(img);
-                    wrapper.appendChild(removeBtn);
-                    previewContainer.appendChild(wrapper);
-                };
-                reader.readAsDataURL(file);
-            });
-        });
-
-        // Form Submission Logic
-        document.getElementById('createPostForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            const form = event.target;
-            const formData = new FormData(form);
-
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Post Created!',
-                        text: 'Your post has been successfully created.',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        window.location.href = "{{ url('/portal/channels/' . $event->channel_id) }}"; // Update the URL to your desired redirect location
-                    });
+            toggleEditBtn.addEventListener('click', function () {
+                if (!editing) {
+                    // Enter Edit Mode
+                    previewContainer.innerHTML = "";
+                    fileInput.classList.remove('hidden');
+                    fileInput.disabled = false;
+                    imagesChangedInput.value = "1"; // Flag that images have changed
+                    toggleEditBtn.textContent = "Cancel";
                 } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops!',
-                        text: 'Something went wrong. Please try again.',
-                    });
+                    // Cancel Edit Mode (Restore Previews)
+                    previewContainer.innerHTML = "";
+                    originalImages.forEach(img => previewContainer.appendChild(img));
+                    fileInput.classList.add('hidden');
+                    fileInput.disabled = true;
+                    fileInput.value = "";
+                    imagesChangedInput.value = "0"; // Reset change flag
+                    toggleEditBtn.textContent = "Edit Images";
                 }
-            })
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'An error occurred. Please try again.',
+                editing = !editing;
+            });
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent normal submission
+
+                const formData = new FormData(form);
+                const submitUrl = form.getAttribute('action');
+
+                fetch(submitUrl, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Action has been successfully completed.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            // Redirect to portal/channels/{channel_id}
+                            window.location.href = `/portal/channels/${data.channel_id}`;
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: data.message || 'Something went wrong!',
+                            icon: 'error',
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An unexpected error occurred!',
+                        icon: 'error',
+                    });
                 });
             });
         });

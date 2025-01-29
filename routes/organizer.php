@@ -76,7 +76,11 @@ Route::middleware(['organizer'])->group(function() {
     //Posts/Announcements
     //from channel
     Route::get('/portal/channels/{id}/create/post',[EventOrganizerController::class, 'create_post_index'])->name('eo.channels.post.view');
+    Route::get('/portal/edit/post/{postid}',[EventOrganizerController::class, 'create_post_editindex'])->name('eo.channels.post.edit');
+
     Route::post('/portal/channels/{id}/create/post', [EventOrganizerController::class,'publish_post'])->name('eo.channel.post.publish');
+    Route::post('/portal/channels/{id}/edit/post', [AnnouncementsController::class,'edit_announcement'])->name('eo.channel.post.edit');
+
     Route::delete('/delete/{id}',[AnnouncementsController::class,'delete_announcement'] )->name('eo.channel.post.delete');
 
 

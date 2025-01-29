@@ -70,7 +70,19 @@ class EventOrganizerController extends Controller
 
     public function create_post_index($id) {
         return view('organizer.channels.channel.create.post')->with([
-            'event'=> Events::where('event_id', $id)-> first()
+            'event'=> Events::where('event_id', $id)-> first(),
+            'editmode'=>false
+        ]);
+    }
+
+    public function create_post_editindex($postid) {
+
+
+        $post = Announcements::where('post_id', $postid)->first();
+        return view('organizer.channels.channel.create.post')->with([
+            'event'=> Events::where('event_id', $post->channel->event_id)-> first(),
+            'post'=> $post,
+            'editmode'=> true
         ]);
     }
 
@@ -172,7 +184,8 @@ class EventOrganizerController extends Controller
 
 
         return response()->json([
-            'success'=> true
+            'success'=> true,
+            'channel_id'=> $event->channel_id
         ]);
 
     }
