@@ -31,8 +31,8 @@
                     <button onclick="posttoggle(this)" class="material-icons text-gray-500 cursor-pointer">more_vert</button>
                     <div class="absolute right-0 top-8 bg-white border border-gray-200 rounded-md shadow-lg hidden">
                         <ul class="text-sm text-gray-700">
-                            <li> <a href="{{route('eo.channels.post.edit',['postid'=> $announcement->post_id])}}" class="py-2 px-4 hover:bg-gray-100 cursor-pointer">Edit </a></li>
-                            <li class="py-2 px-4 hover:bg-gray-100 cursor-pointer" onclick="confirmDelete('{{ $event->event_id }}')">Delete</li>
+                            <li class="py-2 px-4 hover:bg-gray-100 cursor-pointer"> <a href="{{route('eo.channels.post.edit',['postid'=> $announcement->post_id])}}">Edit </a></li>
+                            <li class="py-2 px-4 hover:bg-gray-100 cursor-pointer" onclick="confirmDelete('{{ $announcement->post_id }}')">Delete</li>
                         </ul>
                     </div>
                 </div>

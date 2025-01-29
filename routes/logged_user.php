@@ -65,6 +65,10 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/gallery/this-month', function () {
         return view('user.gallery.thisMonth'); })->name('gallery.thisMonth');
 
+
+
+
+
 });
 
 

@@ -78,84 +78,55 @@
         </div>
     </div>
 
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <!-- Add this script section at the bottom of your file -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('createPostForm');
+        const channelId = "{{ $event->channel_id }}";
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.getElementById('createPostForm');
-            const fileInput = document.getElementById('images');
-            const previewContainer = document.getElementById('imagePreviewContainer');
-            const toggleEditBtn = document.getElementById('toggleEditImages');
-            const imagesChangedInput = document.getElementById('images_changed');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
 
-            let originalImages = Array.from(previewContainer.children);
-            let editing = false;
+            const formData = new FormData(form);
 
-            toggleEditBtn.addEventListener('click', function () {
-                if (!editing) {
-                    // Enter Edit Mode
-                    previewContainer.innerHTML = "";
-                    fileInput.classList.remove('hidden');
-                    fileInput.disabled = false;
-                    imagesChangedInput.value = "1"; // Flag that images have changed
-                    toggleEditBtn.textContent = "Cancel";
-                } else {
-                    // Cancel Edit Mode (Restore Previews)
-                    previewContainer.innerHTML = "";
-                    originalImages.forEach(img => previewContainer.appendChild(img));
-                    fileInput.classList.add('hidden');
-                    fileInput.disabled = true;
-                    fileInput.value = "";
-                    imagesChangedInput.value = "0"; // Reset change flag
-                    toggleEditBtn.textContent = "Edit Images";
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
                 }
-                editing = !editing;
-            });
-
-            form.addEventListener('submit', function (event) {
-                event.preventDefault(); // Prevent normal submission
-
-                const formData = new FormData(form);
-                const submitUrl = form.getAttribute('action');
-
-                fetch(submitUrl, {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        "X-Requested-With": "XMLHttpRequest"
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Action has been successfully completed.',
-                            icon: 'success',
-                            timer: 2000,
-                            showConfirmButton: false
-                        }).then(() => {
-                            // Redirect to portal/channels/{channel_id}
-                            window.location.href = `/portal/channels/${data.channel_id}`;
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: data.message || 'Something went wrong!',
-                            icon: 'error',
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Post ' + (@json($editmode) ? 'updated' : 'created') + ' successfully!',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = `/portal/channels/${channelId}`;
+                    });
+                } else {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'An unexpected error occurred!',
-                        icon: 'error',
+                        text: data.message || 'Something went wrong!',
+                        icon: 'error'
                     });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An unexpected error occurred!',
+                    icon: 'error'
                 });
             });
         });
-    </script>
+    });
+</script>
 </x-app-layout>

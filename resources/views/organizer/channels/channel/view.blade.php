@@ -51,7 +51,7 @@
 
                         <!-- Stories Tab -->
                         <div id="stories" class="tab-content hidden">
-                            @include('user.channel.stories')
+                            @include('organizer.channels.channel.stories')
                         </div>
 
                           <!-- Announcements Tab -->

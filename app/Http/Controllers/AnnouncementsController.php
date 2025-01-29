@@ -63,6 +63,7 @@ class AnnouncementsController extends Controller
     }
 
     public function delete_announcement($id) {
+
         // Fetch the post
         $post = Announcements::where('post_id', $id)->first();
 
