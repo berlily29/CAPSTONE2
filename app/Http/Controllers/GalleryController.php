@@ -10,4 +10,6 @@ class GalleryController extends Controller
     {
         return view('user.gallery.view');  
     }
+
+
 }

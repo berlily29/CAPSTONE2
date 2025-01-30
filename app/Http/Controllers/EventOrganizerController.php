@@ -97,6 +97,10 @@ class EventOrganizerController extends Controller
 
     }
 
+    public function load_edit_post($id) {  
+        return view(); 
+    }
+
 
      /***
      *

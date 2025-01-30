@@ -19,6 +19,13 @@ class AnnouncementsController extends Controller
     }
 
 
+
+     /**
+      * 
+      *METHODS
+      */
+
+
     public function like_announcement($event, $post) {
 
 
