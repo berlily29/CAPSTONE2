@@ -125,6 +125,12 @@
             <img src="{{asset('images/slideshow/2.jpg')}}" class="slide">
             <img src="{{asset('images/slideshow/3.jpg')}}" class="slide">
 
+            <img src="{{asset('images/slideshow/4.jpg')}}" class="slide">
+            <img src="{{asset('images/slideshow/5.jpg')}}" class="slide">
+            <img src="{{asset('images/slideshow/6.jpg')}}" class="slide">
+
+            <img src="{{asset('images/slideshow/7.jpg')}}" class="slide">
+            <img src="{{asset('images/slideshow/8.jpg')}}" class="slide">
             <!-- Gradient Overlay -->
             <div class="gradient-overlay"></div>
         </div>

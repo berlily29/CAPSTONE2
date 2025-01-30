@@ -19,19 +19,22 @@ class EventsSeeder extends Seeder
     {
         $faker = Faker::create('EN_US');
 
-        // List of event categories to alternate
-        $categories = [1, 6, 11, 20];
+        // List of excluded categories
+        $excludedCategories = [1, 6, 11, 16, 20, 24];
 
         // Create 10 sample events
         for ($i = 0; $i < 10; $i++) {
             $event_id = $faker->uuid;
+
+            // Generate a valid event category
+            $eventCategory = $this->getRandomCategory($excludedCategories);
 
             // Insert event data
             DB::table('events')->insert([
                 'event_id' => $event_id,
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
-                'event_category' => rand(1, 20), // Alternating categories
+                'event_category' => json_encode([$eventCategory]), // Store as JSON
                 'event_organizer' => '2',
                 'date' => $faker->dateTimeBetween('now', '+1 year')->format('Y-m-d'),
                 'venue' => $faker->address,
@@ -63,4 +66,21 @@ class EventsSeeder extends Seeder
         }
     }
 
+    /**
+     * Get a random category, excluding certain values.
+     *
+     * @param array $excludedCategories
+     * @return int
+     */
+    private function getRandomCategory(array $excludedCategories)
+    {
+        $category = rand(1, 24);
+
+        // Ensure the category is not in the excluded list
+        while (in_array($category, $excludedCategories)) {
+            $category = rand(1, 24);
+        }
+
+        return $category;
+    }
 }
