@@ -8,6 +8,8 @@ use App\Http\Controllers\JoinedEventsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FindEventsController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\NotificationController;
+use App\Models\Notifications;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +21,8 @@ Route::middleware(['auth'])->group(function() {
 
         return view('user.dashboard')->with([
             'is_approved'=> session('is_approved'),
-            'is_rejected' => session('is_rejected')
+            'is_rejected' => session('is_rejected'),
+            'notifications'=> Notifications::where('user_id', Auth::user()->user_id)->get()
         ]);
 
 
@@ -65,6 +68,11 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/gallery/this-month', function () {
         return view('user.gallery.thisMonth'); })->name('gallery.thisMonth');
 
+
+
+    //NOTIFICATIONS 
+
+    Route::delete('/notifications/del/{id}',[NotificationController::class,'delete_announcement'])->name('notifications.delete'); 
 
 
 

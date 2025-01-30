@@ -42,6 +42,16 @@
                 </li>
 
                 <li class="">
+                    <a href="{{route('admin.gallery')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+                    {{ Route::is('admin.gallery*') ? 'active_link' : '' }}
+                    ">
+                        <span class="material-icons mr-3">image</span>
+                        Gallery
+                    </a>
+                </li>
+
+
+                <li class="">
                     <a href="{{route('admin.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('admin.settings*') ? 'active_link' : '' }}
                     ">

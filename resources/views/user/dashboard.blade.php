@@ -4,45 +4,64 @@
       <!-- Dashboard Header -->
       <section class="mb-6 text-center md:text-left">
          <h2 class="text-3xl font-black text-gray-700 ">Dashboard</h2>
-         <p class="text-xl text-gray-700">Hello, <span class="font-semibold text-pink-600">{{Auth::user()->user->fname}}!</span></p>
+         <p class="text-xl text-gray-700">Hello, <span class="font-semibold text-pink-600">{{ Auth::user()->user->fname }}!</span></p>
          <p class="text-gray-600" id="current-date">Today is: </p>
       </section>
 
-
-      @if($is_approved == false)
-         <div class="{{ $is_rejected == true ? 'bg-red-500' : 'bg-green-500' }} text-white p-4 shadow-md flex items-center space-x-3 mb-4">
+      @if(!$is_approved)
+         <div class="{{ $is_rejected ? 'bg-red-500' : 'bg-green-500' }} text-white p-4 shadow-md flex items-center space-x-3 mb-4">
             <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 0a9 9 0 11-9-9 9 9 0 019 9z" />
             </svg>
             <div>
-                  @if($is_rejected == true)
+                  @if($is_rejected)
                      <p class="font-semibold">Submitted ID Rejected</p>
-                     <p>Your account needs a valid ID for approval. Please <a class='font-bold underline' href="{{route('auth.id')}}">Click here</a> to resubmit and access other features of the website.</p>
+                     <p>Your account needs a valid ID for approval. Please <a class='font-bold underline' href="{{ route('auth.id') }}">Click here</a> to resubmit and access other features.</p>
                   @else
                      <p class="font-semibold">Account Under Approval</p>
-                     <p>Your account is currently under approval. Kindly wait for an email notification. Once approved, you will gain access to all features.</p>
+                     <p>Your account is currently under approval. Kindly wait for an email notification.</p>
                   @endif
             </div>
          </div>
       @endif
 
-
-
-
-      <!-- Notifications and Events -->
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-
-         <!-- Notifications -->
-         <div class="bg-white p-6   border border-gray-200">
-            <h3 class="flex items-center text-lg font-semibold text-gray-800">
-               <span class="material-icons mr-2 text-sky-600">notifications</span>
-               Notifications
+      <!-- Notifications -->
+      <section class="grid grid-cols-2 gap-6 h-[300px]" >
+         <div class="bg-white p-6 border border-gray-200">
+            <h3 class="flex items-center justify-between text-lg font-semibold text-gray-800">
+               <div class="flex items-center">
+                  <span class="material-icons mr-2 text-sky-600">notifications</span>
+                  Notifications
+               </div>
+               <a href="#" class="text-sm text-sky-600 hover:underline">View All</a>
             </h3>
-            <p class="mt-2 text-gray-600">You have no new notifications.</p>
+
+            @if($notifications->count() > 0)
+               <ul class="mt-4 space-y-3">
+                  @foreach($notifications as $notification)
+                     <li class="flex justify-between items-center p-3 bg-gray-100 rounded-lg shadow-sm">
+                        <p class="text-gray-700">{{ $notification->caption }}</p>
+                        <a href="{{ route('user.channel.index', ['id'=> $notification->channel_id]) }}">
+                           <span>
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 hover:text-blue-700 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                 <path d="M5 12h14"></path>
+                                 <path d="M12 5l7 7-7 7"></path>
+                              </svg>
+                           </span>
+                        </a>
+                        <button onclick="deleteNotification('{{ $notification->id }}')" class="text-red-500 hover:text-red-700">
+                           <span class="material-icons text-lg">delete</span>
+                        </button>
+                     </li>
+                  @endforeach
+               </ul>
+            @else
+               <p class="mt-3 text-gray-600 text-center">You have no new notifications.</p>
+            @endif
          </div>
 
-         <!-- Your Events -->
-         <div class="bg-white p-6   border border-gray-200">
+         <!-- Events -->
+         <div class="bg-white p-6 border border-gray-200">
             <h3 class="flex items-center text-lg font-semibold text-gray-800">
                <span class="material-icons mr-2 text-pink-500">event</span>
                Your Events
@@ -54,17 +73,17 @@
                </button>
             </div>
          </div>
-
       </section>
 
       <!-- Other Events -->
-      <section class="bg-white p-6 rounded-lg  border border-gray-200">
+      <section class="bg-white p-6 rounded-lg border border-gray-200 mt-4">
          <h3 class="text-lg font-bold text-gray-800 text-center mb-4">Check out these Events!</h3>
          <p class="text-center text-gray-600">No featured events at the moment. Stay tuned!</p>
       </section>
-
    </div>
 
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <script>
       // Display today's date dynamically
       const currentDateElement = document.getElementById("current-date");
@@ -76,5 +95,40 @@
          day: "numeric"
       });
       currentDateElement.textContent += formattedDate;
+
+      // Delete Notification Function
+      function deleteNotification(notificationId) {
+         Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to recover this notification!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+         }).then((result) => {
+            if (result.isConfirmed) {
+               axios.post("{{ route('notifications.delete', ['id' => '__ID__']) }}".replace('__ID__', notificationId), {
+                  _method: "DELETE"
+               })
+               .then(response => {
+                  if (response.data.success) {
+                     Swal.fire({
+                        title: "Deleted!",
+                        text: "Notification has been deleted.",
+                        icon: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                     }).then(() => {
+                        window.location.href = "/dashboard"; // Redirect to dashboard
+                     });
+                  }
+               })
+               .catch(error => {
+                  Swal.fire("Error", "Something went wrong!", "error");
+               });
+            }
+         });
+      }
    </script>
 </x-app-layout>

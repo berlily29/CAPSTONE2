@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminPendingsController;
 use App\Http\Controllers\AdminSettingsController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ManageEventsController;
 use App\Http\Controllers\PendingRequestController;
 use App\Http\Controllers\UserManagementController;
@@ -38,6 +39,9 @@ Route::middleware(['admin'])-> group(function() {
 
     //User Management
     Route::get('/admin/user-management', [UserManagementController::class, 'index'])->name('admin.user-management');
+
+    //Gallery
+    Route::get('/admin/gallery',[GalleryController::class,'admin_index'])->name('admin.gallery'); 
 });
 
 

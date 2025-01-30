@@ -9,14 +9,14 @@
 <body class="bg-gray-50 font-sans">
 <div class="flex min-h-screen">
     <!-- Left Content: Form Section -->
-    <div class="w-full md:w-7/12 bg-white flex flex-col justify-center items-center px-4 md:px-16 py-8">
+    <div class="w-7/12 bg-white flex flex-col justify-center items-center p-16">
         <!-- Logo Section -->
         <div class="w-full flex justify-center">
             <img src="{{asset('images/logo/logo.png')}}" alt="Logo" class="w-[250px] md:w-[350px] h-auto">
         </div>
 
         <!-- Login Header -->
-        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6 text-center">Welcome Back</h1>
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-6 text-center">Welcome Back</h1>
         <p class="text-gray-500 text-center mb-8">Please log in to your account to continue.</p>
 
         <!-- Form -->
@@ -75,7 +75,7 @@
             @endif
 
             <!-- Signup Section -->
-            <p class="text-center text-gray-600 mt-8">
+            <p class="text-center text-gray-s600 mt-8">
                 Don't have an account?
                 <a href="{{route('auth.register')}}" class="text-sky-500 font-semibold hover:underline">Sign up here</a>
             </p>

@@ -46,6 +46,10 @@ class Users extends Model
     }
 
 
+    public function notification() { 
+        return $this-> hasMany(Notifications::class, 'user_id', 'user_id'); 
+    }
+
 
     protected $table = 'tbl_user_info';
     protected $primaryKey = 'user_id'; // Specify the primary key
