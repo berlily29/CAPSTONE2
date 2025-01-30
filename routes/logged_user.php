@@ -9,6 +9,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FindEventsController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NotificationController;
+use App\Models\Gallery;
 use App\Models\Notifications;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
@@ -56,18 +57,7 @@ Route::middleware(['auth'])->group(function() {
 
 
     /// GALLERY
-    Route::get('/user-gallery', function () {
-        return redirect()->route('gallery.all'); })->name('gallery.index');
-
-    Route::get('/gallery/all', function () {
-        return view('user.gallery.all');})->name('gallery.all');
-
-    Route::get('/gallery/today', function () {
-        return view('user.gallery.today'); })->name('gallery.today');
-
-    Route::get('/gallery/this-month', function () {
-        return view('user.gallery.thisMonth'); })->name('gallery.thisMonth');
-
+    Route::get('/user-gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
 
     //NOTIFICATIONS 

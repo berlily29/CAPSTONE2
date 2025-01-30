@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        /* Slideshow Container */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Slideshow Images */
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Make sure the first slide is visible initially */
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Gradient Overlay */
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 105, 180, 0.7), rgba(255, 182, 193, 0.6));
+            z-index: 1;
+        }
+    </style>
 </head>
 <body class="bg-gray-50 font-sans">
 <div class="flex min-h-screen">
@@ -12,7 +47,7 @@
     <div class="w-7/12 bg-white flex flex-col justify-center items-center p-16">
         <!-- Logo Section -->
         <div class="w-full flex justify-center">
-            <img src="{{asset('images/logo/logo.png')}}" alt="Logo" class="w-[250px] md:w-[350px] h-auto">
+            <img src="{{asset('images/logo/logo.png')}}" alt="Logo" class="w-[150px] h-auto">
         </div>
 
         <!-- Login Header -->
@@ -82,12 +117,35 @@
         </form>
     </div>
 
-    <!-- Right Content: Image Section -->
-    <div class="w-full md:w-5/12 bg-gradient-to-b from-sky-100 via-white to-sky-50 flex justify-center items-center p-4">
-        <div class="text-center">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-700">GALLERY</h1>
+    <!-- Right Content: Slideshow Section with Gradient Overlay -->
+    <div class="w-full md:w-5/12 relative">
+        <div class="slideshow-container">
+            <!-- Slideshow Images -->
+            <img src="{{asset('images/slideshow/1.jpg')}}" class="slide active">
+            <img src="{{asset('images/slideshow/2.jpg')}}" class="slide">
+            <img src="{{asset('images/slideshow/3.jpg')}}" class="slide">
+
+            <!-- Gradient Overlay -->
+            <div class="gradient-overlay"></div>
         </div>
     </div>
 </div>
+
+<script>
+    // Slideshow functionality
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    // Show next slide
+    function showNextSlide() {
+        slides[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % totalSlides;
+        slides[currentIndex].classList.add('active');
+    }
+
+    // Change slide every 3 seconds
+    setInterval(showNextSlide, 3000);
+</script>
 </body>
 </html>

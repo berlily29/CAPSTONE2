@@ -10,8 +10,17 @@ class GalleryController extends Controller
 {
     public function index()
     {
-        return view('user.gallery.view');  
+        $gallery_channels = Gallery::all();
+        $live_channel_ids = $gallery_channels->pluck('channel_id')->toArray();
+    
+        // Fetch channels that are part of the gallery (live channels)
+        $live_channels = EventChannels::whereIn('channel_id', $live_channel_ids)->get();
+    
+        return view('user.gallery.view')->with([
+            'live' => $live_channels
+        ]);
     }
+    
 
 
     /****
