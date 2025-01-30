@@ -41,6 +41,10 @@ class Users extends Model
         );
     }
 
+    public function attendance_token() {
+        return $this->hasMany(AttendanceTokens::class,'user_id', 'user_id');
+    }
+
 
 
     protected $table = 'tbl_user_info';

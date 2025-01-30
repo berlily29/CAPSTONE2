@@ -4,7 +4,7 @@
         <!-- My Stories Section -->
         <div class="border-b border-gray-200 pb-6">
             <div class="flex items-center gap-4 mb-4">
-                <h2 class="text-xl font-bold text-gray-800">My Stories</h2>
+                <h2 class="text-xl font-bold text-gray-700">My Stories</h2>
                 <a href="{{route('user.channel.stories', ['id'=> $event->event_id])}}"
                    class="inline-flex items-center px-4 py-1 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors text-sm">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@
         <!-- All Stories Section -->
         <div class="border-b border-gray-200 pb-6">
             <div class="flex items-center gap-4 mb-4">
-                <h2 class="text-xl font-bold text-gray-800">All Stories</h2>
+                <h2 class="text-xl font-bold text-gray-700">All Stories</h2>
             </div>
 
             @if($allStories->count()==0)

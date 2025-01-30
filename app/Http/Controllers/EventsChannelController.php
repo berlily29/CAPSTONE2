@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcements;
+use App\Models\AttendanceTokens;
 use App\Models\Events;
 use App\Models\Stories;
 use Illuminate\Http\Request;
@@ -30,6 +31,22 @@ class EventsChannelController extends Controller
         }
 
 
+        if(session('token_generated')) {
+            $token_generated = true;
+            session()->forget('token_generated');
+        } else {
+            $token_generated = false;
+        }
+
+
+        if(AttendanceTokens::where('user_id',Auth::user()->user_id)-> where('channel_id', $id)->exists()) {
+            $token = AttendanceTokens::where('user_id',Auth::user()->user_id)-> where('channel_id', $id)->first();
+        } else {
+            $token = null;
+        }
+
+
+
         return view('user.channel.view')->with([
             'event'=> $event,
             'announcements'=> Announcements::where('channel_id', $event->channel_id)->orderBy('created_at', 'desc')->get(),
@@ -44,7 +61,9 @@ class EventsChannelController extends Controller
 
 
             'newstory'=> $newstory,
-            'story_deleted'=> $story_deleted
+            'story_deleted'=> $story_deleted,
+            'token_generated'=> $token_generated,
+            'token'=> $token
         ]);
     }
 }

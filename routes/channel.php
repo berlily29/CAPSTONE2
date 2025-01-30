@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementsController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventsChannelController;
 use App\Http\Controllers\LeaderboardsController;
@@ -39,6 +40,17 @@ Route::middleware(['auth'])->group(function() {
 
     Route::post('event/story/post',[StoriesController::class, 'post_story'])->name('user.channel.stories.post');
     Route::delete('event/story/post/{id}', [StoriesController::class, 'delete_story'])->name('user.channel.stories.delete');
+
+
+    /***
+     *
+     *
+     *
+     *
+     * ATTENDANCE
+     */
+
+     Route::post('event/{id}/attendance',[AttendanceController::class, 'generate_token_for_user'])->name('user.channel.attendance.post');
 
 
 });

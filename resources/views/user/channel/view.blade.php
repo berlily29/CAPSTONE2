@@ -64,8 +64,30 @@
 
                         <!-- Attendance Tab -->
                         <div id="attendance" class="tab-content hidden">
+                            @include('user.channel.attendance')
+                        </div>
+                        <div class="w-full">
+                        <!-- Announcements Tab -->
+                        <div id="announcements" class="tab-content hidden">
+                            @include('user.channel.announcements')
+                        </div>
+
+                        <!-- Stories Tab -->
+                        <div id="stories" class="tab-content hidden">
                             @include('user.channel.stories')
                         </div>
+
+                        <!-- Event Details Tab -->
+                        <div id="event-details" class="tab-content hidden">
+                            @include('user.channel.details')
+                        </div>
+
+                        <!-- Attendance Tab -->
+                        <div id="attendance" class="tab-content hidden">
+                            @include('user.channel.attendance')
+                        </div>
+
+                    </div>
 
                     </div>
                 </div>
@@ -75,37 +97,56 @@
 
     @if($newstory)
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        Swal.fire({
-                    title: 'Success!',
-                    text: 'Story posted successfully!',
-                    icon: 'success',
-                    timer: 1500,
-                    showConfirmButton: false
-        });
+        <script>
+            Swal.fire({
+                        title: 'Success!',
+                        text: 'Story posted successfully!',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+            });
 
-    </script>
+        </script>
 
     @endif
 
     @if($story_deleted)
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        Swal.fire({
-                    title: 'Success!',
-                    text: 'Story was deleted.',
-                    icon: 'success',
-                    timer: 1500,
-                    showConfirmButton: false
-        });
+        <script>
+            Swal.fire({
+                        title: 'Success!',
+                        text: 'Story was deleted.',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+            });
 
-    </script>
+        </script>
 
     @endif
+
+
+    @if($token_generated)
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            Swal.fire({
+                        title: 'Success!',
+                        text: 'Your token was generated.',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+            });
+
+        </script>
+
+    @endif
+
 
 
 

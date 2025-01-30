@@ -130,6 +130,8 @@ function openImageModal(imageUrl) {
                 const route = currentlyLiked ? button.dataset.routeDislike : button.dataset.routeLike;
                 const method = currentlyLiked ? 'delete' : 'post';
 
+                console.log(route)
+
                 axios({
                     method: method,
                     url: route,

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\EventOrgHelper;
 use App\Models\Announcements;
+use App\Models\AttendanceTokens;
 use App\Models\EventChannels;
 use App\Models\Events;
 use App\Models\EventTerminations;
@@ -66,7 +67,8 @@ class EventOrganizerController extends Controller
             'event'=> $event,
             'announcements'=>  Announcements::where('channel_id', $id)->orderBy('created_at', 'desc')->get(),
             'stories'=> Stories::where('channel_id', $id)->orderBy('created_at' ,'desc')-> get(),
-            'users'=>$event->joinedUsers
+            'users'=>$event->joinedUsers,
+            'attendees'=> AttendanceTokens::where('channel_id' , $id)-> where('encoded', 1)->get()
         ]);
     }
 

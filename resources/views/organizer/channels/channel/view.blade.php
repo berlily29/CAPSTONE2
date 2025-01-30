@@ -69,7 +69,7 @@
 
                         <!-- Attendance Tab -->
                         <div id="attendance" class="tab-content hidden">
-
+                        @include('organizer.channels.channel.attendance')
                         </div>
 
                     </div>
