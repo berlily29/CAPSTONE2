@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function() {
     })->name('user.channel.stories');
 
     Route::post('event/story/post',[StoriesController::class, 'post_story'])->name('user.channel.stories.post');
+    Route::delete('event/story/post/{id}', [StoriesController::class, 'delete_story'])->name('user.channel.stories.delete');
 
 
 });

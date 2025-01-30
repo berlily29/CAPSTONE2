@@ -66,7 +66,7 @@
         function showTab(tabName) {
             // Hide all tabs
 
-            sessionStorage.setItem('active_tab', tabName)
+            sessionStorage.setItem('ptab', tabName)
 
 
             const allTabs = document.querySelectorAll('.tab-content');
@@ -99,12 +99,12 @@
 
         // Set default tab to "All Events"
         document.addEventListener('DOMContentLoaded', function () {
-            let active_tab =sessionStorage.getItem('active_tab');
-            if(!active_tab) {
+            let ptab =sessionStorage.getItem('ptab');
+            if(!ptab) {
                 showTab('pending');
             } else {
 
-                showTab(active_tab)
+                showTab(ptab)
             }
 
 

@@ -42,4 +42,14 @@ class StoriesController extends Controller
 
 
     }
+
+
+    public function delete_story($id){
+        $story = Stories::where('id', $id)->first();
+        Stories::where('id', $id)->delete();
+
+        //set the session
+        session(['story_deleted'=>true]);
+        return redirect()->route('user.channel.index',['id'=> $story->channel_id]);
+    }
 }

@@ -90,6 +90,24 @@
 
     @endif
 
+    @if($story_deleted)
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        Swal.fire({
+                    title: 'Success!',
+                    text: 'Story was deleted.',
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+        });
+
+    </script>
+
+    @endif
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

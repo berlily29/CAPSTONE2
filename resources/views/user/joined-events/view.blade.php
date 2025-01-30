@@ -26,7 +26,7 @@
             <div class="flex-1 p-6 bg-gradient-to-br from-white/30 to-pink-50/20">
                 <div id="tab-content">
                     <!-- Upcoming Events -->
-                    <div id="upcoming-events" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div id="upcoming-events" class="grid grid-cols-2 gap-6">
                         @if($events->where('date', '>=', now())->isEmpty())
                             <div class="col-span-3 text-center p-8 rounded-xl bg-white/80 backdrop-blur-sm">
                                 <div class="text-pink-500 text-2xl mb-4">🎈</div>
