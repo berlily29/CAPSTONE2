@@ -36,6 +36,7 @@ class SettingsController extends Controller
         'lname'=> 'required|string',
         'age'=> 'required|string',
         'gender'=> 'required|string',
+        'mobile_no'=> 'required|string',
         'house_no' => 'required|string',
         'street' => 'required|string',
         'brgy' => 'required|string',
@@ -48,6 +49,8 @@ class SettingsController extends Controller
     $user->fname = $request->input('fname');
     $user->mname = $request->input('mname');
     $user->lname = $request->input('lname');
+    $user->mobile_no = $request->input('mobile_no');
+
     $user->age = $request->input('age');
     $user->gender = $request->input('gender');
     $user->house_no = $request->input('house_no');

@@ -113,6 +113,7 @@ class RegisterController extends Controller
             'lname'=> 'required|string',
             'email'=> 'email|required',
             'password'=> 'string|required|min:6',
+            'mobile_no' => 'string|required',
             'age' => 'string|required',
             'gender' => 'string|required',
         ]);
@@ -142,6 +143,7 @@ class RegisterController extends Controller
             'lname'=> $request->lname,
             'age' => $request->age,
             'gender' => $request->gender,
+            'mobile_no' => $request->mobile_no,
             'created_at'=> now(),
             'updated_at'=> now()
         ]);

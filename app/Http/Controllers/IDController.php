@@ -7,6 +7,8 @@ use App\Models\UsersLogin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Users;
+
 
 class IDController extends Controller
 {
@@ -41,16 +43,17 @@ class IDController extends Controller
         }
 
         $user = UsersLogin::where('email', $email)->first();
-        $file_name = $user->user_id . '.' . $request->file('file')->getClientOriginalExtension();
+        $user_details = Users::where('user_id', $user->user_id)->first();
 
+        $file_name = $user->user_id . '.' . $request->file('file')->getClientOriginalExtension();
 
         //store the file in the file tree
         $request->file('file')->storeAs($path, $file_name, 'public');
 
-
         //if the file is uploaded, then proceed to save in the database
-
         $this->delete_existing($user->user_id);
+        $user_details->update(['account_status' => 'Pending']);
+
         ID::create([
             'user_id'=> $user->user_id,
             'id_type'=> $request->type,
@@ -59,7 +62,13 @@ class IDController extends Controller
         ]);
 
         Auth::login($user);
-        
+
+        session([
+            'is_approved' => in_array($user->user->account_status, ['Pending', 'To-Review']) ? false : true
+        ]);
+        session([
+            'is_rejected'=> $user->user->account_status === 'To-Review' ? true : false
+        ]);
 
 
         return redirect()-> route('user.dashboard');

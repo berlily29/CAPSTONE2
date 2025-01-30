@@ -120,6 +120,20 @@
             </div>
 
             <div>
+              <label for="mobile_no" class="block text-sm text-gray-700">Mobile number</label>
+              <input 
+                type="text" 
+                id="mobile_no" 
+                name="mobile_no" 
+                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
+                placeholder="0912-123-1234"
+              />
+              @error('mobile_no')
+                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div>
               <label for="age" class="block text-sm text-gray-700">Age</label>
               <input 
                 type="text" 
