@@ -113,24 +113,35 @@
 
   </div>
 
-  <!-- Points -->
-  <hr class="opacity-100 mt-8 mb-4">
-  <div>
+ <!-- Points -->
+<hr class="opacity-100 mt-8 mb-4">
+<div>
     <div class="flex items-center mb-4">
-      <h3 class="text-lg font-semibold">Your Points: </h3>
-      <p class="ml-2">{{ $user->profile_points }}</p>
+        <h3 class="text-lg font-semibold text-gray-800">Your Points: </h3>
+        <p class="ml-2 text-xl text-pink-600 font-semibold">{{ $user->profile_points }}</p>
     </div>
-  </div>
+</div>
 
-  <!-- Participated Events -->
-  <div class="border-gray-300 pt-6">
-    <h3 class="text-lg font-semibold mb-4">Participated Events</h3>
-    <ul>
+<!-- Participated Events -->
+<div class="border-t pt-6 border-gray-300">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Participated Events</h3>
+    <ul class="space-y-2">
+        <!-- Loop through the participated events -->
+        @foreach($part_events as $event)
+            <li class="bg-gray-50 hover:bg-gray-100 px-4 py-2 rounded-md shadow-sm transition-all duration-300">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-bold text-gray-700">{{ $event->channel->event->title }}</span>
+                        <span class="bg-green-100 text-green-600 text-sm "> +50pts </span>
 
-        <li class="mb-2">Tree Planting - 11/11/2024</li>
-
+                    </div>
+                    <span class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($event->date)->format('m/d/Y') }}</span>
+                </div>
+            </li>
+        @endforeach
     </ul>
-  </div>
+</div>
+
 </section>
 </div>
 

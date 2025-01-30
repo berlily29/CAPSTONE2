@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AttendanceTokens;
+use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -43,6 +44,14 @@ class AttendanceController extends Controller
         $token_entity->update([
             'encoded'=> true
         ]) ;
+
+        $user = Users::where('user_id', $token_entity->user_id)->first();
+
+        $user->update([
+            'profile_points'=> $user->profile_points + 50
+        ]);
+
+
         return response()-> json([
             'status'=> 'encoded',
             'user'=> $token_entity->user->fullname
