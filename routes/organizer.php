@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementsController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EOPendingsController;
 use App\Http\Controllers\EventOrganizerController;
@@ -11,10 +12,12 @@ use App\Http\Controllers\JoinedEventsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FindEventsController;
 use App\Http\Controllers\GalleryController;
+use App\Models\AttendanceTokens;
 use App\Models\Events;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::middleware(['organizer'])->group(function() {
@@ -85,12 +88,13 @@ Route::middleware(['organizer'])->group(function() {
 
 
 
+    /*****
+     *
+     *
+     * ATTENDANCE
+     */
 
-
-
-
-
-
+     Route::post('portal/channels/{id}/attendance/encode', [AttendanceController::class, 'encode_token'])->name('eo.channel.token.encode');
 
 
 });

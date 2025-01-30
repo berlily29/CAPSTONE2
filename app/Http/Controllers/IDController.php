@@ -18,7 +18,7 @@ class IDController extends Controller
     }
 
     public function index() {
-        return view('register.id')->with([            
+        return view('register.id')->with([
             'is_rejected' => session('is_rejected')
     ]);
     }
