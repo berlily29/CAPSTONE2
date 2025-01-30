@@ -8,8 +8,8 @@
 </head>
 <body class="bg-gray-50 flex justify-center items-center min-h-screen">
     <div class="bg-white shadow-lg rounded-md p-6 w-full max-w-2xl">
-        <h1 class="text-2xl font-semibold text-pink-600 mb-4">You're Almost There!</h1>
-        <p class="text-base text-gray-700 mb-4">This is the last step to complete your account. Please upload a valid identification document.</p>
+        <h1 class="text-2xl font-semibold text-pink-600 mb-4"> {{ $is_rejected == false ? "You're Almost There!" : "Resubmission Form!" }}</h1>
+        <p class="text-base text-gray-700 mb-4">{{ $is_rejected == false ? "This is the last step to complete your account. Please upload a valid identification document." : "Resubmit your valid ID to access other features of the website."}}</p>
 
 
 

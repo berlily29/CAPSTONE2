@@ -16,7 +16,9 @@ class IDController extends Controller
     }
 
     public function index() {
-        return view('register.id');
+        return view('register.id')->with([            
+            'is_rejected' => session('is_rejected')
+    ]);
     }
 
 
@@ -56,16 +58,11 @@ class IDController extends Controller
             'status'=> 'Pending'
         ]);
 
-
         Auth::login($user);
+        
+
+
         return redirect()-> route('user.dashboard');
-
-
-
-
-
-
-
 
 
     }

@@ -51,7 +51,7 @@ class PendingRequestController extends Controller
      * METHODS
      */
 
-    public function updateStatus(Request $request, $id) {
+    public function approveStatus(Request $request, $id) {
 
         $validatedData = $request->validate([
             'approveButton' => 'required',

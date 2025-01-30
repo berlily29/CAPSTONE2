@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function() {
         ]);
 
 
-    })-> name('user.dashboard');
+    })->name('user.dashboard');
 
     /// PROFILE
     Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');

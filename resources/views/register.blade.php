@@ -54,7 +54,7 @@
                 class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
                 placeholder="John"
               />
-              @error('firstName')
+              @error('fname')
                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
               @enderror
             </div>
@@ -63,12 +63,12 @@
               <label for="firstName" class="block text-sm text-gray-700">Middle Name</label>
               <input 
                 type="text" 
-                id="firstName" 
+                id="middleName" 
                 name="mname" 
                 class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
-                placeholder="John"
+                placeholder="Middle"
               />
-              @error('firstName')
+              @error('mname')
                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
               @enderror
             </div>
@@ -84,7 +84,7 @@
                 class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
                 placeholder="Doe"
               />
-              @error('lastName')
+              @error('lname')
                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
               @enderror
             </div>
@@ -117,6 +117,33 @@
               @error('password')
                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
               @enderror
+            </div>
+
+            <div>
+              <label for="age" class="block text-sm text-gray-700">Age</label>
+              <input 
+                type="text" 
+                id="age" 
+                name="age" 
+                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
+                placeholder="Age"
+              />
+              @error('age')
+                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div> 
+            <label for="gender" class="block text-sm text-gray-700">Gender</label>
+            <select id="gender" name="gender" class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400">
+                    <option value="" disabled selected>Choose your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                @error('gender')
+                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+                @enderror
+
             </div>
 
 

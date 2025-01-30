@@ -17,7 +17,7 @@
             <div>
                   @if($is_rejected == true)
                      <p class="font-semibold">Submitted ID Rejected</p>
-                     <p>Your account needs a valid ID for approval. Please provide a valid ID to continue.</p>
+                     <p>Your account needs a valid ID for approval. Please <a class='font-bold underline' href="{{route('auth.id')}}">Click here</a> to resubmit and access other features of the website.</p>
                   @else
                      <p class="font-semibold">Account Under Approval</p>
                      <p>Your account is currently under approval. Kindly wait for an email notification. Once approved, you will gain access to all features.</p>

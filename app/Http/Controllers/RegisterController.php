@@ -109,10 +109,12 @@ class RegisterController extends Controller
     public function register(Request $request) {
         $request->validate([
             'fname'=> 'required|string',
-            'mname'=> 'string',
-            'lname'=> 'string',
+            'mname'=> 'required|string',
+            'lname'=> 'required|string',
             'email'=> 'email|required',
-            'password'=> 'string|required|min:6'
+            'password'=> 'string|required|min:6',
+            'age' => 'string|required',
+            'gender' => 'string|required',
         ]);
 
         //check if the email already exist
@@ -138,6 +140,8 @@ class RegisterController extends Controller
             'fname'=> $request->fname,
             'mname'=> $request->mname,
             'lname'=> $request->lname,
+            'age' => $request->age,
+            'gender' => $request->gender,
             'created_at'=> now(),
             'updated_at'=> now()
         ]);
