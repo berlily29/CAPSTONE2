@@ -1,39 +1,88 @@
 <x-app-layout>
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    </head>
-
-    <div class="bg-white rounded-lg">
-        <div class="">
-            <div class="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-4 max-w-full">
-                    <h1 class="ml-2 mt-5 text-3xl font-black text-gray-700">App Gallery</h1>
-                </div>
-
-                <div class="p-3 bg-white border-b border-gray-200">
-                <div class="flex border-b mb-4">
-                    <a
-                        href="{{ route('gallery.all') }}"
-                        class="px-4 py-2 font-medium border-b-2 focus:outline-none
-                            {{ request()->routeIs('gallery.all') ? 'border-black text-pink-500' : 'border-transparent text-black' }}">
-                        All
-                    </a>
-                    <a
-                        href="{{ route('gallery.today') }}"
-                        class="px-4 py-2 font-medium border-b-2 focus:outline-none
-                            {{ request()->routeIs('gallery.today') ? 'border-black text-pink-500' : 'border-transparent text-black' }}">
-                        Today
-                    </a>
-                    <a
-                        href="{{ route('gallery.thisMonth') }}"
-                        class="px-4 py-2 font-medium border-b-2 focus:outline-none
-                            {{ request()->routeIs('gallery.thisMonth') ? 'border-black text-pink-500' : 'border-transparent text-black' }}">
-                        This Month
-                    </a>
-                </div>
-                    @yield('content')
-                </div>
+    <div class="min-h-screen bg-white p-8 rounded-lg">
+        <div class="border-b border-gray-200 pb-6">
+            <div class="flex items-center gap-4 mb-4">
+                <h2 class="text-xl font-bold text-gray-700">App Gallery</h2>
             </div>
+
+            @if($live->isEmpty())
+                <div>
+                    <h1 class="text-sm text-gray-400 italic">No Stories Available</h1>
+                </div>
+            @else
+                <!-- All Stories Gallery (No Division by Event or Channel) -->
+                <div class="flex flex-col gap-0">
+                    <h1 class="text-[0.8rem] text-gray-400">All Stories in the App Gallery</h1>
+                    <h3 class="text-[2rem] font-black text-gray-600">ALL STORIES</h3>
+                </div>
+
+                <!-- Grid Gallery of All Stories -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-3">
+                    @php
+                        // Get the live channels that are included in the gallery
+                        $galleryChannels = \App\Models\Gallery::all();
+                        $liveChannelIds = $galleryChannels->pluck('channel_id')->toArray();
+
+                        // Get all stories for these live channels
+                        $stories = \App\Models\Stories::whereIn('channel_id', $liveChannelIds)->get();
+                    @endphp
+
+                    @foreach($stories as $storyItem)
+                        <div class="bg-white p-4 rounded-lg border border-gray-200">
+                            <!-- Story Image -->
+                            <div class="relative w-full h-48 bg-gray-200 mb-4 rounded-lg overflow-hidden">
+                                <img src="{{ asset('storage/uploads/story/' . $storyItem->channel_id . '/' . $storyItem->image) }}"
+                                     class="w-full h-full object-cover"
+                                     onclick="openStoryPopup('{{ $storyItem->user->fullname }}', '{{ $storyItem->caption }}', '{{ $storyItem->user->fullnames }}', '{{ $storyItem->channel->event->title }}', '{{ asset('storage/uploads/story/' . $storyItem->channel_id . '/' . $storyItem->image) }}')">
+                            </div>
+
+                            <!-- Story Details -->
+                             <div class="flex flex-col gap-0">
+                                 <h4 class="text-lg font-bold text-pink-600 ">{{ $storyItem->user->fullname }}</h4>
+                                 <p class="text-sm text-gray-500 ">{{ $storyItem->caption }}</p>
+     
+                                 <p class="text-xs text-gray-400">Event: {{ $storyItem->channel->event->title }}</p>
+
+                             </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
     </div>
+
+    <!-- Story Details Popup (hidden by default) -->
+    <div id="storyPopup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white p-6 rounded-lg w-96">
+            <h3 class="text-2xl font-bold mb-4" id="storyTitle">Story Title</h3>
+            <p class="text-sm text-gray-500 mb-4" id="storyCaption">Story Caption</p>
+            <p class="text-xs text-gray-400" id="storyEvent">Event: </p>
+
+            <!-- Story Image in Popup -->
+            <div class="relative w-full h-48 bg-gray-200 mb-4 rounded-lg overflow-hidden">
+                <img id="storyImage" src="" class="w-full h-full object-cover">
+            </div>
+
+            <button onclick="closeStoryPopup()" class="mt-4 px-4 py-2 bg-pink-500 text-white rounded-lg">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the popup with story details
+        function openStoryPopup(storyId, caption, userName, eventTitle, imageUrl) {
+            // Populate the popup with story details
+            document.getElementById('storyTitle').innerText = storyId; // Optional: Show Story ID
+            document.getElementById('storyCaption').innerText = caption;
+            document.getElementById('storyEvent').innerText = "Event: " + eventTitle;
+            document.getElementById('storyImage').src = imageUrl; // Set the image in the popup
+
+            // Show the popup
+            document.getElementById('storyPopup').classList.remove('hidden');
+        }
+
+        // Function to close the popup
+        function closeStoryPopup() {
+            document.getElementById('storyPopup').classList.add('hidden');
+        }
+    </script>
 </x-app-layout>

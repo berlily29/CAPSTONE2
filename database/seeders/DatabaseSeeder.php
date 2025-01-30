@@ -16,11 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
         //run other seeders
         $this->call(EventCategorySeeder::class);
-        // $this->call(EventsSeeder::class);
+        $this->call(EventsSeeder::class);
 
 
 
@@ -82,7 +81,7 @@ class DatabaseSeeder extends Seeder
 
         UsersLogin::create([
             'user_id' => 2,
-            'email' => 'officialdaletv@gmail.com',
+            'email' => 'userpass@gmail.com',
             'password'=> Hash::make('userpass'),
             'role'=> 'Organizer'
         ]);

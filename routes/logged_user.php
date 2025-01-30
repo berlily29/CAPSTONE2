@@ -8,6 +8,9 @@ use App\Http\Controllers\JoinedEventsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FindEventsController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\NotificationController;
+use App\Models\Gallery;
+use App\Models\Notifications;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +22,8 @@ Route::middleware(['auth'])->group(function() {
 
         return view('user.dashboard')->with([
             'is_approved'=> session('is_approved'),
-            'is_rejected' => session('is_rejected')
+            'is_rejected' => session('is_rejected'),
+            'notifications'=> Notifications::where('user_id', Auth::user()->user_id)->get()
         ]);
 
 
@@ -53,18 +57,12 @@ Route::middleware(['auth'])->group(function() {
 
 
     /// GALLERY
-    Route::get('/user-gallery', function () {
-        return redirect()->route('gallery.all'); })->name('gallery.index');
+    Route::get('/user-gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
-    Route::get('/gallery/all', function () {
-        return view('user.gallery.all');})->name('gallery.all');
 
-    Route::get('/gallery/today', function () {
-        return view('user.gallery.today'); })->name('gallery.today');
+    //NOTIFICATIONS 
 
-    Route::get('/gallery/this-month', function () {
-        return view('user.gallery.thisMonth'); })->name('gallery.thisMonth');
-
+    Route::delete('/notifications/del/{id}',[NotificationController::class,'delete_announcement'])->name('notifications.delete'); 
 
 
 

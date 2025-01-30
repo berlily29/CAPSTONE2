@@ -23,10 +23,12 @@ class EventOrganizerController extends Controller
 {
 
     protected $func;
+    protected $notif; 
 
     public function __construct()
     {
         $this->func = new EventOrgHelper();
+        $this->notif = new NotificationController();
     }
 
 
@@ -95,6 +97,10 @@ class EventOrganizerController extends Controller
             'user'=>Users::where('user_id', $id)-> first()
         ]);
 
+    }
+
+    public function load_edit_post($id) {  
+        return view(); 
     }
 
 
@@ -186,6 +192,9 @@ class EventOrganizerController extends Controller
             ]);
         }
 
+
+        //create announcements 
+        $this->notif->create_post_announcement($event->event_id); 
 
         return response()->json([
             'success'=> true,

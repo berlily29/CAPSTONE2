@@ -22,6 +22,10 @@ class EventChannels extends Model
         return $this->hasMany(AttendanceTokens::class,'channel_id', 'channel_id');
     }
 
+    public function gallery() { 
+        return $this->hasOne(Gallery::class,'channel_id', 'channel_id'); 
+    }
+
     protected $primaryKey = 'channel_id';
     protected $fillable = [
         'channel_id', 'event_id'
