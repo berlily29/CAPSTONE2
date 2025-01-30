@@ -42,18 +42,27 @@ class IDController extends Controller
             Storage::makeDirectory($path);
         }
 
+        
+
         $user = UsersLogin::where('email', $email)->first();
+        $user_id = ID::where('user_id', $user->user_id)->first();
         $user_details = Users::where('user_id', $user->user_id)->first();
 
         $file_name = $user->user_id . '.' . $request->file('file')->getClientOriginalExtension();
 
+        if($user_id) {
+            if (Storage::disk('public')->exists($path . $user_id->attachment)) {
+                Storage::disk('public')->delete($path . $user_id->attachment);
+            }
+        }
         //store the file in the file tree
         $request->file('file')->storeAs($path, $file_name, 'public');
 
         //if the file is uploaded, then proceed to save in the database
         $this->delete_existing($user->user_id);
         $user_details->update(['account_status' => 'Pending']);
-
+        
+     
         ID::create([
             'user_id'=> $user->user_id,
             'id_type'=> $request->type,

@@ -11,6 +11,7 @@ use App\Models\UsersLogin;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\rejectionNotice;
 use App\Mail\deletionNotice;
+use Illuminate\Support\Facades\Storage;
 
 class PendingRequestController extends Controller
 {
@@ -87,7 +88,20 @@ class PendingRequestController extends Controller
 
         if ($user->rejection_count >= 3) {
 
+            $pathProfile = 'uploads/profilepic/';
+            $pathId = '/uploads/id/';
+
             Mail::to($user_Login->email)->send(new deletionNotice($user));
+
+            
+            if (Storage::disk('public')->exists($pathProfile . $user->profile_picture)) {
+                Storage::disk('public')->delete($pathProfile . $user->profile_picture);
+            }
+
+            if (Storage::disk('public')->exists($pathId . $user_ID->attachment)) {
+                Storage::disk('public')->delete($pathId . $user_ID->attachment);
+            }
+
             $user->forceDelete();
             $user_ID->forceDelete();
             $user_Login->forceDelete();
