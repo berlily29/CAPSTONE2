@@ -26,6 +26,29 @@ class AttendanceController extends Controller
 
     }
 
+    public function encode_token(Request $request, $id) {
+        $token = $request->token;
+        if(!AttendanceTokens::where('token', $token)->exists()) {
+            return response()->json([
+                'status'=> 'noexist'
+            ]);
+        }
+
+        $token_entity = AttendanceTokens::where('token', $token)-> first();
+        if($token_entity->encoded == true) {
+            return response()->json([
+                'status'=> 'existing'
+            ]);
+        }
+        $token_entity->update([
+            'encoded'=> true
+        ]) ;
+        return response()-> json([
+            'status'=> 'encoded',
+            'user'=> $token_entity->user->fullname
+        ]);
+    }
+
 
 
 }
