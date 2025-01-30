@@ -63,6 +63,7 @@ class AnnouncementsController extends Controller
     }
 
     public function delete_announcement($id) {
+
         // Fetch the post
         $post = Announcements::where('post_id', $id)->first();
 
@@ -95,36 +96,44 @@ class AnnouncementsController extends Controller
 
 
     public function edit_announcement(Request $request, $id) {
+
         $post = Announcements::where('post_id', $id)-> first();
-        $post->update([
-            'title'=> $request->title,
-            'content'=>$request->content
-        ]);
 
-        if($request->hasFiles('images')){
+        if ($request->input('images_changed') == "1") {
 
-             //create directory for the file upload
-            $path_url= 'uploads/posts/' . $post->channel->event->channel_id . '/' . $post->post_id ;
-            if(!Storage::disk('public')->exists($path_url)) {
-                Storage::disk('public')-> makeDirectory($path_url);
-            }
+            $media_path = 'uploads/posts/' . $post->channel_id . '/' . $id;
 
-            //delete all imagges in the path (post before edit)
-            $this->methods->delete_existing_files($id, $post->channel->event->channel_id);
+            if (Storage::disk('public')->exists($media_path)) {
+
+                Storage::disk('public')->deleteDirectory($media_path);
 
 
-            $images = [];
-            foreach($request->file('images') as $image) {
-                $filename = time() . '_' . $image->getClientOriginalName();
-                $image->storeAs($path_url, $filename, 'public');
-                $images[] = $filename; // Add to the images array
+                $images = [];
+                foreach($request->file('images') as $image) {
+                    $filename = time() . '_' . $image->getClientOriginalName();
+                    $image->storeAs($media_path, $filename, 'public');
+                    $images[] = $filename; // Add to the images array
+                }
+
+                $post->update([
+                    'images'=> json_encode($images)
+                ]);
             }
         }
 
 
 
+        $post->update([
+            'title'=> $request->title,
+            'content'=>$request->content
+        ]);
+
+
+
         return response()->json([
-            'success'=> true
+            'success'=> true,
+
+            'channel_id'=> $post->channel_id
         ]);
     }
 }

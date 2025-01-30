@@ -3,6 +3,7 @@
 </head>
 <x-app-layout>
     <div class="w-full bg-white rounded-lg p-8 flex flex-col">
+
         <h1 class="text-sm font-medium text-gray-500">Request</h1>
         <h1 class="mb-4 text-3xl font-black text-gray-700">New Event</h1>
 

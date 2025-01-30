@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\EventOrgHelper;
 use App\Models\Announcements;
+use App\Models\AttendanceTokens;
 use App\Models\EventChannels;
 use App\Models\Events;
 use App\Models\EventTerminations;
+use App\Models\Stories;
 use App\Models\Users;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Database\Schema\PostgresSchemaState;
@@ -64,13 +66,27 @@ class EventOrganizerController extends Controller
         return view('organizer.channels.channel.view')->with([
             'event'=> $event,
             'announcements'=>  Announcements::where('channel_id', $id)->orderBy('created_at', 'desc')->get(),
-            'users'=>$event->joinedUsers
+            'stories'=> Stories::where('channel_id', $id)->orderBy('created_at' ,'desc')-> get(),
+            'users'=>$event->joinedUsers,
+            'attendees'=> AttendanceTokens::where('channel_id' , $id)-> where('encoded', 1)->get()
         ]);
     }
 
     public function create_post_index($id) {
         return view('organizer.channels.channel.create.post')->with([
-            'event'=> Events::where('event_id', $id)-> first()
+            'event'=> Events::where('event_id', $id)-> first(),
+            'editmode'=>false
+        ]);
+    }
+
+    public function create_post_editindex($postid) {
+
+
+        $post = Announcements::where('post_id', $postid)->first();
+        return view('organizer.channels.channel.create.post')->with([
+            'event'=> Events::where('event_id', $post->channel->event_id)-> first(),
+            'post'=> $post,
+            'editmode'=> true
         ]);
     }
 
@@ -172,7 +188,8 @@ class EventOrganizerController extends Controller
 
 
         return response()->json([
-            'success'=> true
+            'success'=> true,
+            'channel_id'=> $event->channel_id
         ]);
 
     }

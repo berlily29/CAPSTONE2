@@ -35,7 +35,7 @@
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
                                 onclick="showTab('announcements')">Announcements</button>
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
-                                onclick="showTab('stories')">Stories</button>
+                                onclick="showTab('stories')">Gallery</button>
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
                                 onclick="showTab('event-details')">Event Details</button>
 
@@ -64,14 +64,89 @@
 
                         <!-- Attendance Tab -->
                         <div id="attendance" class="tab-content hidden">
+                            @include('user.channel.attendance')
+                        </div>
+                        <div class="w-full">
+                        <!-- Announcements Tab -->
+                        <div id="announcements" class="tab-content hidden">
+                            @include('user.channel.announcements')
+                        </div>
+
+                        <!-- Stories Tab -->
+                        <div id="stories" class="tab-content hidden">
                             @include('user.channel.stories')
                         </div>
+
+                        <!-- Event Details Tab -->
+                        <div id="event-details" class="tab-content hidden">
+                            @include('user.channel.details')
+                        </div>
+
+                        <!-- Attendance Tab -->
+                        <div id="attendance" class="tab-content hidden">
+                            @include('user.channel.attendance')
+                        </div>
+
+                    </div>
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    @if($newstory)
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            Swal.fire({
+                        title: 'Success!',
+                        text: 'Story posted successfully!',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+            });
+
+        </script>
+
+    @endif
+
+    @if($story_deleted)
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            Swal.fire({
+                        title: 'Success!',
+                        text: 'Story was deleted.',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+            });
+
+        </script>
+
+    @endif
+
+
+    @if($token_generated)
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            Swal.fire({
+                        title: 'Success!',
+                        text: 'Your token was generated.',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+            });
+
+        </script>
+
+    @endif
+
 
 
 

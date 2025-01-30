@@ -14,6 +14,9 @@ class Announcements extends Model
         return $this-> belongsTo(EventChannels::class, 'channel_id', 'channel_id');
     }
 
+    public function story() {
+        return $this-> hasMany(Stories::class,'channel_id', 'channel_id');
+    }
 
     public function getTotalReadersAttribute()
     {

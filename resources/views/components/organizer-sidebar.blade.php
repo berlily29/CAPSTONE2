@@ -33,12 +33,7 @@
                 </a>
             </li>
 
-            <li>
-                <a href="{{route('admin.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('admin.settings*') ? 'active_link' : '' }}">
-                    <span class="material-icons mr-3 sidebar-icon">settings</span>
-                    <span class="sidebar-label">Settings</span>
-                </a>
-            </li>
+
 
             <hr class="opacity-65 my-4">
             <li>

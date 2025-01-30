@@ -1,50 +1,133 @@
-<h2 class="w-full text-2xl font-bold text-gray-800 mb-4">Edit Profile Picture</h2>
+<div class="w-full space-y-6 p-4 bg-white rounded-2xl ">
+    <h2 class="text-3xl font-bold text-gray-800 mb-2">Profile Settings</h2>
 
-<div class="lg:grid lg:grid-cols-3 gap-2 p-3">
-
-    <img id='editImage' src="{{ $user->profile_picture ? asset('storage/uploads/profilepic/' . $user->profile_picture) : asset('images/default-dp.jpg') }}" alt="{{$user->profile_picture}}" class="col-span-1 w-48 h-48 rounded-2xl bg-gray-300">
-
-    <div class='mt-2 text-center  col-span-2 items-center grid grid-cols-1 gap-2'>
-        <div class='relative grid gap-2 lg:grid-cols-2'>
-            <form id="changeProfilePicForm" enctype="multipart/form-data" action="{{route('user.settings.storeProfilePic')}}" method="POST" >
-                @csrf
-                @method('PATCH')
-                <label for='changeProfileButton' class='flex items-center justify-center cursor-pointer rounded-2xl p-4 text-white hover:bg-pink-600 bg-pink-500'>
-                    <span class="material-icons mx-2">
-                        file_upload
-                    </span>
-                    <p> Upload Photo </p>
-                </label>
-                <input type='file' id='changeProfileButton' name='changeProfileButton' class='hidden bg-gray-200 rounded-2xl cursor-pointer hover:bg-pink-600 bg-pink-500'>
-            </form>
-            
-            <button id="saveButton" class="flex w-1/3 hidden items-center justify-center transition-colors mx-3 py-2 px-5 bg-pink-500 hover:bg-pink-600 text-white rounded-2xl">
-                <span class="material-icons mx-2">
-                    save
-                </span>                         
-            </button>
+    <div class="flex flex-col lg:flex-row gap-8 items-start">
+        <!-- Image Preview -->
+        <div class="relative group group">
+            <div class="absolute inset-0 bg-black/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-sm">
+                    Click to edit
+                </span>
+            </div>
+            <img id="editImage"
+                 src="{{ $user->profile_picture ? asset('storage/uploads/profilepic/' . $user->profile_picture) : asset('images/default-dp.jpg') }}"
+                 alt="Profile Picture"
+                 class="w-56 h-56 rounded-2xl border-4 border-pink-100 object-cover transition-transform group-hover:scale-105 cursor-pointer">
         </div>
-        
 
-        <div>
-            <form id='deleteForm' action="{{route('user.settings.deleteProfilePic')}}" method="POST">
-                @csrf
-                @method('PATCH')
-                <button type="button" id='deleteButton' class="text-left flex lg:w-1/2  cursor-pointer rounded-2xl p-4 text-red-500 hover:text-pink-600 rounded">
-                    <span class="material-icons mx-2">&#xE872;</span>
-                    <p>Delete Photo</p>
-                </button>
-            </form>
-        </div>
-    </div>
+        <!-- Action Section -->
+        <div class="flex-1 space-y-6 w-full">
+            <!-- Upload Section -->
+            <div class="space-y-4">
+                <form id="changeProfilePicForm" enctype="multipart/form-data"
+                      action="{{ route('user.settings.storeProfilePic') }}" method="POST">
+                    @csrf
+                    @method('PATCH')
 
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <label class="flex-1 cursor-pointer transition-transform hover:scale-[1.02]">
+                            <div class="flex items-center justify-center gap-3 p-4 bg-gradient-to-r from-pink-500 to-pink-400 text-white rounded-xl shadow-sm hover:shadow-md transition-all">
+                                <span class="material-icons text-xl">cloud_upload</span>
+                                <span class="font-medium">Upload New Photo</span>
+                            </div>
+                            <input type="file" id="changeProfileButton" name="changeProfileButton"
+                                   class="hidden" accept="image/*">
+                        </label>
 
-       
-   
-    <div class="mt-2 text-center flex flex-row col-span-3 overflow-x-auto">
-        <div class="border border-gray-300 lg:w-full w-auto rounded-md p-4 ">
-            <h2 class="text-left w-full font-semibold mb-2 text-[0.8rem] text-gray-400">Email</h2>
-            <p class="text-left font-bold text-lg text-gray-600">{{ $user->login->email }}</p>
+                        <button type="submit" id="saveButton"
+                                class="hidden sm:inline-flex items-center justify-center gap-3 p-4 bg-pink-500 text-white rounded-xl shadow-sm hover:shadow-md transition-all w-full sm:w-auto">
+                            <span class="material-icons text-xl">save</span>
+
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Delete Section -->
+                <div class="pt-4 border-t border-gray-100">
+                    <button type="button" id="deleteProfileButton"
+                            class="flex items-center gap-3 text-red-500 hover:text-pink-600 transition-colors group">
+                        <span class="material-icons text-xl">delete</span>
+                        <span class="font-medium">Remove Current Photo</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Email Display -->
+            <div class="mt-8 p-5 bg-pink-50/50 rounded-xl backdrop-blur-sm border border-pink-100">
+                <h3 class="text-sm font-semibold text-pink-600 mb-1">Registered Email</h3>
+                <p class="text-lg font-medium text-gray-800">{{ $user->login->email }}</p>
+            </div>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Image Upload Handler
+    const input = document.getElementById('changeProfileButton');
+    const saveBtn = document.getElementById('saveButton');
+    const preview = document.getElementById('editImage');
+
+    input.addEventListener('change', function(e) {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                preview.src = e.target.result;
+                saveBtn.classList.remove('hidden');
+                saveBtn.classList.add('flex');
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    // Delete Profile Picture Handler
+    const deleteButton = document.getElementById('deleteProfileButton');
+
+    if(deleteButton) {
+        deleteButton.addEventListener('click', function(e) {
+            Swal.fire({
+                title: 'Remove Profile Picture?',
+                text: "This will permanently remove your current profile photo!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ec4899',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Yes, remove it!',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    popup: 'rounded-2xl',
+                    confirmButton: 'px-4 py-2 bg-pink-500 hover:bg-pink-600 rounded-lg',
+                    cancelButton: 'px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch("{{ route('user.settings.deleteProfilePic') }}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({_method: 'PATCH'})
+                    }).then(response => {
+                        if(response.ok) {
+                            preview.src = "{{ asset('images/default-dp.jpg') }}";
+                            Swal.fire({
+                                title: 'Removed!',
+                                text: 'Your profile picture has been removed.',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                customClass: {
+                                    popup: 'rounded-2xl'
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    }
+});
+</script>

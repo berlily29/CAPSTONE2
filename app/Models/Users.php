@@ -23,6 +23,9 @@ class Users extends Model
 }
 
 
+    public function story(){
+        return $this->hasMany(Stories::class,'user_id', 'user_id');
+    }
 
 
 
@@ -36,6 +39,10 @@ class Users extends Model
             'user_id',
             'event_id'
         );
+    }
+
+    public function attendance_token() {
+        return $this->hasMany(AttendanceTokens::class,'user_id', 'user_id');
     }
 
 
