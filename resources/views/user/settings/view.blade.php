@@ -65,21 +65,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
-    document.getElementById('changeProfileButton').addEventListener('change', function() {
-        document.getElementById('saveButton').classList.remove('hidden');
-
-        if (this.files && this.files[0]) {
-        var reader = new FileReader();
-
-        // Set the onload function to update the image source
-        reader.onload = function(e) {
-            document.getElementById('editImage').src = e.target.result;
-        }
-
-        reader.readAsDataURL(this.files[0]);
-    }
-    });
-
     function showTab(tabName) {
 
     sessionStorage.setItem('active_tab', tabName);
@@ -126,28 +111,7 @@
         });
     });
 
-    document.getElementById('saveButton').addEventListener('click', function() {
-        document.getElementById('changeProfilePicForm').submit();
 
-    })
-
-    document.getElementById('deleteButton').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You are about to delete your profile picture.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Delete',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
-
-            }
-        });
-    });
 </script>
 
 

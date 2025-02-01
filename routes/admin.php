@@ -43,6 +43,8 @@ Route::middleware(['admin'])-> group(function() {
 
     //User Management
     Route::get('/admin/user-management', [UserManagementController::class, 'index'])->name('admin.user-management');
+    Route::get('/admin/user-management/filter', [UserManagementController::class, 'filter'])->name('admin.user-management.filter');
+
 
     //Gallery
     Route::get('/admin/gallery',[GalleryController::class,'admin_index'])->name('admin.gallery'); 
