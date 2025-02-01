@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Events;
 use Illuminate\Http\Request;
 use App\Models\Users;
+use App\Models\EO_Application;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ID;
 use App\Models\UsersLogin;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\rejectionNotice;
 use App\Mail\deletionNotice;
+use App\Mail\rejectApplicationNotice;
+use App\Mail\banApplicationNotice;
+
+
+
 use Illuminate\Support\Facades\Storage;
 
 class PendingRequestController extends Controller
@@ -29,10 +35,20 @@ class PendingRequestController extends Controller
 
         $users = Users::where('account_status', "Pending")
         ->where('email_verified', 1)->with(['login','id'])->get();
-        $events = Events::where('approved', 0)->get();
+
+        $application = EO_Application::where('status', "Pending")->get();
 
         return view('admin.pending-request.view')->with([
             'users' => $users,
+            'applications' => $application
+        ]);
+    }
+
+    public function index_event()
+    {
+        $events = Events::where('approved', 0)->get();
+
+        return view('admin.pending-request.events')->with([
             'events'=> $events
         ]);
     }
@@ -67,9 +83,47 @@ class PendingRequestController extends Controller
         $user->update(['account_status' => $request->approveButton]);
         $user_ID->update(['status' => $request->approveButton]);
 
-        return redirect()->route('admin.pending-request')->with(['msg'=> 'Success!']);
+        return redirect()->route('admin.pending-request.application')->with(['msg'=> 'Success!']);
         }
 
+    }
+
+    public function updateApplication(Request $request, $id) {
+        $validatedData = $request->validate([
+            'approveButton2' => 'required',
+        ]);
+
+        $user_application = EO_Application::where('user_id', $id)->first();
+
+        if ($request->approveButton2 == 'To-Review') {
+            $user_application->increment('rejection_count');
+
+            $user_application->update(['status' => $request->approveButton2]);
+
+            if($user_application->rejection_count >= 3) {
+            
+            Mail::to($user_application->user->login->email)->send(new banApplicationNotice($user_application->user));
+            
+            $path = 'uploads/application/';
+            if (Storage::disk('public')->exists($path . $user_application->attachment)) 
+                {
+                Storage::disk('public')->delete($path . $user_application->attachment);
+                }
+
+            }
+            else {
+            Mail::to($user_application->user->login->email)->send(new rejectApplicationNotice($user_application->user));
+            }
+
+            
+            return redirect()->route('admin.pending-request.application')->with(['msg'=> 'Success!']);
+
+        }
+        else if ($request->approveButton2 == "Approved") {
+            $user_application->update(['status' => $request->approveButton2]);
+            return redirect()->route('admin.pending-request.application')->with(['msg'=> 'Success!']);
+
+        }
     }
 
     public function rejectStatus(Request $request, $id) {
@@ -106,7 +160,7 @@ class PendingRequestController extends Controller
             $user_ID->forceDelete();
             $user_Login->forceDelete();
 
-            return redirect()->route('admin.pending-request')->with(['msg'=> 'Success!']);
+            return redirect()->route('admin.pending-request.application')->with(['msg'=> 'Success!']);
 
         }
 
@@ -120,7 +174,7 @@ class PendingRequestController extends Controller
         $user->update(['account_status' => 'To-Review']);
         $user_ID->update(['status' => 'To-Review']);
 
-        return redirect()->route('admin.pending-request')->with(['msg'=> 'Success!']);
+        return redirect()->route('admin.pending-request.application')->with(['msg'=> 'Success!']);
 
         }
 

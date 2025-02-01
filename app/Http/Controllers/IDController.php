@@ -80,6 +80,13 @@ class IDController extends Controller
         ]);
 
 
+        
+        session([
+            'eo_ban' => $user_details->eo_id && $user_details->eo_id->rejection_count >= 3 ? true : false
+        ]);
+
+        
+
         return redirect()-> route('user.dashboard');
 
 

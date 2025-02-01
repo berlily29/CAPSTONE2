@@ -89,7 +89,9 @@ class AuthController extends Controller
             'is_rejected'=> $user->user->account_status === 'To-Review' ? true : false
         ]);
 
-
+        session([
+            'eo_ban' => $user->user->eo_id && $user->user->eo_id->rejection_count >= 3 ? true : false
+        ]);
 
 
         return redirect()->route('user.dashboard');

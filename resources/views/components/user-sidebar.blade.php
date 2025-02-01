@@ -73,7 +73,7 @@
             <!-- Conditional Links -->
             @if(Auth::user()->role === 'Organizer')
                 <li>
-                    <a href="{{ route('eo.dashboard') }}"
+                    <a  href="{{ route('eo.dashboard') }}"
                         class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.dashboard*') ? 'active_link' : '' }}">
                         <span class="material-symbols-outlined sidebar-icon">deployed_code_account</span>
                         <span class="sidebar-label">My Portal</span>
@@ -81,8 +81,9 @@
                 </li>
             @else
                 <li>
-                    <a href="{{ route('user.leaderboards') }}"
-                        class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('apply.organizer*') ? 'active_link' : '' }}">
+                    <a @if(session('eo_ban') == true || session('is_approved') == false) href="#" @else href="{{ route('application.index') }}" @endif
+                        class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('apply.organizer*') ? 'active_link' : '' }}
+                        @if(session('eo_ban') === true || session('is_approved') == false) opacity-50 cursor-not-allowed @endif">
                         <span class="material-symbols-outlined sidebar-icon">send</span>
                         <span class="sidebar-label">Apply as Event Organizer</span>
                     </a>

@@ -33,11 +33,20 @@
                 </li>
 
                 <li class="">
-                    <a href="{{route('admin.pending-request')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('admin.pending-request*') ? 'active_link' : '' }}
+                    <a href="{{route('admin.pending-request.application')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+                    {{ Route::is('admin.pending-request.application*') ? 'active_link' : '' }}
                     ">
                     <span class="material-icons mr-3">schedule</span>
-                        Pending Requests
+                        Users Approvals
+                    </a>
+                </li>
+
+                <li class="">
+                    <a href="{{route('admin.pending-request.event')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+                    {{ Route::is('admin.pending-request.event*') ? 'active_link' : '' }}
+                    ">
+                    <span class="material-icons mr-3">free_cancellation</span>
+                        Event Approvals
                     </a>
                 </li>
 

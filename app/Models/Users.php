@@ -17,6 +17,10 @@ class Users extends Model
         return $this->hasOne(ID::class,'user_id', 'user_id');
     }
 
+    public function eo_id() {
+        return $this->hasOne(EO_Application::class,'user_id', 'user_id');
+    }
+
     public function getFullnameAttribute()
 {
     return $this->lname . ', ' . $this->fname . ' ' . $this->mname;

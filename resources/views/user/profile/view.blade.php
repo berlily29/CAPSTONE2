@@ -89,7 +89,7 @@
 
       <div class="border border-gray-300 rounded-md p-4">
         <h2 class="font-semibold mb-2 text-[0.8rem] text-gray-400">City</h2>
-        <p class="font-bold text-lg text-gray-600">{{ $user->brgy }}</p>
+        <p class="font-bold text-lg text-gray-600">{{ $user->city }}</p>
       </div>
 
     </div>

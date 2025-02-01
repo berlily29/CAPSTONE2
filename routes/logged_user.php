@@ -5,6 +5,7 @@ use App\Http\Controllers\LeaderboardsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JoinedEventsController;
+use App\Http\Controllers\EOApplicationController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FindEventsController;
 use App\Http\Controllers\GalleryController;
@@ -64,6 +65,9 @@ Route::middleware(['auth'])->group(function() {
 
     Route::delete('/notifications/del/{id}',[NotificationController::class,'delete_announcement'])->name('notifications.delete'); 
 
+    // Event Organizer Application
+    Route::get('/application', [EOApplicationController::class, 'index'])->name('application.index');
+    Route::post('/application', [EOApplicationController::class, 'store'])->name('application.upload');
 
 
 

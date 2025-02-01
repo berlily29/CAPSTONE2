@@ -5,7 +5,7 @@
         <div class=" overflow-hidden shadow-sm sm:rounded-lg">
 
                     <div class="max-w-full">
-                        <h1 class="text-3xl font-black text-black">Settings</h1>
+                        <h1 class="text-3xl font-black text-gray-700">Settings</h1>
                     </div>
 
 

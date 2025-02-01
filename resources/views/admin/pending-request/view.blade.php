@@ -3,7 +3,7 @@
         <!-- Header Section -->
         <div class="mb-4">
             <h1 class="text-lg text-gray-500 font-semibold">Manage</h1>
-            <h1 class="text-3xl font-black text-gray-700">Pending Requests</h1>
+            <h1 class="text-3xl font-black text-gray-700">Applications</h1>
         </div>
 
         <!-- Tabs Section -->
@@ -12,13 +12,13 @@
             <button id="users-tab"
                     class="px-3 py-2 font-medium text-pink-500 focus:outline-none"
                     onclick="showTab('users')">
-                Users
+                User Requests
             </button>
             <!-- Events Tab -->
-            <button id="events-tab"
+            <button id="eo_application-tab"
                     class="px-3 py-2 font-medium text-gray-500 focus:outline-none hover:text-gray-700"
-                    onclick="showTab('events')">
-                Events
+                    onclick="showTab('eo_application')">
+                Event Organizer Requests
             </button>
             <!-- Pink Line Highlight -->
             <div id="tab-highlight"
@@ -31,9 +31,9 @@
             @include('admin.pending-request.users')
         </div>
 
-        <!-- Events Tab Content -->
-        <div id="events" class="tab-content hidden px-4 mt-4">
-            @include('admin.pending-request.events')
+        <!-- eo_application Tab Content -->
+        <div id="eo_application" class="tab-content hidden px-4 mt-4">
+            @include('admin.pending-request.eventorganizer')
         </div>
     </div>
 
@@ -49,6 +49,14 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        
+          let active_tab = sessionStorage.getItem('active_tab')
+            if (active_tab === null) {
+                showTab('users');
+            } else {
+                showTab(active_tab)
+            }
+            
         function showTab(tabName) {
             sessionStorage.setItem('active_tab', tabName);
 
@@ -83,13 +91,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Set the default active tab to "users"
-            let active_tab = sessionStorage.getItem('active_tab')
-            if (!active_tab) {
-                showTab('users');
-            } else {
-                showTab(active_tab)
-            }
 
             const modal = document.getElementById('myModal');
             const closeModalSpan = document.querySelector('.close-modal');

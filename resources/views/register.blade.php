@@ -126,7 +126,7 @@
                 id="mobile_no" 
                 name="mobile_no" 
                 class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
-                placeholder="0912-123-1234"
+                placeholder="09121231234"
               />
               @error('mobile_no')
                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p>

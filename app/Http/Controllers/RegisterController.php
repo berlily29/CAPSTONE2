@@ -113,7 +113,7 @@ class RegisterController extends Controller
             'lname'=> 'required|string',
             'email'=> 'email|required',
             'password'=> 'string|required|min:6',
-            'mobile_no' => 'string|required',
+            'mobile_no' => 'required|digits:11|numeric',
             'age' => 'string|required',
             'gender' => 'string|required',
         ]);

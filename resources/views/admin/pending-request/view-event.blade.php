@@ -32,7 +32,7 @@
                             </div>
                             <div class="w-[30%]">
 
-                                <form class="" action="{{route('admin.pending-request.approve-event',['id'=> $event->event_id])}}" method ="POST">
+                                <form class="" action="{{route('admin.pending-request.event.approve-event',['id'=> $event->event_id])}}" method ="POST">
                                     @csrf
                                     <button type = "button" id="approveButton"
                                         class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-200">

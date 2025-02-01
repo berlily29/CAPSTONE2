@@ -23,17 +23,21 @@ Route::middleware(['admin'])-> group(function() {
     //Manage Events
     Route::get('/admin/manage-events', [ManageEventsController::class, 'index'])->name('admin.manage-events');
 
-    //Pending Request
-    Route::get('/admin/pending-request', [PendingRequestController::class, 'index'])->name('admin.pending-request');
-    Route::put('/admin/pending-request/approveStatus/{userId}', [PendingRequestController::class, 'approveStatus'])->name('admin.pending-request.approveStatus');
-    Route::put('/admin/pending-request/rejectStatus/{userId}', [PendingRequestController::class, 'rejectStatus'])->name('admin.pending-request.rejectStatus');
 
-    Route::get('/admin/pending-request/event/{id}', [PendingRequestController::class, 'view_event'])->name('admin.pending-request.view-event');
-    Route::get('/admin/pending-request/event/{id}/termination', [PendingRequestController::class,'view_termination'])->name('admin.pending-request.view-termination');
+    //Manage user and event organanizer application
+    Route::get('/admin/pending-request', [PendingRequestController::class, 'index'])->name('admin.pending-request.application');
+    Route::put('/admin/pending-request/approveStatus/{userId}', [PendingRequestController::class, 'approveStatus'])->name('admin.pending-request.application.approveStatus');
+    Route::put('/admin/pending-request/rejectStatus/{userId}', [PendingRequestController::class, 'rejectStatus'])->name('admin.pending-request.application.rejectStatus');
+    Route::put('/admin/pending-request/updateApplication/{userId2}', [PendingRequestController::class, 'updateApplication'])->name('admin.pending-request.application.updateApplication');
 
-    Route::post('/admin/pending-request/event/{id}/approve',[AdminPendingsController::class, 'approve_event'])->name('admin.pending-request.approve-event');
+   
 
-    Route::post('/admin/pending-request/event/{id}/reject',[AdminPendingsController::class, 'reject_event'])->name('admin.pending-request.reject-event');
+    //Manage Events
+    Route::get('/admin/pending-request/event/', [PendingRequestController::class, 'index_event'])->name('admin.pending-request.event');
+    Route::get('/admin/pending-request/event/{id}', [PendingRequestController::class, 'view_event'])->name('admin.pending-request.event.view-event');
+    Route::get('/admin/pending-request/event/{id}/termination', [PendingRequestController::class,'view_termination'])->name('admin.pending-request.event.view-termination');
+    Route::post('/admin/pending-request/event/{id}/approve',[AdminPendingsController::class, 'approve_event'])->name('admin.pending-request.event.approve-event');
+    Route::post('/admin/pending-request/event/{id}/reject',[AdminPendingsController::class, 'reject_event'])->name('admin.pending-request.event.reject-event');
 
 
 

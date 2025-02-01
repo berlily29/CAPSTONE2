@@ -20,7 +20,7 @@
         <h2 class="text-2xl font-bold text-gray-700 mb-4">Request Termination</h2>
 
         <!-- Form Start -->
-        <form action="{{ route('admin.pending-request.reject-event', ['id' => $event->event_id]) }}" method="POST" id="terminationForm">
+        <form action="{{ route('admin.pending-request.event.reject-event', ['id' => $event->event_id]) }}" method="POST" id="terminationForm">
             @csrf
             @method('POST')
 
