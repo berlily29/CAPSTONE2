@@ -7,26 +7,25 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #E5E7EB;
             margin: 0;
             padding: 0;
         }
-        .container {
+        table {
             max-width: 600px;
-            margin: 100px auto;
-            background-color: #ffffff;
+            margin: 20px auto;
+            background-color: #f9f9f9;
             border: 1px solid #dddddd;
             border-radius: 8px;
             padding: 20px;
-            text-align: center;
         }
         h1 {
             color: #333333;
             font-size: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         p {
-            color: #555555;
+            color: black;
             font-size: 16px;
             line-height: 1.5;
         }
@@ -38,6 +37,7 @@
             text-decoration: none;
             border-radius: 4px;
             font-size: 16px;
+            text-align: center;
             transition: background-color 0.3s ease;
         }
         a:hover {
@@ -56,15 +56,27 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Session Expired</h1>
-        <p>It looks like your email verification session has expired. Don't worry, we can help you get back on track!</p>
-        <p>Click the button below to verify your email again:</p>
-        <a href="{{ route('auth.register.resend',['email'=> $email]) }}">Verify Your Email Again</a>
-        <p>If you did not request this, please ignore this message.</p>
-    </div>
-    <div class="footer">
-        <p>&copy; 2024 Angat Buhay Pampanga. All rights reserved.</p>
-    </div>
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="text-align: center; padding-bottom: 20px;">
+                <h1>Session Expired</h1>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 10px 20px;">
+                <p>It looks like your email verification session has expired. Don't worry, we can help you get back on track!</p>
+                <p>Click the button below to verify your email again:</p>
+                <p style="text-align: center; margin: 20px 0; padding-top:5px; padding-bottom:10px;">
+                    <a href="{{ route('auth.register.resend',['email'=> $email]) }}" style="color:white;">Verify Your Email Again</a>
+                </p>
+                <p>If you did not request this, please ignore this message.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="footer">
+                <p>&copy; 2024 Angat Buhay Pampanga. All rights reserved.</p>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

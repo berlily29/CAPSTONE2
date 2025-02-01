@@ -7,14 +7,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #E5E7EB;
             margin: 0;
             padding: 0;
         }
         table {
             max-width: 600px;
             margin: 20px auto;
-            background-color: #ffffff;
+            background-color: #f9f9f9;
             border: 1px solid #dddddd;
             border-radius: 8px;
             padding: 20px;
@@ -25,7 +25,7 @@
             margin-bottom: 10px;
         }
         p {
-            color: #555555;
+            color: black;
             font-size: 16px;
             line-height: 1.5;
         }
@@ -64,11 +64,11 @@
         </tr>
         <tr>
             <td style="padding: 10px 20px;">
-                <p>Greetings,</p>
+                <p class="user">Greetings,</p>
                 <p>We noticed you requested to reset your password. Don't worry, we've got you covered!</p>
                 <p>Click the link below to proceed:</p>
-                <p style="text-align: center; margin: 20px 0;">
-                    <a href="{{ $url }}">Verify Your Session</a>
+                <p style="text-align: center; margin: 20px 0; padding-top:5px; padding-bottom:10px;">
+                    <a href="{{ $url }}" style="color:white;">Verify Your Session</a>
                 </p>
                 <p>If you did not request this, please ignore this email.</p>
             </td>

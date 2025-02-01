@@ -7,27 +7,27 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #E5E7EB;
             margin: 0;
             padding: 0;
         }
         table {
             max-width: 600px;
             margin: 20px auto;
-            background-color: #ffffff;
+            background-color: #f9f9f9;
             border: 1px solid #dddddd;
             border-radius: 8px;
             padding: 20px;
         }
         h1 {
-            color: #333333;
+            color: black;
             font-size: 24px;
             margin-bottom: 10px;
         }
         p {
-            color: #555555;
+            color: black;
             font-size: 16px;
-            line-height: 1.5;
+            line-height: 1.2;
         }
         a {
             display: inline-block;
@@ -35,10 +35,9 @@
             background-color: #f472b6; /* Tailored pink color */
             color: #ffffff;
             text-decoration: none;
-            border-radius: 4px;
-            font-size: 16px;
+            border-radius: 5px;
+            font-size: 17px;
             text-align: center;
-            transition: background-color 0.3s ease;
         }
 
         .footer {
@@ -60,8 +59,8 @@
 <body>
     <table cellpadding="0" cellspacing="0">
         <tr>
-            <td style="text-align: center; padding-bottom: 20px;">
-                <h1>Email Verification</h1>
+            <td style="text-align: center; padding-bottom: 2px;">
+                 <h1>Email Verification</h1>
             </td>
         </tr>
         <tr>
@@ -69,9 +68,8 @@
                 <p>Hi there,</p>
                 <p>Thanks for signing up! To complete your registration, please verify your email address.</p>
                 <p>Click the link below to verify your email:</p>
-                <p style="text-align: center; margin: 20px 0;">
-                    <a class="btn-url"
-                    href="{{ $url }}">Verify Your Email</a>
+                <p style="text-align: center; margin: 20px 0; padding-top:5px; padding-bottom:10px;">
+                    <a class="btn-url" href="{{ $url }}" style="color:white;">Verify Your Email</a>
                 </p>
                 <p>If you did not create an account, please ignore this email.</p>
             </td>

@@ -148,25 +148,6 @@
             }
         });
     });
-
-    document.getElementById('changePasswordButton').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You are about to change your password.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Change',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('passwordForm').submit();
-
-            }
-        });
-    });
-
 </script>
 
 
