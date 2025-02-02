@@ -84,7 +84,7 @@
                                 <p class="text-pink-500 text-sm mt-2">Your future events will appear here once completed</p>
                             </div>
                         @else
-                            @foreach ($events as $event)
+                            @foreach ($completed as $event)
 
                                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 opacity-75 hover:opacity-100 transition-opacity">
                                         <div class="flex justify-center mb-5">

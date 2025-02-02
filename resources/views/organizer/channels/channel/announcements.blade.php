@@ -2,11 +2,13 @@
     <!-- Announcement Posts -->
 
     <div class="w-full flex">
+        @if($event->status === 'upcoming')
         <a href="{{ route('eo.channels.post.view', ['id' => $event->event_id]) }}"
            class="mt-2 flex justify-center items-center py-2 px-12 rounded-md bg-gray-400 gap-2 text-white transition duration-200 ease-in-out hover:bg-gray-500">
             <span class="material-icons">add_circle</span>
             Create
         </a>
+        @endif
     </div>
     <div class="space-y-6 py-4">
         @foreach($announcements as $announcement)

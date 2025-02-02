@@ -71,6 +71,7 @@ Route::middleware(['organizer'])->group(function() {
 
     Route::get('portal/users/{id}',[EventOrganizerController::class, 'view_user'])->name('eo.channels.view-user');
 
+    Route::post('portal/channels/{id}/mark',[EventOrganizerController::class, 'mark_event_done'])->name('eo.channels.done');
     /*****
      *
      *

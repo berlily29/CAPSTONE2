@@ -1,3 +1,8 @@
+
+<head><meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
+
+
 <x-app-layout>
 
     <div class="w-full bg-white rounded-lg p-8">
@@ -17,8 +22,36 @@
 
 
             <div class="bg-white overflow-hidden shadow-sm">
-                <h1 class="text-sm font-medium text-gray-500">Channel</h1>
-                <h1 class="mb-4 text-3xl font-black text-gray-700">{{$event->title}}</h1>
+
+            <div class="flex justify-between">
+                <div>
+                    <h1 class="text-sm font-medium text-gray-500">Channel</h1>
+                    <h1 class="mb-4 text-3xl font-black text-gray-700">{{$event->title}}</h1>
+                </div>
+
+                <div>
+                    @if($event->status == 'upcoming' )
+                    <form action="{{route('eo.channels.done', ['id'=> $event->event_id])}}" method = "POST">
+                        @csrf
+                        <button id = "markDoneBtn" type = "button" class="text-white bg-green-600 hover:bg-green-700 transition ease-in duration-300 py-2 px-8 flex items-center gap-2 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6 9 17l-5-5"/>
+                            </svg>
+                            Mark Event as Done </button>
+                    </form>
+                    @else
+                    <span  class="text-white bg-green-400 transition ease-in duration-300 py-2 px-8 flex items-center gap-2 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6 9 17l-5-5"/>
+                            </svg>
+                            Event Completed </button>
+                    </form>
+                    @endif
+                </div>
+
+            </div>
+
+
                 <hr class="opacity-65">
 
                 <div class="w-full">
@@ -69,7 +102,7 @@
 
                         <!-- Attendance Tab -->
                         <div id="attendance" class="tab-content hidden">
-                        @include('organizer.channels.channel.attendance')
+                        @include('organizer.channels.channel.attendance2')
                         </div>
 
                     </div>
@@ -81,9 +114,69 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
     <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    const markDoneBtn = document.getElementById("markDoneBtn");
+
+    if (markDoneBtn) {
+        markDoneBtn.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You are about to mark this event as done!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#28a745",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, mark as done!"
+            }).then(async (result) => {  // ✅ Make this an async function
+                if (result.isConfirmed) {
+                    try {
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                        const form = markDoneBtn.closest('form');
+
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Content-Type': 'application/json'
+                            },
+
+                        });
+
+                        const result = await response.json(); // ✅ Use 'await' properly
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Event has been marked as done.",
+                            icon: "success",
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            location.reload();
+                        });
+
+                    } catch (error) {
+                        console.error("Error:", error);
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Something went wrong. Please try again.",
+                            icon: "error"
+                        });
+                    }
+                }
+            });
+        });
+    }
+});
+
+
+
 
         function showTab(tabName) {
 

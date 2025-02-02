@@ -118,6 +118,7 @@ class EventOrganizerController extends Controller
 
     public function submit_request_event(Request $request) {
         $eid = $this->func-> generate_event_id();
+
         Events::create([
             'event_id'=> $eid,
             'title'=> $request->title,
@@ -200,6 +201,19 @@ class EventOrganizerController extends Controller
         return response()->json([
             'success'=> true,
             'channel_id'=> $event->channel_id
+        ]);
+
+    }
+
+    public function mark_event_done($id){
+        $event = Events::where('event_id', $id)->first();
+
+        $event->update([
+            'status'=> 'done'
+        ]);
+
+        return response()->json([
+            'success'=> true
         ]);
 
     }
