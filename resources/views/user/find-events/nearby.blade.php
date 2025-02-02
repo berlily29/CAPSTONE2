@@ -1,14 +1,27 @@
 <div class="mb-4">
-                            <p class="text-gray-500 font-bold  my-4">Discover events currently accepting participants</p>
 
 
-                            @if($open_events->count()==0)
+                        <div class="flex items-center gap-4 my-4">
+                            <p class="text-gray-500 font-bold">Explore nearby events happening around you
+
+</p>
+
+                            <span class=" flex items-center gap-1 bg-pink-600 text-white rounded-md py-1 px-8">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25c-4.556 0-8.25 3.694-8.25 8.25 0 5.227 6.55 10.88 7.92 12.003a1.125 1.125 0 001.66 0c1.37-1.123 7.92-6.776 7.92-12.003 0-4.556-3.694-8.25-8.25-8.25z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 11.25a1.875 1.875 0 100-3.75 1.875 1.875 0 000 3.75z"/>
+                                </svg>
+
+                                {{Auth::user()->user->city}} City,     {{Auth::user()->user->province}}
+                            </span>
+                        </div>
+
+
+                        @if($nearby_events->count()==0)
                         <span class="text-sm italic text-gray-400 py-8">No events available at the moment..</span>
                         @endif
-
-
                         <div class="w-full grid grid-cols-1 gap-6">
-                            @foreach ($open_events as $event)
+                            @foreach ($nearby_events as $event)
                             <div class="group relative bg-white rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 hover:border-pink-100 overflow-hidden">
                                 <!-- Gradient Accent Bar -->
                                 <div class="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-pink-500 to-sky-600"></div>

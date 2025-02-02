@@ -23,7 +23,7 @@ class EventOrganizerController extends Controller
 {
 
     protected $func;
-    protected $notif; 
+    protected $notif;
 
     public function __construct()
     {
@@ -56,9 +56,10 @@ class EventOrganizerController extends Controller
     }
 
     public function view_event_index($id) {
+        $event = Events::where('event_id', $id)->first();
         return view('organizer.pending-requests.view-event')->with([
-            'event'=> Events::where('event_id', $id)->first(),
-            'users'=> Events::where()
+            'event'=> $event,
+            'users'=> $event->joinedUsers
         ]);
     }
 
@@ -99,8 +100,8 @@ class EventOrganizerController extends Controller
 
     }
 
-    public function load_edit_post($id) {  
-        return view(); 
+    public function load_edit_post($id) {
+        return view();
     }
 
 
@@ -193,8 +194,8 @@ class EventOrganizerController extends Controller
         }
 
 
-        //create announcements 
-        $this->notif->create_post_announcement($event->event_id); 
+        //create announcements
+        $this->notif->create_post_announcement($event->event_id);
 
         return response()->json([
             'success'=> true,

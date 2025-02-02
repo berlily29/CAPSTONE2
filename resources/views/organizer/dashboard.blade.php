@@ -32,44 +32,127 @@
         </div>
 
 
-        <!-- tools -->
 
-        <h1 class="mt-8 flex items-center gap-2 text-gray-600 text-3xl font-black">
-            <span class="material-icons "> build </span>
-            Tools
-        </h1>
-        <h1 class="text-sm text-gray-400">Everything you need to streamline event operations</h1>
+          <!-- Notifications -->
+      <section class="grid grid-cols-2 gap-6 h-[300px] mt-4" >
+         <div class="bg-white p-6 border border-gray-200">
+            <h3 class="flex items-center justify-between text-lg font-semibold text-gray-800">
+               <div class="flex items-center">
+                  <span class="material-icons mr-2 text-sky-600">notifications</span>
+                  Notifications
+               </div>
+            </h3>
 
-    <div class="flex  gap-2 mt-4">
+            @if($notifications->count() > 0)
+               <ul class="mt-4 space-y-3">
+                  @foreach($notifications as $notification)
+                     <li class="flex justify-between items-center p-3 bg-gray-100 rounded-lg shadow-sm">
+                        <p class="text-gray-700">{{ $notification->caption }}</p>
+                        <a href="{{ route('eo.channels.view', ['id'=> $notification->channel_id]) }}">
+                           <span>
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 hover:text-blue-700 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                 <path d="M5 12h14"></path>
+                                 <path d="M12 5l7 7-7 7"></path>
+                              </svg>
+                           </span>
+                        </a>
+                        <button onclick="deleteNotification('{{ $notification->id }}')" class="text-red-500 hover:text-red-700">
+                           <span class="material-icons text-lg">delete</span>
+                        </button>
+                     </li>
+                  @endforeach
+               </ul>
+            @else
+               <p class="mt-3 text-gray-600 text-center">You have no new notifications.</p>
+            @endif
+         </div>
 
-            <!-- Create Post Button -->
-            <div class="flex">
-                <a href="#" class="flex items-center justify-center gap-2 bg-pink-500 text-white py-3 px-6 rounded-lg hover:bg-pink-600 transition-all">
-                    <span class="material-icons">create</span>
-                    <span>Create Post</span>
-                </a>
-            </div>
+         <!-- Events -->
+         <div class="bg-white p-6 border border-gray-200 ">
 
-            <!-- Submit Event Proposal Button -->
-            <div class="flex ">
-                <a href="#" class="flex items-center justify-center gap-2 bg-sky-600 text-white py-3 px-6 rounded-lg hover:bg-sky-700 transition-all">
-                    <span class="material-icons">event_note</span>
-                    <span>Submit Event Proposal</span>
-                </a>
-            </div>
+                    <h1 class="mt-8 flex items-center gap-2 text-gray-600 text-3xl font-black">
+                        <span class="material-icons "> build </span>
+                        Tools
+                    </h1>
+                    <h1 class="text-sm text-gray-400">Everything you need to streamline event operations</h1>
 
-            <!-- Submit Documentation Button -->
-            <div class="flex ">
-                <a href="#" class="flex items-center justify-center gap-2 bg-gray-500 text-white py-3 px-6 rounded-lg hover:bg-gray-600 transition-all">
-                    <span class="material-icons">event</span>
-                    <span>Submit Documentation</span>
-                </a>
-            </div>
+                <div class="flex  gap-2 mt-4">
+
+                        <!-- Create Post Button -->
+                        <div class="flex">
+                            <a href="#" class="flex items-center justify-center gap-2 bg-pink-500 text-white py-3 px-6 rounded-lg hover:bg-pink-600 transition-all">
+                                <span class="material-icons">create</span>
+                                <span>Create Post</span>
+                            </a>
+                        </div>
+
+                        <!-- Submit Event Proposal Button -->
+                        <div class="flex ">
+                            <a href="#" class="flex items-center justify-center gap-2 bg-sky-600 text-white py-3 px-6 rounded-lg hover:bg-sky-700 transition-all">
+                                <span class="material-icons">event_note</span>
+                                <span>Submit Event Proposal</span>
+                            </a>
+                        </div>
+
+                        <!-- Submit Documentation Button -->
+                        <div class="flex ">
+                            <a href="#" class="flex items-center justify-center gap-2 bg-gray-500 text-white py-3 px-6 rounded-lg hover:bg-gray-600 transition-all">
+                                <span class="material-icons">event</span>
+                                <span>Submit Documentation</span>
+                            </a>
+                        </div>
+
+
+                </div>
+         </div>
+      </section>
+
+
+
 
 
     </div>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script>
 
-    </div>
+
+      // Delete Notification Function
+      function deleteNotification(notificationId) {
+         Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to recover this notification!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+         }).then((result) => {
+            if (result.isConfirmed) {
+               axios.post("{{ route('notifications.eodelete', ['id' => '__ID__']) }}".replace('__ID__', notificationId), {
+                  _method: "DELETE"
+               })
+               .then(response => {
+                  if (response.data.success) {
+                     Swal.fire({
+                        title: "Deleted!",
+                        text: "Notification has been deleted.",
+                        icon: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                     }).then(() => {
+                        window.location.href = "/portal/dashboard"; // Redirect to dashboard
+                     });
+                  }
+               })
+               .catch(error => {
+                  Swal.fire("Error", "Something went wrong!", "error");
+               });
+            }
+         });
+      }
+   </script>
+
 </x-app-layout>

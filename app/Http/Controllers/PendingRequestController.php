@@ -22,6 +22,16 @@ use Illuminate\Support\Facades\Storage;
 class PendingRequestController extends Controller
 {
 
+
+    protected $notif;
+
+    public function __construct()
+    {
+
+        $this->notif = new NotificationController();
+    }
+
+
     /*****
      *
      *
@@ -30,6 +40,8 @@ class PendingRequestController extends Controller
      * VIEWS
      *
      */
+
+
     public function index()
     {
 
@@ -83,6 +95,8 @@ class PendingRequestController extends Controller
         $user->update(['account_status' => $request->approveButton]);
         $user_ID->update(['status' => $request->approveButton]);
 
+
+
         return redirect()->route('admin.pending-request.application')->with(['msg'=> 'Success!']);
         }
 
@@ -101,11 +115,11 @@ class PendingRequestController extends Controller
             $user_application->update(['status' => $request->approveButton2]);
 
             if($user_application->rejection_count >= 3) {
-            
+
             Mail::to($user_application->user->login->email)->send(new banApplicationNotice($user_application->user));
-            
+
             $path = 'uploads/application/';
-            if (Storage::disk('public')->exists($path . $user_application->attachment)) 
+            if (Storage::disk('public')->exists($path . $user_application->attachment))
                 {
                 Storage::disk('public')->delete($path . $user_application->attachment);
                 }
@@ -115,7 +129,7 @@ class PendingRequestController extends Controller
             Mail::to($user_application->user->login->email)->send(new rejectApplicationNotice($user_application->user));
             }
 
-            
+
             return redirect()->route('admin.pending-request.application')->with(['msg'=> 'Success!']);
 
         }
@@ -147,7 +161,7 @@ class PendingRequestController extends Controller
 
             Mail::to($user_Login->email)->send(new deletionNotice($user));
 
-            
+
             if (Storage::disk('public')->exists($pathProfile . $user->profile_picture)) {
                 Storage::disk('public')->delete($pathProfile . $user->profile_picture);
             }

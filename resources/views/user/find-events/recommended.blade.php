@@ -1,11 +1,5 @@
 <div class="mb-4">
-                            <p class="text-gray-500 font-bold  my-4">Discover events currently accepting participants</p>
-
-
-                            @if($open_events->count()==0)
-                        <span class="text-sm italic text-gray-400 py-8">No events available at the moment..</span>
-                        @endif
-
+                            <p class="text-gray-400">Discover events currently accepting participants</p>
 
                         <div class="w-full grid grid-cols-1 gap-6">
                             @foreach ($open_events as $event)

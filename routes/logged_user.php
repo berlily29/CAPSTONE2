@@ -61,9 +61,10 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/user-gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
 
-    //NOTIFICATIONS 
+    //NOTIFICATIONS
 
-    Route::delete('/notifications/del/{id}',[NotificationController::class,'delete_announcement'])->name('notifications.delete'); 
+    Route::delete('/notifications/del/{id}',[NotificationController::class,'delete_announcement'])->name('notifications.delete');
+    Route::delete('/notifications/del/eo/{id}',[NotificationController::class, 'delete_eoannouncement'])->name('notifications.eodelete');
 
     // Event Organizer Application
     Route::get('/application', [EOApplicationController::class, 'index'])->name('application.index');

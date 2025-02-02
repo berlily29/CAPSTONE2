@@ -29,6 +29,7 @@ class FindEventsController extends Controller
         ->get();
 
 
+
         return view('user.find-events.view')->with([
             'open_events'=> $open_events,
             'nearby_events'=> $nearby_events

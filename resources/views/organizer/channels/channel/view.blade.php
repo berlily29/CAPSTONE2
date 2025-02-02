@@ -87,7 +87,7 @@
 
         function showTab(tabName) {
 
-            sessionStorage.setItem("activeTab", tabName);
+            sessionStorage.setItem("active", tabName);
 
             // Hide all tabs
             const allTabs = document.querySelectorAll('.tab-content');
@@ -113,12 +113,10 @@
 
         // Initialize the page with the default tab
         document.addEventListener('DOMContentLoaded', function () {
-            const defTab = sessionStorage.getItem("activeTab")
-            if(!defTab ) {
-                showTab('announcements');
-            } else {
-                showTab(defTab);
-            }
+            const defTab = sessionStorage.getItem("active") ? sessionStorage.getItem("active") : 'announcements'
+
+            showTab(defTab);
+
         });
 
 

@@ -33,7 +33,6 @@
                   <span class="material-icons mr-2 text-sky-600">notifications</span>
                   Notifications
                </div>
-               <a href="#" class="text-sm text-sky-600 hover:underline">View All</a>
             </h3>
 
             @if($notifications->count() > 0)
