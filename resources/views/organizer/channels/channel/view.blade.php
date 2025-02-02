@@ -102,7 +102,12 @@
 
                         <!-- Attendance Tab -->
                         <div id="attendance" class="tab-content hidden">
+                        @if($event->status ==='done')
                         @include('organizer.channels.channel.attendance2')
+                        @else
+                        @include('organizer.channels.channel.attendance')
+
+                        @endif
                         </div>
 
                     </div>

@@ -2,8 +2,8 @@
     <div class="min-h-screen bg-gray-50 rounded-xl">
         <!-- Dashboard Header -->
         <section class="px-8 py-6">
-            <h2 class="text-3xl font-bold text-pink-600">My Events</h2>
-            <p class="text-pink-500 mt-2">Manage your upcoming and past events</p>
+            <p class="text-gray-500">Manage your upcoming and past events</p>
+            <h2 class="text-3xl font-black text-gray-700">My Events</h2>
         </section>
 
         <!-- Tabs and Content Layout -->

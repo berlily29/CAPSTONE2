@@ -25,7 +25,9 @@ Route::middleware(['auth'])->group(function() {
         return view('user.dashboard')->with([
             'is_approved'=> session('is_approved'),
             'is_rejected' => session('is_rejected'),
-            'notifications'=> Notifications::where('user_id', Auth::user()->user_id)->get()
+            'notifications'=> Notifications::where('user_id', Auth::user()->user_id)->get(),
+            'upcoming'=>  Auth::user()->user->joinedEvents()->orderBy('date','asc')->where('status', 'upcoming')->get()
+
         ]);
 
 
