@@ -17,7 +17,7 @@ class EventRecommender extends Controller
 
         $user = Auth::user()->user;
         $events = Events::all();
-        dump('User ID: ' . $user->user_id . ' | ' . $user->fullname);
+        // dump('User ID: ' . $user->user_id . ' | ' . $user->fullname);
 
 
 
@@ -29,8 +29,8 @@ class EventRecommender extends Controller
         }
 
 
-        dump('Events currently joined and interested (vvv)');
-        dump($joined_events_array);
+        // dump('Events currently joined and interested (vvv)');
+        // dump($joined_events_array);
 
 
 
@@ -58,8 +58,8 @@ class EventRecommender extends Controller
             }
         }
 
-        dump('Events by: User Preferences (vvv)');
-        dump($userpreferences_array);
+        // dump('Events by: User Preferences (vvv)');
+        // dump($userpreferences_array);
 
         //user location + event target location
         $user_location = $user->city;
@@ -72,11 +72,11 @@ class EventRecommender extends Controller
             }
         }
 
-        dump('Events by User Location + Event Target Location (vvv)');
-        dump($location_array);
+        // dump('Events by User Location + Event Target Location (vvv)');
+        // dump($location_array);
 
 
-        //completed events
+        //event recommendations based on completed events
         $completed_events_tokens = AttendanceTokens::where('user_id', Auth::user()->user_id)->where('encoded', 1)->get();
 
         $completed_events_array= [];
@@ -86,7 +86,6 @@ class EventRecommender extends Controller
 
         }
 
-
         $completed_events_categories = [];
 
         foreach($completed_events_array as $j) {
@@ -94,21 +93,106 @@ class EventRecommender extends Controller
             $completed_events_categories[]= $curr->event_category;
         }
 
-        dump('completed events categories: ');
-        dump($completed_events_categories);
+        $category_counts = [];
+
+        foreach ($completed_events_categories as $categories) {
+            foreach ($categories as $category) {
+                $category_counts[$category] = ($category_counts[$category] ?? 0) + 1;
+            }
+        }
+
+        arsort($category_counts);
+
+        $top_categories = array_slice(array_keys($category_counts), 0, 3);
+
+        $sugg_events = [];
+        foreach($top_categories as $item) {
+            foreach($events as $_event) {
+                $event_categories =  $_event-> event_category;
+                if(!(in_array($event->event_id, $joined_events_array))) {
+                    if(in_array($item, $event_categories)) {
+                        if(!(in_array($event->event_id, $sugg_events))) $sugg_events[]= $event->event_id;
+                    }
+                }
+            }
+        }
 
 
 
-        dump('Events by Completed Events [with Attendance Tokens] (vvv)');
-        dump($completed_events_array);
+        // dump('Suggested Events based on User Completed Events [with Attendance Tokens] (vvv)');
+        // dump($sugg_events);
+
+
+        //event recommendation based on user interest
+
+        $joined_events_categories = [];
+
+        foreach ($joined_events_array as $event_id) {
+            $event = Events::where('event_id', $event_id)->first();
+            if ($event) {
+                $joined_events_categories[] = $event->event_category;
+            }
+        }
+
+        $category_counts = [];
+
+        foreach ($joined_events_categories as $categories) {
+            foreach ((array)$categories as $category) {
+                $category_counts[$category] = ($category_counts[$category] ?? 0) + 1;
+            }
+        }
+
+        arsort($category_counts);
+
+        $top_3_categories = array_slice(array_keys($category_counts), 0, 3);
+
+        $rec_events = [];
+        foreach($top_3_categories as $item) {
+            foreach($events as $_event) {
+                $event_categories =  $_event-> event_category;
+                if(!(in_array($_event->event_id, $joined_events_array))) {
+                    if(in_array($item, $event_categories)) {
+                        if(!(in_array($_event->event_id, $rec_events))) $rec_events[]= $_event->event_id;
+                    }
+                }
+            }
+        }
+
+
+
+        // dump('Event recommendations based on User Interest (Currently joined upcoming events)');
+        // dump($rec_events);
+
+
+
+        //top 3 events
+        $all_recommended_events = array_merge(
+            $userpreferences_array,
+            $location_array,
+            $sugg_events,
+            $rec_events
+        );
+
+        $event_counts = array_count_values($all_recommended_events);
+
+        arsort($event_counts);
+
+        // dump('Event Recommendation Scoring: [by frequencies]');
+        // dump($event_counts);
+
+
+
+        $top_events = array_slice(array_keys($event_counts), 0, intdiv(count($event_counts), 2));
 
 
 
 
 
-
+        return $top_events;
 
 
 
     }
+
+
 }

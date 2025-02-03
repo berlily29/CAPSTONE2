@@ -13,10 +13,10 @@
                     Return
                 </a>
 
-                <form method = "POST" action="{{route('events.leave', ['id'=>  $event->event_id])}}">
+                <form id = "cancel_participation_form" method = "POST" action="{{route('events.leave', ['id'=>  $event->event_id])}}">
                     @csrf
                     @method('DELETE')
-                    <button  type="button" id = "leave_event" class="inline-flex items-center mt-8 mb-4 px-4 py-2 bg-red-600 text-white border border-red-600 font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 transition gap-4">
+                    <button type="button" id = "leave_event" class="inline-flex items-center mt-8 mb-4 px-4 py-2 bg-red-600 text-white border border-red-600 font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 transition gap-4">
                     <span class="material-icons">exit_to_app</span>
                     CANCEL PARTICIPATION</button>
                 </form>
@@ -94,6 +94,7 @@
             </div>
         </div>
     </div>
+</div>
 
     @if($newstory)
 
@@ -209,7 +210,9 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Submit the form to join the event
-                    document.getElementById('leave_event').closest('form').submit();
+
+
+                    document.getElementById('cancel_participation_form').submit();
                 }
             });
         })

@@ -36,7 +36,7 @@
                     </div>
 
                     <div id="recommended" class="tab-content">
-                        @include('user.find-events.open')
+                        @include('user.find-events.recommended')
                     </div>
 
 

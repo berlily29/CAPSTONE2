@@ -57,6 +57,8 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/events', [FindEventsController::class, 'index'])->name('find-events.index');
     Route::get('/events/{id}', [FindEventsController::class, 'view_event'])->name('find-events.view');
+    Route::get('/get-new-recommendation', [FindEventsController::class, 'getNewRecommendation'])->name('find-events.getNewRecommendation');
+
 
 
 
