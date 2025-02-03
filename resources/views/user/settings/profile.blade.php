@@ -1,5 +1,5 @@
 <div class="w-full space-y-6 p-4 bg-white rounded-2xl ">
-    <h2 class="text-3xl font-bold text-gray-800 mb-2">Profile Settings</h2>
+    <h2 class="text-3xl font-bold text-gray-700 mb-2">Profile Settings</h2>
 
     <div class="flex flex-col lg:flex-row gap-8 items-start">
         <!-- Image Preview -->

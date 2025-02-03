@@ -27,8 +27,8 @@ Route::middleware(['organizer'])->group(function() {
     Route::get('/portal/dashboard', function() {
 
         return view('organizer.dashboard')->with([
-            'upcomingEvents' => Events::where('date', '>', now())->count(), // Upcoming Eventss count
-            'totalAccomplishedEvents' => Events::where('approved', 1)->count(), // Total approved (accomplished) events
+            'upcomingEvents' => Events::where('status', 'upcoming')->count(), // Upcoming Eventss count
+            'totalAccomplishedEvents' => Events::where('status', 'done')->count(), // Total approved (accomplished) events
             'currentPendingRequests' => Events::where('approved', 0)->count(), // Pending requests count
             'notifications'=> EONotifications::where('user_id', Auth::user()->user_id)-> get()
         ]);
@@ -91,6 +91,10 @@ Route::middleware(['organizer'])->group(function() {
     Route::delete('/delete/{id}',[AnnouncementsController::class,'delete_announcement'] )->name('eo.channel.post.delete');
 
 
+
+    ///EVENT ARCHIVES
+    Route::get('/portal/archives', [EventOrganizerController::class, 'view_archives'])->name('eo.archives');
+    Route::get('/portal/archives/{id}', [EventOrganizerController::class, 'view_event_archive'])->name('eo.archives.view');
 
     /*****
      *

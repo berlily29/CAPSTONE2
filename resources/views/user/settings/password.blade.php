@@ -1,6 +1,6 @@
 <div class='flex flex-col'>
     <div class='w-full'>
-        <h2 class="w-full text-2xl font-bold text-gray-800 mb-4">Change Password</h2>
+        <h2 class="w-full text-2xl font-bold text-gray-700 mb-4">Change Password</h2>
 
             @if ($errors->has('current_password') || $errors->has('new_password') || $errors->has('new_password_confirmation'))
                 <div class="bg-red-500 text-white p-4 m-2 rounded mb-4">
@@ -16,15 +16,15 @@
     <form id='passwordForm' action="{{ route('user.settings.changePassword') }}" method="POST" class='flex flex-col'>
             @csrf
             <div class="mb-4">
-                <label for="current_password" class="block text-sm font-medium text-pink-500">Current Password</label>
+                <label for="current_password" class="block text-sm font-medium text-gray-400">Current Password</label>
                 <input type="password" name="current_password" id="current_password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-pink-500 p-2" required>
             </div>
             <div class="mb-4">
-                <label for="new_password" class="block text-sm font-medium text-pink-500">New Password</label>
+                <label for="new_password" class="block text-sm font-medium text-gray-400">New Password</label>
                 <input type="password" name="new_password" id="new_password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-pink-500 p-2" required>
             </div>
             <div class="mb-4">
-                <label for="new_password_confirmation" class="block text-sm font-medium text-pink-500">Confirm New Password</label>
+                <label for="new_password_confirmation" class="block text-sm font-medium text-gray-400">Confirm New Password</label>
                 <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-pink-500 p-2" required>
             </div>
             <div class='w-full flex flex-row-reverse'>

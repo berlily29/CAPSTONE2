@@ -22,7 +22,7 @@
 
             <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-800">Total Events</h3>
-                <p class="text-[5rem] text-pink-600 font-black">300</p>
+                <p class="text-[5rem] text-pink-600 font-black">{{$events}}</p>
             </div>
         </section>
 

@@ -1,5 +1,5 @@
 <div class='w-full '>
-    <h2 class="w-full text-2xl font-bold text-gray-800 mb-4">Edit User Information</h2>
+    <h2 class="w-full text-2xl font-bold text-gray-700 mb-4">Edit User Information</h2>
 
     <form id="editForm" action="{{ route('user.settings.storeUserInfo') }}" class='w-full h-full' method="POST">
         @csrf
@@ -20,32 +20,32 @@
         <div class='grid md:grid-cols-1 lg:grid-cols-2 gap-4 mb-4'>
 
             <div class="pr-5">
-                <label for="fname" class=" w-full block text-sm font-medium text-pink-500">First Name</label>
+                <label for="fname" class=" w-full block text-sm font-medium text-gray-400">First Name</label>
                 <input type="text" id="fname" name="fname" class="text-xl px-4 py-2 w-full mt-1 block rounded-md border border-gray-300" value="{{ $user->fname }}" required>
             </div>
 
             <div class="pr-5">
-                <label for="mname" class="w-full block text-sm font-medium text-pink-500">Middle Name</label>
+                <label for="mname" class="w-full block text-sm font-medium text-gray-400">Middle Name</label>
                 <input type="text" id="mname" name="mname" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300 rounded-md" value="{{ $user->mname }}" required>
             </div>
 
             <div class="pr-5">
-                <label for="lname" class="w-full block text-sm font-medium text-pink-500">Last Name</label>
+                <label for="lname" class="w-full block text-sm font-medium text-gray-400">Last Name</label>
                 <input type="text" id="lname" name="lname" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300  rounded-md" value="{{ $user->lname }}" required>
             </div>
 
             <div class="pr-5">
-                <label for="mobile_no" class="w-full block text-sm font-medium text-pink-500">Mobile Number</label>
+                <label for="mobile_no" class="w-full block text-sm font-medium text-gray-400">Mobile Number</label>
                 <input type="text" id="mobile_no" name="mobile_no" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300 rounded-md" value="{{ $user->mobile_no }}" required>
             </div>
 
             <div class="pr-5">
-                <label for="age" class="w-full block text-sm font-medium text-pink-500">Age</label>
+                <label for="age" class="w-full block text-sm font-medium text-gray-400">Age</label>
                 <input type="text" id="age" name="age" class="text-xl px-4 py-2 w-full mt-1 block border border-gray-300 rounded-md" value="{{ $user->age }}" required>
             </div>
 
             <div class="pr-5">
-                <label for="gender" class="w-full block text-sm font-medium text-pink-500">Gender</label>
+                <label for="gender" class="w-full block text-sm font-medium text-gray-400">Gender</label>
                 <select id="gender" name="gender" class="text-xl w-full px-4 py-2 block border border-gray-300 rounded-md">
                     <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Male</option>
                     <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Female</option>
@@ -55,18 +55,18 @@
         </div>
 
 
-        <h2 class="text-2xl font-bold text-gray-800 mb-4 w-full">Edit Address</h2>
+        <h2 class="text-2xl font-bold text-gray-700 mb-4 w-full">Edit Address</h2>
 
                     <div class="space-y-4 w-full">
         <!-- Province (Fixed to Pampanga) -->
         <div>
-            <label for="province" class="block text-sm font-semibold text-pink-500">Province</label>
+            <label for="province" class="block text-sm font-semibold text-gray-400">Province</label>
             <input type="text" id="province" name="province" value="Pampanga" readonly
-                class="text-xl mt-2 block w-full px-4 py-2 border border-gray-700 rounded-md bg-pink-400 text-gray-600" required>
+                class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md text-gray-400" required>
         </div>
 
         <div id="city_div">
-            <label for="city" class="block text-sm font-semibold text-pink-500">City</label>
+            <label for="city" class="block text-sm font-semibold text-gray-400">City</label>
             <select id="city" name="city" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
             @php
                 $cities = [
@@ -86,9 +86,9 @@
 
         <!-- Barangay (to be populated based on city selection) -->
         <div id="barangay_div">
-            <label for="barangay" class="block text-sm font-semibold text-pink-500">Barangay</label>
+            <label for="barangay" class="block text-sm font-semibold text-gray-400">Barangay</label>
             <select id="barangay" name="brgy" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md " required>
-                <!-- Barangay options will be populated based on city selection -->             
+                <!-- Barangay options will be populated based on city selection -->
             </select>
         </div>
 
@@ -97,18 +97,18 @@
 
             <!-- Postal Code -->
             <div>
-                <label for="postal_code" class="block text-sm font-semibold text-pink-500">Postal Code</label>
+                <label for="postal_code" class="block text-sm font-semibold text-gray-400">Postal Code</label>
                 <input readonly type="text" id="postal_code" value="{{$user->postal_code}}" name="postal_code" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-200 text-gray-600" required>
             </div>
             <!-- House No. -->
             <div>
-                <label for="house_no" class="block text-sm font-semibold text-pink-500">House No.</label>
+                <label for="house_no" class="block text-sm font-semibold text-gray-400">House No.</label>
                 <input type="text" id="house_no" name="house_no" value="{{$user->house_no}}" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
             </div>
 
             <!-- Street -->
             <div>
-                <label for="street" class="block text-sm font-semibold text-pink-500">Street</label>
+                <label for="street" class="block text-sm font-semibold text-gray-400">Street</label>
                 <input type="text" id="street" name="street" value="{{$user->street}}" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
             </div>
         </div>

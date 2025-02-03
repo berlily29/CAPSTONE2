@@ -9,7 +9,7 @@
         </button>
 
         <!-- Account Section -->
-        <h1 class="text-lg font-bold text-pink-600 mb-2 sidebar-label">Account</h1>
+        <h1 class="text-lg font-bold text-pink-600 sidebar-label">Account</h1>
         <ul>
             <li>
                 <a href="{{ route('user.profile') }}"

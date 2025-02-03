@@ -68,39 +68,37 @@
          </div>
 
          <!-- Events -->
-         <div class="bg-white p-6 border border-gray-200 ">
+         <div class="bg-white p-4 border border-gray-200 ">
 
-                    <h1 class="mt-8 flex items-center gap-2 text-gray-600 text-3xl font-black">
+                    <h1 class=" flex items-center gap-2 text-gray-600 text-3xl font-black">
                         <span class="material-icons "> build </span>
                         Tools
                     </h1>
                     <h1 class="text-sm text-gray-400">Everything you need to streamline event operations</h1>
 
-                <div class="flex  gap-2 mt-4">
+                <div class="flex flex-col mt-4 gap-2">
 
-                        <!-- Create Post Button -->
-                        <div class="flex">
-                            <a href="#" class="flex items-center justify-center gap-2 bg-pink-500 text-white py-3 px-6 rounded-lg hover:bg-pink-600 transition-all">
-                                <span class="material-icons">create</span>
-                                <span>Create Post</span>
-                            </a>
-                        </div>
+
 
                         <!-- Submit Event Proposal Button -->
-                        <div class="flex ">
-                            <a href="#" class="flex items-center justify-center gap-2 bg-sky-600 text-white py-3 px-6 rounded-lg hover:bg-sky-700 transition-all">
+
+                            <a href="{{route('eo.request-event')}}" class="flex items-center gap-2 bg-sky-600 text-white py-3 px-6 rounded-lg hover:bg-sky-700 transition-all">
                                 <span class="material-icons">event_note</span>
                                 <span>Submit Event Proposal</span>
                             </a>
-                        </div>
 
-                        <!-- Submit Documentation Button -->
-                        <div class="flex ">
-                            <a href="#" class="flex items-center justify-center gap-2 bg-gray-500 text-white py-3 px-6 rounded-lg hover:bg-gray-600 transition-all">
+                            <a href="{{route('eo.channels')}}" class="flex items-center gap-2 bg-sky-600 text-white py-3 px-6 rounded-lg hover:bg-sky-700 transition-all">
                                 <span class="material-icons">event</span>
-                                <span>Submit Documentation</span>
+                                <span>Manage your Events</span>
                             </a>
-                        </div>
+
+                            <a href="{{route('eo.archives')}}" class="flex items-center gap-2 bg-sky-600 text-white py-3 px-6 rounded-lg hover:bg-sky-700 transition-all">
+                                <span class="material-icons">archive</span>
+                                <span>Event Archives</span>
+                            </a>
+
+
+
 
 
                 </div>

@@ -42,6 +42,31 @@ class EventOrganizerController extends Controller
      *
      */
 
+    public function view_archives() {
+        return view('organizer.archive.view')->with([
+
+            'done'=>Events::where('status','done')-> orderBy('title', 'asc')->get()
+
+
+        ]);
+    }
+
+    public function view_event_archive($id) {
+        $event = Events::where('event_id', $id)->first();
+        return view('admin.manage-events.view-event')->with([
+            'event'=> $event,
+            'announcements'=>  Announcements::where('channel_id', $id)->orderBy('created_at', 'desc')->get(),
+            'stories'=> Stories::where('channel_id', $id)->orderBy('created_at' ,'desc')-> get(),
+            'users'=>$event->joinedUsers,
+            'attendees'=> AttendanceTokens::where('channel_id' , $id)-> where('encoded', 1)->get(),
+
+            'allStories' => Stories::where('channel_id', $id)
+                ->with(['user', 'channel'])
+                ->get(),
+        ]);
+
+    }
+
     public function request_event_index() {
 
         $categories = EventCategories::with('subcategories')->whereNull('parent_id')->get();

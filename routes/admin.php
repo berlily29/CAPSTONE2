@@ -22,6 +22,7 @@ Route::middleware(['admin'])-> group(function() {
 
     //Manage Events
     Route::get('/admin/manage-events', [ManageEventsController::class, 'index'])->name('admin.manage-events');
+    Route::get('/admin/manage-events/{id}', [ManageEventsController::class, 'view_event'])->name('admin.manage-events.view');
 
 
     //Manage user and event organanizer application
