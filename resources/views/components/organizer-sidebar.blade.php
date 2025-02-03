@@ -29,7 +29,7 @@
             <li>
                 <a href="{{route('eo.channels')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.channels*') ? 'active_link' : '' }}">
                     <span class="material-icons mr-3 sidebar-icon">event</span>
-                    <span class="sidebar-label">My Events</span>
+                    <span class="sidebar-label">Active Events</span>
                 </a>
             </li>
 

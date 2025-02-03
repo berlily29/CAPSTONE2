@@ -26,24 +26,26 @@
       @endif
 
       <!-- Notifications -->
-      <section class="grid grid-cols-2 gap-6 h-[300px]" >
+      <section class="grid grid-cols-2 gap-6" >
          <div class="bg-white p-6 border border-gray-200">
             <h3 class="flex items-center justify-between text-lg font-semibold text-gray-800">
                <div class="flex items-center">
                   <span class="material-icons mr-2 text-sky-600">notifications</span>
-                  Notifications
+                  <h1 class="font-black  text-sky-600">
+
+                      Notifications
+                  </h1>
                </div>
-               <a href="#" class="text-sm text-sky-600 hover:underline">View All</a>
             </h3>
 
             @if($notifications->count() > 0)
                <ul class="mt-4 space-y-3">
                   @foreach($notifications as $notification)
-                     <li class="flex justify-between items-center p-3 bg-gray-100 rounded-lg shadow-sm">
-                        <p class="text-gray-700">{{ $notification->caption }}</p>
+                     <li class="flex justify-between items-center p-3 bg-sky-100 rounded-lg shadow-sm">
+                        <p class="text-sky-500">{{ $notification->caption }}</p>
                         <a href="{{ route('user.channel.index', ['id'=> $notification->channel_id]) }}">
                            <span>
-                              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 hover:text-blue-700 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 hover:text-blue-700 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                  <path d="M5 12h14"></path>
                                  <path d="M12 5l7 7-7 7"></path>
                               </svg>
@@ -66,11 +68,39 @@
                <span class="material-icons mr-2 text-pink-500">event</span>
                Your Events
             </h3>
+            @if($upcoming->count()== 0)
             <p class="mt-2 text-gray-600">You have no upcoming events.</p>
+            @else
+            <div class="flex flex-col gap-2 mt-2">
+
+                @foreach($upcoming as $event)
+                <li class="flex justify-between gap-2 p-3 bg-pink-100 text-pink-500 rounded-lg shadow-sm overflow-y">
+                    <div class="flex items-center">
+
+                        <p class="text-pink-500 font-semibold">{{ $event->title }}</p>
+                    </div>
+
+                    <div class="flex-items-center">
+
+                        <a href="{{ route('user.channel.index', ['id'=> $event->channel_id]) }}">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 hover:text-blue-700 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </a>
+
+                    </div>
+                </li>
+                @endforeach
+            </div>
+
+            @endif
             <div class="relative w-full mt-4">
-               <button class="w-full bg-pink-500 p-2 rounded-lg text-white hover:bg-pink-600 hover:scale-105 transition-all text-sm flex items-center justify-center">
-                  View Events >
-               </button>
+               <a class="w-full bg-pink-500 p-2 rounded-lg text-white hover:bg-pink-600 hover:scale-105 transition-all text-sm flex items-center justify-center">
+                  Find Events >
+                </a>
             </div>
          </div>
       </section>

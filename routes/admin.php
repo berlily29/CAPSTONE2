@@ -22,6 +22,7 @@ Route::middleware(['admin'])-> group(function() {
 
     //Manage Events
     Route::get('/admin/manage-events', [ManageEventsController::class, 'index'])->name('admin.manage-events');
+    Route::get('/admin/manage-events/{id}', [ManageEventsController::class, 'view_event'])->name('admin.manage-events.view');
 
 
     //Manage user and event organanizer application
@@ -30,7 +31,7 @@ Route::middleware(['admin'])-> group(function() {
     Route::put('/admin/pending-request/rejectStatus/{userId}', [PendingRequestController::class, 'rejectStatus'])->name('admin.pending-request.application.rejectStatus');
     Route::put('/admin/pending-request/updateApplication/{userId2}', [PendingRequestController::class, 'updateApplication'])->name('admin.pending-request.application.updateApplication');
 
-   
+
 
     //Manage Events
     Route::get('/admin/pending-request/event/', [PendingRequestController::class, 'index_event'])->name('admin.pending-request.event');
@@ -47,7 +48,10 @@ Route::middleware(['admin'])-> group(function() {
 
 
     //Gallery
-    Route::get('/admin/gallery',[GalleryController::class,'admin_index'])->name('admin.gallery'); 
+    Route::get('/admin/gallery',[GalleryController::class,'admin_index'])->name('admin.gallery');
+    Route::post('/admin/gallery/add/{id}', [GalleryController::class, 'add_to_gallery'])->name('admin.gallery.add');
+
+    Route::delete('/admin/gallery/del/{id}',[GalleryController::class, 'remove_from_gallery'])->name('admin.gallery.delete');
 });
 
 

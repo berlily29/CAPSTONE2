@@ -36,6 +36,11 @@ class AttendanceController extends Controller
         }
 
         $token_entity = AttendanceTokens::where('token', $token)-> first();
+        if(!($token_entity->channel_id == $id)) {
+            return response()->json([
+                'status'=> 'noexist'
+            ]);
+        }
         if($token_entity->encoded == true) {
             return response()->json([
                 'status'=> 'existing'

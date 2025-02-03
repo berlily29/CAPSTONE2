@@ -44,15 +44,15 @@ class AuthController extends Controller
         $user = UsersLogin::where('email', $request->email)->first();
         session(['email'=> $user->email, 'id'=> $user->user_id]);
 
-        if($user->role === 'Admin') {
-            Auth::login($user);
-            return redirect()-> route('admin.dashboard');
-        }
-
 
         // Verify the password manually
         if (!Hash::check($request->password, $user->password)) {
             return redirect()->route('login')->with(['errorMessage' => 'Incorrect password. Please try again.']);
+        }
+
+        if($user->role === 'Admin') {
+            Auth::login($user);
+            return redirect()-> route('admin.dashboard');
         }
 
 

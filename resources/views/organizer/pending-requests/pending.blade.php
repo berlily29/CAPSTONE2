@@ -38,12 +38,13 @@
                             </div>
                             @else
                             <div class="mt-4">
-                            <span class="px-4 py-2 text-sm font-medium bg-red-200 text-red-600 rounded-lg">
+                        <span class="px-4 py-2 text-sm font-medium bg-red-200 text-red-600 rounded-lg">
                                 Rejected
                             </span>
                             </div>
                             @endif
                                     </div>
+
                                     <div class="flex items-center justify-center h-full">
                                         <a href="{{route('eo.pending-requests.view-event',['id'=> $event->event_id])}}" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2">
                                             <span class="material-icons">info</span>

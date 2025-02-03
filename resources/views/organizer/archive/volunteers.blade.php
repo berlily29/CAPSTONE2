@@ -4,7 +4,7 @@
     <div class="overflow-x-auto border border-gray-200 bg-white">
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50 ">
-            <tr class="grid grid-cols-[25%_25%_30%_20%] ">
+            <tr class="grid grid-cols-3">
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Name
                 </th>
@@ -20,9 +20,9 @@
 
             </tr>
         </thead>
-        <tbody class="bg-whitedivide-gray-200">
+        <tbody class="bg-white divide-gray-200">
             @foreach($users as $user)
-                <tr class="hover:bg-gray-50 grid grid-cols-[25%_25%_30%_20%] ">
+                <tr class="hover:bg-gray-50 grid grid-cols-3">
                     <td class="px-6 py-4 whitespace-nowrap flex items-center  text-sm text-gray-700 font-medium">{{ $user->fullname}}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm  flex items-center text-gray-500">
@@ -35,15 +35,7 @@
                         </span>
                     </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap flex items-center">
-                    <button
-                        class="flex items-center justify-center gap-4 text-white p-2 rounded-md bg-gray-500 hover:bg-gray-600"
-                        onclick="openPopup('{{ route('eo.channels.view-user', ['id' => $user->user_id]) }}')"
-                    >
-                        <span class="material-icons">info</span>
-                        View User
-                    </button>
-                    </td>
+
 
 
                 </tr>

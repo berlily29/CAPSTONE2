@@ -2,8 +2,8 @@
     <div class="min-h-screen bg-gray-50 rounded-xl">
         <!-- Dashboard Header -->
         <section class="px-8 py-6">
-            <h2 class="text-3xl font-bold text-pink-600">My Events</h2>
-            <p class="text-pink-500 mt-2">Manage your upcoming and past events</p>
+            <p class="text-gray-500">Manage your upcoming and past events</p>
+            <h2 class="text-3xl font-black text-gray-700">My Events</h2>
         </section>
 
         <!-- Tabs and Content Layout -->
@@ -27,15 +27,15 @@
                 <div id="tab-content">
                     <!-- Upcoming Events -->
                     <div id="upcoming-events" class="grid grid-cols-2 gap-6">
-                        @if($events->where('date', '>=', now())->isEmpty())
+                        @if(count($upcoming)== 0)
                             <div class="col-span-3 text-center p-8 rounded-xl bg-white/80 backdrop-blur-sm">
                                 <div class="text-pink-500 text-2xl mb-4">🎈</div>
                                 <h3 class="text-pink-600 font-semibold">No upcoming events</h3>
                                 <p class="text-pink-500 text-sm mt-2">Start by joining new events!</p>
                             </div>
                         @else
-                            @foreach ($events as $event)
-                                @if (Carbon\Carbon::parse($event->date)->isFuture())
+                            @foreach ($upcoming as $event)
+
                                     <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 hover:border-pink-100 group">
                                         <div class="flex justify-center mb-5">
                                             <div class="w-24 h-24 bg-gradient-to-br from-pink-500 to-sky-600 rounded-2xl flex items-center justify-center shadow-lg">
@@ -70,22 +70,22 @@
                                             </svg>
                                         </a>
                                     </div>
-                                @endif
+
                             @endforeach
                         @endif
                     </div>
 
                     <!-- Completed Events -->
                     <div id="completed-events" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @if($events->where('date', '<', now())->isEmpty())
+                        @if(count($completed)==0)
                             <div class="col-span-3 text-center p-8 rounded-xl bg-white/80 backdrop-blur-sm">
                                 <div class="text-pink-500 text-2xl mb-4">📚</div>
                                 <h3 class="text-pink-600 font-semibold">No past events</h3>
                                 <p class="text-pink-500 text-sm mt-2">Your future events will appear here once completed</p>
                             </div>
                         @else
-                            @foreach ($events as $event)
-                                @if (Carbon\Carbon::parse($event->date)->isPast())
+                            @foreach ($completed as $event)
+
                                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 opacity-75 hover:opacity-100 transition-opacity">
                                         <div class="flex justify-center mb-5">
                                             <div class="w-24 h-24 bg-gradient-to-br from-gray-400 to-sky-400 rounded-2xl flex items-center justify-center shadow-lg">
@@ -116,7 +116,7 @@
                                             Event Completed
                                         </div>
                                     </div>
-                                @endif
+
                             @endforeach
                         @endif
                     </div>

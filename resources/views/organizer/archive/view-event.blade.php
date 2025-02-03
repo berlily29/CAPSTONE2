@@ -1,24 +1,41 @@
+<head>
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+      <!--Mat-Icon -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+
+
+
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            cursor: pointer;
+        }
+    </style>
+</head>
 
 <head><meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 
-<x-app-layout>
+
 
     <div class="w-full bg-white rounded-lg p-8">
         <div class="w-full">
 
-            <div class="flex justify-between items-center pr-4">
-
-                <button onclick="history.back()"
-                class="inline-flex items-center mb-4 px-4 py-2 bg-pink-600 text-white border border-pink-600 font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-offset-2 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
-                    Return to my events
-                </button>
-
-            </div>
 
 
             <div class="bg-white overflow-hidden shadow-sm">
@@ -29,25 +46,7 @@
                     <h1 class="mb-4 text-3xl font-black text-gray-700">{{$event->title}}</h1>
                 </div>
 
-                <div>
-                    @if($event->status == 'upcoming' )
-                    <form action="{{route('eo.channels.done', ['id'=> $event->event_id])}}" method = "POST">
-                        @csrf
-                        <button id = "markDoneBtn" type = "button" class="text-white bg-green-600 hover:bg-green-700 transition ease-in duration-300 py-2 px-8 flex items-center gap-2 rounded-xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 6 9 17l-5-5"/>
-                            </svg>
-                            Mark Event as Done </button>
-                    </form>
-                    @else
-                    <span  class="text-white bg-green-400 transition ease-in duration-300 py-2 px-8 flex items-center gap-2 rounded-xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 6 9 17l-5-5"/>
-                            </svg>
-                            Event Completed </button>
-                    </form>
-                    @endif
-                </div>
+
 
             </div>
 
@@ -62,7 +61,7 @@
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
                                 onclick="showTab('stories')">Stories</button>
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
-                        onclick="showTab('volunteers')">Volunteers</button>
+                        onclick="showTab('volunteers')">Channel Members</button>
                         <button class="tab-btn px-4 py-2 font-semibold text-black hover:text-gray-600 focus:outline-none transition duration-300 ease-in-out"
                                 onclick="showTab('event-details')">Event Details</button>
 
@@ -79,17 +78,17 @@
                     <div class="w-full">
                         <!-- Announcements Tab -->
                         <div id="announcements" class="tab-content hidden">
-                            @include('organizer.channels.channel.announcements')
+                            @include('organizer.archive.announcements')
                         </div>
 
                         <!-- Stories Tab -->
                         <div id="stories" class="tab-content hidden">
-                            @include('organizer.channels.channel.stories')
+                            @include('organizer.archive.stories')
                         </div>
 
                           <!-- Announcements Tab -->
                           <div id="volunteers" class="tab-content hidden">
-                            @include('organizer.channels.channel.volunteers')
+                            @include('organizer.archive.volunteers')
                         </div>
 
 
@@ -102,12 +101,9 @@
 
                         <!-- Attendance Tab -->
                         <div id="attendance" class="tab-content hidden">
-                        @if($event->status ==='done')
-                        @include('organizer.channels.channel.attendance2')
-                        @else
-                        @include('organizer.channels.channel.attendance')
+                        @include('organizer.archive.attendance2')
 
-                        @endif
+
                         </div>
 
                     </div>
@@ -211,9 +207,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Initialize the page with the default tab
         document.addEventListener('DOMContentLoaded', function () {
-            const defTab = sessionStorage.getItem("active") ? sessionStorage.getItem("active") : 'announcements'
 
-            showTab(defTab);
+            showTab('announcements');
 
         });
 
@@ -224,4 +219,76 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     </script>
-</x-app-layout>
+
+
+
+<script>
+    // Approve Button Click Handler
+    document.getElementById('approveButton').addEventListener('click', function () {
+        Swal.fire({
+            title: "Do you want to approve this event?",
+            showCancelButton: true,
+            confirmButtonText: "Approve",
+            cancelButtonText: "Cancel",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.getElementById('approveButton').closest('form'); // Get the form
+                const actionUrl = form.getAttribute('action'); // Form action URL
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Get CSRF token
+
+                // Send the approval request via fetch
+                fetch(actionUrl, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Event has been approved',
+                                showConfirmButton: false,
+                                timer: 1500
+
+                            }).then(() => {
+                                window.close(); // Close the current window
+                                window.opener.location.reload(); // Reload the parent window
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to approve the event. Please try again.',
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An unexpected error occurred. Please try again later.',
+                        });
+                    });
+            }
+        });
+    });
+
+    // Reject Button Click Handler
+    document.getElementById('rejectButton').addEventListener('click', function () {
+
+                let event_id = "{{$event->event_id}}";
+                console.log(event_id);
+                window.location.href = `/admin/pending-request/event/${event_id}/termination`;
+
+    });
+</script>

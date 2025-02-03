@@ -6,6 +6,7 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JoinedEventsController;
 use App\Http\Controllers\EOApplicationController;
+use App\Http\Controllers\EventRecommender;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FindEventsController;
 use App\Http\Controllers\GalleryController;
@@ -24,7 +25,9 @@ Route::middleware(['auth'])->group(function() {
         return view('user.dashboard')->with([
             'is_approved'=> session('is_approved'),
             'is_rejected' => session('is_rejected'),
-            'notifications'=> Notifications::where('user_id', Auth::user()->user_id)->get()
+            'notifications'=> Notifications::where('user_id', Auth::user()->user_id)->get(),
+            'upcoming'=>  Auth::user()->user->joinedEvents()->orderBy('date','asc')->where('status', 'upcoming')->get()
+
         ]);
 
 
@@ -54,6 +57,8 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/events', [FindEventsController::class, 'index'])->name('find-events.index');
     Route::get('/events/{id}', [FindEventsController::class, 'view_event'])->name('find-events.view');
+    Route::get('/get-new-recommendation', [FindEventsController::class, 'getNewRecommendation'])->name('find-events.getNewRecommendation');
+
 
 
 
@@ -61,13 +66,28 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/user-gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
 
-    //NOTIFICATIONS 
+    //NOTIFICATIONS
 
-    Route::delete('/notifications/del/{id}',[NotificationController::class,'delete_announcement'])->name('notifications.delete'); 
+    Route::delete('/notifications/del/{id}',[NotificationController::class,'delete_announcement'])->name('notifications.delete');
+    Route::delete('/notifications/del/eo/{id}',[NotificationController::class, 'delete_eoannouncement'])->name('notifications.eodelete');
 
     // Event Organizer Application
     Route::get('/application', [EOApplicationController::class, 'index'])->name('application.index');
     Route::post('/application', [EOApplicationController::class, 'store'])->name('application.upload');
+
+    /****
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     * EVENT RECOMMENDATION ALGORITHM
+     */
+    Route::get('/recommendation',[EventRecommender::class, 'get_recommended_events'])->name('event.recommend');
 
 
 

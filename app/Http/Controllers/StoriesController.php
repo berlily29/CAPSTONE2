@@ -13,6 +13,7 @@ class StoriesController extends Controller
     public function post_story(Request $request) {
 
         $event = $request->event;
+
         $path = '/uploads/story/' . $event ;
 
         if(!Storage::exists($path)){

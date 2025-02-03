@@ -23,7 +23,7 @@ class EventOrganizerController extends Controller
 {
 
     protected $func;
-    protected $notif; 
+    protected $notif;
 
     public function __construct()
     {
@@ -42,6 +42,31 @@ class EventOrganizerController extends Controller
      *
      */
 
+    public function view_archives() {
+        return view('organizer.archive.view')->with([
+
+            'done'=>Events::where('status','done')-> orderBy('title', 'asc')->get()
+
+
+        ]);
+    }
+
+    public function view_event_archive($id) {
+        $event = Events::where('event_id', $id)->first();
+        return view('admin.manage-events.view-event')->with([
+            'event'=> $event,
+            'announcements'=>  Announcements::where('channel_id', $id)->orderBy('created_at', 'desc')->get(),
+            'stories'=> Stories::where('channel_id', $id)->orderBy('created_at' ,'desc')-> get(),
+            'users'=>$event->joinedUsers,
+            'attendees'=> AttendanceTokens::where('channel_id' , $id)-> where('encoded', 1)->get(),
+
+            'allStories' => Stories::where('channel_id', $id)
+                ->with(['user', 'channel'])
+                ->get(),
+        ]);
+
+    }
+
     public function request_event_index() {
 
         $categories = EventCategories::with('subcategories')->whereNull('parent_id')->get();
@@ -56,9 +81,10 @@ class EventOrganizerController extends Controller
     }
 
     public function view_event_index($id) {
+        $event = Events::where('event_id', $id)->first();
         return view('organizer.pending-requests.view-event')->with([
-            'event'=> Events::where('event_id', $id)->first(),
-            'users'=> Events::where()
+            'event'=> $event,
+            'users'=> $event->joinedUsers
         ]);
     }
 
@@ -99,8 +125,8 @@ class EventOrganizerController extends Controller
 
     }
 
-    public function load_edit_post($id) {  
-        return view(); 
+    public function load_edit_post($id) {
+        return view();
     }
 
 
@@ -117,6 +143,7 @@ class EventOrganizerController extends Controller
 
     public function submit_request_event(Request $request) {
         $eid = $this->func-> generate_event_id();
+
         Events::create([
             'event_id'=> $eid,
             'title'=> $request->title,
@@ -193,12 +220,25 @@ class EventOrganizerController extends Controller
         }
 
 
-        //create announcements 
-        $this->notif->create_post_announcement($event->event_id); 
+        //create announcements
+        $this->notif->create_post_announcement($event->event_id);
 
         return response()->json([
             'success'=> true,
             'channel_id'=> $event->channel_id
+        ]);
+
+    }
+
+    public function mark_event_done($id){
+        $event = Events::where('event_id', $id)->first();
+
+        $event->update([
+            'status'=> 'done'
+        ]);
+
+        return response()->json([
+            'success'=> true
         ]);
 
     }

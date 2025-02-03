@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -31,6 +32,9 @@ class Users extends Model
         return $this->hasMany(Stories::class,'user_id', 'user_id');
     }
 
+    public function user_preference() {
+        return $this-> hasOne(UserPreferences::class, 'user_id','user_id');
+    }
 
 
     public function joinedEvents(): BelongsToMany
@@ -50,10 +54,14 @@ class Users extends Model
     }
 
 
-    public function notification() { 
-        return $this-> hasMany(Notifications::class, 'user_id', 'user_id'); 
+    public function notification() {
+        return $this-> hasMany(Notifications::class, 'user_id', 'user_id');
     }
 
+
+    public function eonotification() {
+        return $this-> hasMany(EONotifications::class, 'user_id', 'user_id');
+    }
 
     protected $table = 'tbl_user_info';
     protected $primaryKey = 'user_id'; // Specify the primary key

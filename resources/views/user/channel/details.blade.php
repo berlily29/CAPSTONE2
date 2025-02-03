@@ -20,7 +20,7 @@
 
                                 <div>
                                     <span class="text-gray-400">Date</span>
-                                    <h2 class="text-sm font-bold text-gray-700">{{ $event->date }}</h2>
+                                    <h2 class="text-sm font-bold text-gray-700">{{ explode(' ', $event->date)[0]  }}</h2>
                                 </div>
                                 <div>
                                     <span class="text-gray-400">Location</span>

@@ -1,14 +1,15 @@
+
+<style>
+#img {
+    width: 40px;
+    height: 40px;
+}
+</style>
 <div class="">
     <!-- Announcement Posts -->
 
     <div class="w-full flex">
-        @if($event->status === 'upcoming')
-        <a href="{{ route('eo.channels.post.view', ['id' => $event->event_id]) }}"
-           class="mt-2 flex justify-center items-center py-2 px-12 rounded-md bg-gray-400 gap-2 text-white transition duration-200 ease-in-out hover:bg-gray-500">
-            <span class="material-icons">add_circle</span>
-            Create
-        </a>
-        @endif
+
     </div>
     <div class="space-y-6 py-4">
         @foreach($announcements as $announcement)
@@ -17,7 +18,7 @@
             <div class="flex justify-between items-start mb-4">
                 <div class="flex gap-4">
                     <div>
-                        <img src="{{ $announcement->channel->event->organizer->user->profile_picture
+                        <img id="img" src="{{ $announcement->channel->event->organizer->user->profile_picture
                             ? asset('storage/uploads/profilepic/' . $announcement->channel->event->organizer->user->profile_picture)
                             : asset('images/default-dp.jpg') }}"
                             alt=""
@@ -28,16 +29,7 @@
                         <p class="text-sm text-gray-500">Date: {{ $announcement->created_at->format('F d, Y h:i A') }}</p>
                     </div>
                 </div>
-                <!-- Dropdown for Edit/Delete -->
-                <div class="relative">
-                    <button onclick="posttoggle(this)" class="material-icons text-gray-500 cursor-pointer">more_vert</button>
-                    <div class="absolute right-0 top-8 bg-white border border-gray-200 rounded-md shadow-lg hidden">
-                        <ul class="text-sm text-gray-700">
-                            <li class="py-2 px-4 hover:bg-gray-100 cursor-pointer"> <a href="{{route('eo.channels.post.edit',['postid'=> $announcement->post_id])}}">Edit </a></li>
-                            <li class="py-2 px-4 hover:bg-gray-100 cursor-pointer" onclick="confirmDelete('{{ $announcement->post_id }}')">Delete</li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
 
             <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $announcement->title }}</h3>
@@ -100,11 +92,12 @@
 
         @if ($announcements->isEmpty())
         <div class="text-center py-8 text-lg italic text-gray-400">
-            You have no announcements. Post one now!
+            No announcements on this channel.
         </div>
         @endif
     </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -40,7 +40,7 @@
                              <div class="flex flex-col gap-0">
                                  <h4 class="text-lg font-bold text-pink-600 ">{{ $storyItem->user->fullname }}</h4>
                                  <p class="text-sm text-gray-500 ">{{ $storyItem->caption }}</p>
-     
+
                                  <p class="text-xs text-gray-400">Event: {{ $storyItem->channel->event->title }}</p>
 
                              </div>
@@ -59,7 +59,7 @@
             <p class="text-xs text-gray-400" id="storyEvent">Event: </p>
 
             <!-- Story Image in Popup -->
-            <div class="relative w-full h-48 bg-gray-200 mb-4 rounded-lg overflow-hidden">
+            <div class="relative w-full bg-gray-200 mb-4 rounded-lg overflow-hidden">
                 <img id="storyImage" src="" class="w-full h-full object-cover">
             </div>
 

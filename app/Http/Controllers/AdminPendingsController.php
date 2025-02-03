@@ -10,10 +10,22 @@ use Illuminate\Support\Facades\DB;
 
 class AdminPendingsController extends Controller
 {
+
+
+    protected $notif;
+
+    public function __construct()
+    {
+        $this->notif = new NotificationController();
+    }
+
+
+
     public function approve_event($id) {
 
 
         $event = Events::where('event_id',$id)->first();
+        $this->notif-> create_approval_announcement($event->event_id);
         $event->update([
             'approved'=>1
         ]);
@@ -27,6 +39,8 @@ class AdminPendingsController extends Controller
         $event->update([
             'channel_id'=> $id
         ]);
+
+
 
         return response()->json([
             'success'=> true
