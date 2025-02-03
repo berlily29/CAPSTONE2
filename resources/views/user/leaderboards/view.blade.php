@@ -12,13 +12,13 @@
         <div class="mb-4">
           <h4 class="text-lg font-bold text-pink-500 mb-3">Top 10</h4>
           <ul class="space-y-2">
-            @foreach($top10 as $index => $user)
+            @foreach($top10 as $index => $u)
               <li class="flex justify-between items-center bg-gray-100 p-3 rounded-lg shadow-sm">
                 <div class="flex items-center space-x-3">
                   <span class="text-lg font-bold text-pink-600">#{{ $index + 1 }}</span>
-                  <span class="font-semibold text-gray-800">{{ $user->fullname }}</span>
+                  <span class="font-semibold text-gray-800">{{ $u->fullname }}</span>
                 </div>
-                <span class="text-lg text-pink-500 font-bold">{{ $user->profile_points }} pts</span>
+                <span class="text-lg text-pink-500 font-bold">{{ $u->profile_points }} pts</span>
               </li>
             @endforeach
           </ul>
@@ -31,14 +31,14 @@
         <div>
           <h4 class="text-lg font-bold text-pink-500 mb-3">Rank 11 - 30</h4>
           <ul class="space-y-2">
-            @foreach($top30 as $index => $user)
+            @foreach($top30 as $index => $u)
               @if($index >= 10)
                 <li class="flex justify-between items-center bg-gray-100 p-3 rounded-lg shadow-sm">
                   <div class="flex items-center space-x-3">
                     <span class="text-lg font-bold text-pink-600">#{{ $index + 1 }}</span>
-                    <span class="font-semibold text-gray-800">{{ $user->fullname }}</span>
+                    <span class="font-semibold text-gray-800">{{ $u->fullname }}</span>
                   </div>
-                  <span class="text-lg text-pink-500 font-bold">{{ $user->profile_points }} pts</span>
+                  <span class="text-lg text-pink-500 font-bold">{{ $u->profile_points }} pts</span>
                 </li>
               @endif
             @endforeach
