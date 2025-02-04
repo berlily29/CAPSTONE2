@@ -98,7 +98,7 @@
 
             @endif
             <div class="relative w-full mt-4">
-               <a class="w-full bg-pink-500 p-2 rounded-lg text-white hover:bg-pink-600 hover:scale-105 transition-all text-sm flex items-center justify-center">
+               <a href="{{ route('find-events.index') }}" class="w-full bg-pink-500 p-2 rounded-lg text-white hover:bg-pink-600 hover:scale-105 transition-all text-sm flex items-center justify-center">
                   Find Events >
                 </a>
             </div>
