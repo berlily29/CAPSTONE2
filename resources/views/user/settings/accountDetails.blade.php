@@ -116,9 +116,8 @@
                     </div>
 
                     <div class="mt-2 text-center w-full flex flex-row-reverse">
-        <button id="editButton" class="flex items-center justify-center w-12 h-12  my-2  bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
+        <button id="editButton" type="button" class="flex items-center justify-center w-12 h-12  my-2  bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
             <span class="material-icons">edit</span>
-
         </button>
 
         </div>
@@ -430,4 +429,22 @@ citySelect.addEventListener('change', function() {
     }
 });
 
+document.getElementById('editButton').addEventListener('click', function() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You are about to edit your personal information.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Edit',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('editForm').submit();
+
+            }
+        });
+    });
+    
 </script>

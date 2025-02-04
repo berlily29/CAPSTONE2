@@ -93,25 +93,6 @@
 
     }
 
-    document.getElementById('editButton').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You are about to edit your personal information.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Edit',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('editForm').submit();
-
-            }
-        });
-    });
-
-
 </script>
 
 
