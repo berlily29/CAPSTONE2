@@ -16,7 +16,7 @@
 
             <div class="bg-white p-6  border border-gray-200 rounded-lg">
                 <p class="text-[0.8rem] text-gray-500 mt-2">Total events that have been completed</p>
-                <h3 class="text-2xl font-black text-gray-700">Total Accomplished Events</h3>
+                <h3 class="text-2xl font-black text-gray-700">Past Events</h3>
                 <p class="text-8xl font-black text-pink-600 mt-4">{{ $totalAccomplishedEvents }}</p>
 
             </div>

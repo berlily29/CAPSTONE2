@@ -47,11 +47,11 @@
             <!-- First Name -->
             <div>
               <label for="firstName" class="block text-sm text-gray-700">First Name</label>
-              <input 
-                type="text" 
-                id="firstName" 
-                name="fname" 
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
+              <input
+                type="text"
+                id="firstName"
+                name="fname"
+                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
                 placeholder="John"
               />
               @error('fname')
@@ -61,11 +61,11 @@
 
             <div>
               <label for="firstName" class="block text-sm text-gray-700">Middle Name</label>
-              <input 
-                type="text" 
-                id="middleName" 
-                name="mname" 
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
+              <input
+                type="text"
+                id="middleName"
+                name="mname"
+                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
                 placeholder="Middle"
               />
               @error('mname')
@@ -77,11 +77,11 @@
             <!-- Last Name -->
             <div>
               <label for="lastName" class="block text-sm text-gray-700">Last Name</label>
-              <input 
-                type="text" 
-                id="lastName" 
-                name="lname" 
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
+              <input
+                type="text"
+                id="lastName"
+                name="lname"
+                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
                 placeholder="Doe"
               />
               @error('lname')
@@ -92,11 +92,11 @@
             <!-- Email -->
             <div>
               <label for="email" class="block text-sm text-gray-700">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
                 placeholder="example@email.com"
               />
               @error('email')
@@ -107,11 +107,11 @@
             <!-- Password -->
             <div>
               <label for="password" class="block text-sm text-gray-700">Password</label>
-              <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
                 placeholder="******"
               />
               @error('password')
@@ -121,11 +121,11 @@
 
             <div>
               <label for="mobile_no" class="block text-sm text-gray-700">Mobile number</label>
-              <input 
-                type="text" 
-                id="mobile_no" 
-                name="mobile_no" 
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
+              <input
+                type="text"
+                id="mobile_no"
+                name="mobile_no"
+                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
                 placeholder="09121231234"
               />
               @error('mobile_no')
@@ -135,11 +135,11 @@
 
             <div>
               <label for="age" class="block text-sm text-gray-700">Age</label>
-              <input 
-                type="text" 
-                id="age" 
-                name="age" 
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400" 
+              <input
+                type="text"
+                id="age"
+                name="age"
+                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
                 placeholder="Age"
               />
               @error('age')
@@ -147,7 +147,7 @@
               @enderror
             </div>
 
-            <div> 
+            <div>
             <label for="gender" class="block text-sm text-gray-700">Gender</label>
             <select id="gender" name="gender" class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400">
                     <option value="" disabled selected>Choose your gender</option>
@@ -167,11 +167,11 @@
             </div>
             @endif
 
-            
+
 
             <!-- Register Button -->
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               class="w-full py-3 text-white bg-sky-500 hover:bg-sky-600 rounded-lg font-medium tracking-wide transition duration-300">
               Register
             </button>
@@ -199,8 +199,8 @@
               Choose a file
             </label>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               class="w-full bg-gray-800 text-white py-2 text-sm font-semibold hover:bg-gray-700">
               Upload
             </button>

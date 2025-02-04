@@ -8,6 +8,17 @@
 </head>
 <body class="bg-gray-50">
 
+<!-- Popup Loader -->
+<div id="popup-loader" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+        <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-pink-500"></div>
+        <p class="mt-4 text-gray-700">Processing, please wait...</p>
+    </div>
+</div>
+
+
+
+
     <div class="min-h-screen flex items-center justify-center p-8">
         <form action="{{route('auth.location.store')}}" method="POST" class="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
             @csrf
@@ -93,6 +104,14 @@
     </div>
 
     <script>
+
+document.querySelector("form").addEventListener("submit", function() {
+    // Show the loader popup
+    document.getElementById("popup-loader").classList.remove("hidden");
+});
+
+
+
         // Full Cities and Barangays with Postal Codes for Pampanga
         const cityBarangays = {
     'Angeles': [

@@ -1,4 +1,14 @@
 <x-app-layout>
+
+<div id="loader" class="hidden absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-50">
+<div class="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+        <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-pink-500"></div>
+        <p class="mt-4 text-gray-700">Processing, please wait...</p>
+    </div>
+</div>
+
+
+
     <div class="py-8 px-10 bg-white border-b border-gray-200 rounded-lg">
         <!-- Header Section -->
         <div class="mb-4">
@@ -49,16 +59,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        
-          let active_tab = sessionStorage.getItem('active_tab')
-            if (active_tab === null) {
+
+          let admin_pending_active = sessionStorage.getItem('admin_pending_active')
+            if (admin_pending_active === null) {
                 showTab('users');
             } else {
-                showTab(active_tab)
+                showTab(admin_pending_active)
             }
-            
+
         function showTab(tabName) {
-            sessionStorage.setItem('active_tab', tabName);
+            sessionStorage.setItem('admin_pending_active', tabName);
 
             // Hide all tabs
             const allTabs = document.querySelectorAll('.tab-content');
@@ -201,36 +211,40 @@
                     modal.classList.remove('hidden');
 
                     document.querySelectorAll('.approvalForm>Button').forEach((button) => {
-                        button.addEventListener('click', (event) => {
-                            event.preventDefault();
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
 
-                            const form = button.closest('.approvalForm'); 
-                            const action = button.value; 
-                            document.getElementById('approveButtonInput').value = action;
+        const form = button.closest('.approvalForm');
+        const action = button.value;
+        document.getElementById('approveButtonInput').value = action;
 
-                            Swal.fire({
-                                title: `Are you sure you want to mark the user as '${action}'?`,
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#10b981',
-                                cancelButtonColor: '#ef4444',
-                                confirmButtonText: "Yes",
-                                cancelButtonText: "No",
-                            }).then((result) => {
-                                if (result.isConfirmed) {
+        Swal.fire({
+            title: `Are you sure you want to mark the user as '${action}'?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#ef4444',
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Show the loader while processing
+                const loader = document.getElementById('loader');
+                loader.classList.remove('hidden');
 
-                                    if (action == 'Approved') {
-                                    form.submit(); 
-                                    }
-                                    else if(action == 'To-Review') {
-
-                                        document.getElementById('modal-body').innerHTML =
+                // Submit the form or do other actions here after a delay
+                setTimeout(() => {
+                    // Continue with form submission after the loader
+                    if (action == 'Approved') {
+                        form.submit();
+                    } else if (action == 'To-Review') {
+                        document.getElementById('modal-body').innerHTML =
                                         `
                                         <h3 class="text-lg font-bold mt-2 text-gray-700 mb-2">Rejection Form</h3>
                                         <form action="/admin/pending-request/rejectStatus/${userId}" method='POST' class='approvalForm'>
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type="hidden" name="_method" value="PUT">
-                                            
+
                                             <label for="rejectionReason" class="block mb-2 text-sm font-medium text-gray-700">Reason for Rejection:</label>
                                             <select name="rejectionReason" id="rejectionReason" class="border border-gray-300 rounded-md p-2 mb-4 w-full" onchange="toggleOtherField()">
                                                 <option value="" disabled selected>Select a reason</option>
@@ -249,20 +263,23 @@
                                             <button type='submit' value='Reject' class='mx-2 bg-red-500 w-32 hover:bg-red-600 p-4 text-white rounded-2xl'>Send Notice</button>
                                             </div>
                                         </form>`;
-                                                                                
-                                    }
+                    }
 
-                                }
-                            });
-                        });
-                    });
+                    // Hide the loader after processing
+                    loader.classList.add('hidden');
+                }, 3000); // Adjust the delay for your email processing or backend delay
+            }
+        });
+    });
+});
+
 
                 });
             });
 
             closeModalSpan.addEventListener('click', function () {
                 modal.classList.add('hidden');
-                
+
             });
 
             window.addEventListener('click', function (event) {
@@ -284,7 +301,7 @@
             }
     }
 
-        
+
     </script>
 
     @if(session('msg'))
