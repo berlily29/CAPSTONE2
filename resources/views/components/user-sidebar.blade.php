@@ -9,7 +9,8 @@
         </button>
 
         <!-- Account Section -->
-        <h1 class="text-lg font-bold text-pink-600 sidebar-label">Account</h1>
+
+        <h1 class="text-lg font-bold text-pink-600 mb-2 sidebar-label">Account</h1>
         <ul>
             <li>
                 <a href="{{ route('user.profile') }}"
@@ -27,7 +28,7 @@
             </li>
             <li>
                 <a @if(session('is_approved') == false) href="#" @else href="{{ route('user.joinevents') }}" @endif
-                    class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user-joined-events*') ? 'active_link' : '' }}
+                    class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.joinevents*') ? 'active_link' : '' }}
                     @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
                     <span class="material-icons sidebar-icon">today</span>
                     <span class="sidebar-label">Joined Events</span>
@@ -44,6 +45,7 @@
 
         <!-- Features Section -->
         <hr class="my-6 border-gray-200">
+
         <h1 class="text-lg font-bold text-pink-600 mb-2 sidebar-label">Features</h1>
         <ul>
             <li>
@@ -76,7 +78,7 @@
                     <a  href="{{ route('eo.dashboard') }}"
                         class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.dashboard*') ? 'active_link' : '' }}">
                         <span class="material-symbols-outlined sidebar-icon">deployed_code_account</span>
-                        <span class="sidebar-label">My Portal</span>
+                        <span class="sidebar-label">My Events</span>
                     </a>
                 </li>
             @else
@@ -99,9 +101,11 @@
     const toggleButton = document.getElementById('toggleSidebar');
     const toggleIcon = document.getElementById('toggleIcon');
     const labels = document.querySelectorAll('.sidebar-label');
+    const labels_hr = document.querySelectorAll('.label_temp')
 
     // Function to update the sidebar state in localStorage
     function updateSidebarState() {
+        console.log(labels_hr)
         const isCollapsed = sidebar.classList.contains('w-20');
         localStorage.setItem('sidebarState', isCollapsed ? 'collapsed' : 'expanded');
     }
@@ -114,11 +118,13 @@
             sidebar.classList.remove('w-64');
             toggleIcon.textContent = 'chevron_right';
             labels.forEach(label => label.classList.add('hidden'));
+            labels_hr.forEach(label => label.classList.remove('hidden'));
         } else {
             sidebar.classList.add('w-64');
             sidebar.classList.remove('w-20');
             toggleIcon.textContent = 'chevron_left';
             labels.forEach(label => label.classList.remove('hidden'));
+            labels_hr.forEach(item => item.classList.add('hidden'));
         }
     });
 
@@ -150,4 +156,3 @@
 
 
 </style>
-

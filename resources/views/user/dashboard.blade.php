@@ -31,7 +31,7 @@
             <h3 class="flex items-center justify-between text-lg font-semibold text-gray-800">
                <div class="flex items-center">
                   <span class="material-icons mr-2 text-sky-600">notifications</span>
-                  <h1 class="font-black  text-sky-600">
+                  <h1 class="text-lg font-semibold text-gray-800">
 
                       Notifications
                   </h1>

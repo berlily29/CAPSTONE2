@@ -1,9 +1,18 @@
 <div class="mb-4 text-center">
-    <p class="text-gray-400">Discover an event recommendation tailored for you</p>
+    <p class="text-gray-400">Discover events recommended just for you, based on your preferences and activity.</p>
+    <div class="w-full flex justify-center">
 
-    <button id="generate-btn" class="mt-4 px-6 py-3 bg-gradient-to-r from-pink-500 to-sky-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
-        Get a Random Recommendation
-    </button>
+        <button id="generate-btn" class="flex flex-col items-center text-white mt-4 px-6 py-8 bg-gradient-to-r from-pink-500 to-sky-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+
+            <span class="material-symbols-outlined text-[3rem]">
+                search
+            </span>
+
+
+
+            Find an Event for you
+        </button>
+    </div>
 
     <!-- Popup Loader (Hidden by Default) -->
     <div id="popup-loader" class="popup-loader hidden fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
@@ -12,6 +21,9 @@
                     <div
                     class="p-3 animate-spin drop-shadow-2xl bg-gradient-to-bl from-pink-400 via-purple-400 to-indigo-600 md:w-48 md:h-48 h-32 w-32 aspect-square rounded-full"
                     >
+
+
+
                     <div
                         class="rounded-full h-full w-full bg-slate-100 dark:bg-zinc-900 background-blur-xl"
                     ></div>
@@ -29,7 +41,7 @@
 
             <div class="pl-6 pr-4 py-6 flex flex-col items-center gap-4">
                 <!-- Event Details -->
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col">
                     <h3 id="event_title" class="text-xl font-bold text-pink-600 mb-3"></h3>
 
                     <div class="flex items-center gap-3 text-pink-500 mb-4">

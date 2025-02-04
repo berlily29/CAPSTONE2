@@ -52,6 +52,10 @@ Route::middleware(['admin'])-> group(function() {
     Route::post('/admin/gallery/add/{id}', [GalleryController::class, 'add_to_gallery'])->name('admin.gallery.add');
 
     Route::delete('/admin/gallery/del/{id}',[GalleryController::class, 'remove_from_gallery'])->name('admin.gallery.delete');
+
+
+    //App config
+    Route::get('/admin/config',[])
 });
 
 

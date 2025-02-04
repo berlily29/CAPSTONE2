@@ -8,26 +8,26 @@
         </button>
 
         <h1 class="text-sm font-bold text-gray-400 sidebar-label">Event Organizer</h1>
-        <h1 class="text-[2rem] font-black text-pink-600 mb-2 sidebar-label">My Portal</h1>
+        <h1 class="text-[2rem] font-black text-pink-600 mb-2 sidebar-label">My Events</h1>
 
         <hr class="my-4 opacity-65">
         <ul>
             <li>
-                <a href="{{route('eo.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.dashboard') ? 'active_link' : '' }}">
+                <a href="{{route('eo.dashboard')}}" class="flex items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.dashboard') ? 'active_link' : '' }}">
                     <span class="material-icons mr-3 sidebar-icon">dashboard</span>
                     <span class="sidebar-label">Dashboard</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{route('eo.pending-requests')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.pending-requests*') ? 'active_link' : '' }}">
+                <a href="{{route('eo.pending-requests')}}" class="flex items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.pending-requests*') ? 'active_link' : '' }}">
                     <span class="material-icons mr-3 sidebar-icon">schedule</span>
                     <span class="sidebar-label">Requests</span>
                 </a>
             </li>
 
             <li>
-                <a href="{{route('eo.channels')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.channels*') ? 'active_link' : '' }}">
+                <a href="{{route('eo.channels')}}" class="flex items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.channels*') ? 'active_link' : '' }}">
                     <span class="material-icons mr-3 sidebar-icon">event</span>
                     <span class="sidebar-label">Active Events</span>
                 </a>
@@ -37,7 +37,7 @@
 
             <hr class="opacity-65 my-4">
             <li>
-                <a href="{{route('user.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('admin.settings*') ? 'active_link' : '' }}">
+                <a href="{{route('user.dashboard')}}" class="flex items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('admin.settings*') ? 'active_link' : '' }}">
                     <span class="material-icons mr-3 sidebar-icon">keyboard_return</span>
                     <span class="sidebar-label">Return to User Dashboard</span>
                 </a>
