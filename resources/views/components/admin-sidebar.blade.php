@@ -60,6 +60,8 @@
                 </li>
 
 
+
+
                 <li class="">
                     <a href="{{route('admin.settings')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
                     {{ Route::is('admin.settings*') ? 'active_link' : '' }}
@@ -68,6 +70,19 @@
                         Settings
                     </a>
                 </li>
+
+                <li class="">
+                    <a href="{{route('admin.config')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
+                    {{ Route::is('admin.config*') ? 'active_link' : '' }}
+                    ">
+                    <span class="material-symbols-outlined mr-3">
+                    manufacturing
+                    </span>
+                        App Config
+                    </a>
+                </li>
+
+
 
             </ul>
         </div>

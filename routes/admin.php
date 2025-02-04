@@ -3,10 +3,12 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminPendingsController;
 use App\Http\Controllers\AdminSettingsController;
+use App\Http\Controllers\AppConfigController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ManageEventsController;
 use App\Http\Controllers\PendingRequestController;
 use App\Http\Controllers\UserManagementController;
+use App\Models\AppConfig;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -55,7 +57,8 @@ Route::middleware(['admin'])-> group(function() {
 
 
     //App config
-    Route::get('/admin/config',[])
+    Route::get('/admin/config',[AppConfigController::class, 'index'])->name('admin.config');
+    Route::put('/admin/config/update', [AppConfigController::class, 'update'])->name('admin.config.update');
 });
 
 

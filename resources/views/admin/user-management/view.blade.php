@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="bg-gray-50 overflow-hidden min-h-screen">
+    <div class="bg-white overflow-hidden min-h-screen">
         <div class="p-8" id="usersSection">
             <div class="mb-3 pl-2">
                 <h1 class="text-lg text-gray-800">Manage</h1>
@@ -10,8 +10,8 @@
             <div class="relative mb-5">
                 <form action="{{ route('admin.user-management.filter') }}" method="GET" id="searchForm" class="w-full">
                     <div class="absolute right-4">
-                        <input type="text" placeholder="Search" name="search" value="{{ request()->search }}" 
-                            class="border border-gray-300 p-2 pl-10 pr-4 rounded-lg w-64 text-right focus:outline-none focus:ring-1 focus:ring-blue-400" 
+                        <input type="text" placeholder="Search" name="search" value="{{ request()->search }}"
+                            class="border border-gray-300 p-2 pl-10 pr-4 rounded-lg w-64 text-right focus:outline-none focus:ring-1 focus:ring-blue-400"
                             onkeyup="this.form.submit()">
                         <span class="material-icons absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">search</span>
                     </div>
@@ -20,7 +20,7 @@
 
             <div class="flex justify-start items-center mb-4 relative w-[15vw] max-w-md">
                 <!-- Filter Button -->
-                
+
                 <!-- Filter form with simple dropdown -->
                 <form action="{{ route('admin.user-management.filter') }}" method="GET" id="filterForm" class="ml-4 w-full">
                     <!-- Role select with a pink button style -->
@@ -39,8 +39,8 @@
                 @foreach($users as $user)
                 <div class="bg-white p-6 rounded-lg shadow-md flex items-center mt-2">
                     <span class="w-10 h-10 rounded-2xl text-6xl text-gray-500 mr-4">
-                        <img src="{{ $user->profile_picture ? asset('storage/uploads/profilepic/' . $user->profile_picture) : asset('images/default-dp.jpg') }}" 
-                            alt="Profile Picture" 
+                        <img src="{{ $user->profile_picture ? asset('storage/uploads/profilepic/' . $user->profile_picture) : asset('images/default-dp.jpg') }}"
+                            alt="Profile Picture"
                             class="w-full h-full object-cover rounded-full">
                     </span>
                     <div class="flex-grow">
@@ -48,7 +48,7 @@
                         <p class="text-gray-500">Role: {{$user->login->role}}</p>
                         <p class="text-sm text-gray-400">Email: {{$user->login->email}}</p>
                     </div>
-                    <button class="showProfile flex items-center p-2 bg-pink-500 hover:bg-pink-600 text-gray-700 rounded-3xl focus:outline-none focus:ring-2 focus:ring-gray-400" 
+                    <button class="showProfile flex items-center p-2 bg-pink-500 hover:bg-pink-600 text-gray-700 rounded-3xl focus:outline-none focus:ring-2 focus:ring-gray-400"
                             onclick="showProfile({{ json_encode(['user' => $user, 'login' => $user->login]) }})">
                         <span class="material-icons text-3xl text-white">arrow_forward</span>
                     </button>

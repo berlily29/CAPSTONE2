@@ -6,202 +6,156 @@
   <title>Register</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      background-color: #f9fafb;
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
-    label {
-      font-weight: 600;
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
-    input, button, select, textarea {
-      border-radius: 4px;
-    }
-    button {
-      transition: background-color 0.2s, transform 0.2s;
-    }
-    button:hover {
-      transform: scale(1.02);
+    .slide.active { opacity: 1; }
+    .gradient-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(255, 105, 180, 0.7), rgba(255, 182, 193, 0.6));
+      z-index: 1;
     }
   </style>
 </head>
 <body>
+@php
+
+$config = \App\Models\AppConfig::find(1);
+@endphp
+
   <div class="flex h-screen">
     <!-- Image Section -->
-    <div class="w-1/3 bg-gray-200 flex items-center justify-center">
-      <p class="text-3xl font-semibold text-gray-700">GALLERY</p>
+    <div class="w-1/3 bg-gray-200 relative">
+      <div class="slideshow-container">
+        <img src="{{asset('images/slideshow/1.jpg')}}" class="slide active">
+        <img src="{{asset('images/slideshow/2.jpg')}}" class="slide">
+        <img src="{{asset('images/slideshow/3.jpg')}}" class="slide">
+        <div class="gradient-overlay"></div>
+        <div class="absolute inset-0 flex items-center justify-center z-10">
+          <img src="{{asset('images/logo/' . $config->secondary_logo) }}" class="w-[220px] h-auto" alt="">
+        </div>
+      </div>
     </div>
 
     <!-- Form Section -->
     <div class="w-2/3 flex items-center justify-center bg-gray-50">
       <div class="w-full max-w-md px-6">
-
         @if(!isset($isVerified) || !$isVerified)
-          <h2 class="text-2xl font-bold mb-4 text-gray-800">Let's Get Started</h2>
+          <h2 class="text-3xl font-bold mb-6 text-gray-800">Let's Get Started</h2>
           @if(isset($errorMessage) && $errorMessage)
             <p class="text-sm text-red-500 mb-4">{{ $errorMessage }}</p>
           @endif
 
-          <!-- Registration Form -->
-          <form action="{{route('auth.register.save')}}" method="POST" class="space-y-4">
+          <form method="POST" action="{{ route('auth.register.save') }}" class="space-y-4" id="registrationForm">
             @csrf
-            @method('POST')
-            <!-- First Name -->
-            <div>
-              <label for="firstName" class="block text-sm text-gray-700">First Name</label>
-              <input
-                type="text"
-                id="firstName"
-                name="fname"
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
-                placeholder="John"
-              />
-              @error('fname')
-                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-              @enderror
+
+            <!-- Name Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-600">First Name</label>
+                <input type="text" name="fname" value="{{ old('fname') }}"
+                       class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-pink-300 focus:border-pink-400">
+              </div>
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-600">Middle Name</label>
+                <input type="text" name="mname" value="{{ old('mname') }}"
+                       class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-pink-300 focus:border-pink-400">
+              </div>
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-600">Last Name</label>
+                <input type="text" name="lname" value="{{ old('lname') }}"
+                       class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-pink-300 focus:border-pink-400">
+              </div>
             </div>
 
-            <div>
-              <label for="firstName" class="block text-sm text-gray-700">Middle Name</label>
-              <input
-                type="text"
-                id="middleName"
-                name="mname"
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
-                placeholder="Middle"
-              />
-              @error('mname')
-                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-              @enderror
-            </div>
+            <!-- email -->
 
+            <div class="space-y-1">
+              <label class="text-sm font-medium text-gray-600">Email</label>
+              <input type ="text" name="email" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-pink-300 focus:border-pink-400">
 
-            <!-- Last Name -->
-            <div>
-              <label for="lastName" class="block text-sm text-gray-700">Last Name</label>
-              <input
-                type="text"
-                id="lastName"
-                name="lname"
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
-                placeholder="Doe"
-              />
-              @error('lname')
-                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-              @enderror
-            </div>
-
-            <!-- Email -->
-            <div>
-              <label for="email" class="block text-sm text-gray-700">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
-                placeholder="example@email.com"
-              />
-              @error('email')
-                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-              @enderror
-            </div>
-
-            <!-- Password -->
-            <div>
-              <label for="password" class="block text-sm text-gray-700">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
-                placeholder="******"
-              />
-              @error('password')
-                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-              @enderror
-            </div>
-
-            <div>
-              <label for="mobile_no" class="block text-sm text-gray-700">Mobile number</label>
-              <input
-                type="text"
-                id="mobile_no"
-                name="mobile_no"
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
-                placeholder="09121231234"
-              />
-              @error('mobile_no')
-                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-              @enderror
-            </div>
-
-            <div>
-              <label for="age" class="block text-sm text-gray-700">Age</label>
-              <input
-                type="text"
-                id="age"
-                name="age"
-                class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400"
-                placeholder="Age"
-              />
-              @error('age')
-                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-              @enderror
-            </div>
-
-            <div>
-            <label for="gender" class="block text-sm text-gray-700">Gender</label>
-            <select id="gender" name="gender" class="w-full p-2 border border-gray-300 text-sm focus:outline-none focus:ring focus:ring-gray-400">
-                    <option value="" disabled selected>Choose your gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-                @error('gender')
-                <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
-                @enderror
-
+              </select>
             </div>
 
 
-            @if(isset($msg) && $msg != '')
-            <div class="mt-6 bg-pink-50 border-l-4 border-pink-500 text-pink-600 p-4 rounded-lg shadow-md">
-                <span class="font-medium">{{ $msg }}</span>
+            <div class="space-y-1">
+              <label class="text-sm font-medium text-gray-600">Email</label>
+              <input type ="password" name="password" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-pink-300 focus:border-pink-400">
+
+              </select>
             </div>
-            @endif
+            <!-- Contact Info -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-600">Mobile No.</label>
+                <input type="text" name="mobile_no" value="{{ old('mobile_no') }}"
+                       class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-pink-300 focus:border-pink-400">
+              </div>
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-600">Age</label>
+                <input type="number" name="age" value="{{ old('age') }}"
+                       class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-pink-300 focus:border-pink-400">
+              </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="space-y-1">
+              <label class="text-sm font-medium text-gray-600">Gender</label>
+              <select name="gender" class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-pink-300 focus:border-pink-400">
+                <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+              </select>
+            </div>
 
 
 
-            <!-- Register Button -->
-            <button
-              type="submit"
-              class="w-full py-3 text-white bg-sky-500 hover:bg-sky-600 rounded-lg font-medium tracking-wide transition duration-300">
-              Register
+
+
+
+            <button type="submit"
+                    class="w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 transition-colors">
+              Continue
             </button>
           </form>
+
         @else
+          <!-- Verification Section (Keep exactly as original) -->
           <h2 class="text-2xl font-bold mb-4 text-gray-800 flex items-center">
             <span class="material-icons text-xl mr-2">badge</span> Verification
           </h2>
           <p class="text-sm text-gray-600 mb-4">Upload a valid ID to verify your account.</p>
 
-          <!-- ID Preview -->
           <div class="border border-gray-300 bg-gray-100 py-8 rounded-sm mb-4 text-center">
             @if(isset($imagePreview))
-              <img src="{{ $imagePreview }}" alt="ID Preview" class="mx-auto h-40 object-contain" />
+              <img src="{{ $imagePreview }}" alt="ID Preview" class="mx-auto h-40 object-contain">
             @else
               <p class="text-sm text-gray-500">ID Preview</p>
             @endif
           </div>
 
-          <!-- File Upload -->
           <form action="{{ route('upload-id') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
-            <input type="file" id="fileInput" name="idFile" class="hidden" accept="image/*" />
+            <input type="file" id="fileInput" name="idFile" class="hidden" accept="image/*">
             <label for="fileInput" class="block text-center text-sm text-gray-600 underline cursor-pointer">
               Choose a file
             </label>
-
-            <button
-              type="submit"
-              class="w-full bg-gray-800 text-white py-2 text-sm font-semibold hover:bg-gray-700">
+            <button type="submit"
+                    class="w-full bg-gray-800 text-white py-2 text-sm font-semibold hover:bg-gray-700">
               Upload
             </button>
           </form>
@@ -209,5 +163,43 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // Form persistence
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('registrationForm');
+      if(form) {
+        const inputs = form.querySelectorAll('input, select, textarea');
+
+        // Load saved values
+        inputs.forEach(input => {
+          const savedValue = sessionStorage.getItem(input.name);
+          if(savedValue) input.value = savedValue;
+        });
+
+        // Save on input
+        form.addEventListener('input', (e) => {
+          sessionStorage.setItem(e.target.name, e.target.value);
+        });
+
+        // Clear on submit
+        form.addEventListener('submit', () => {
+          inputs.forEach(input => sessionStorage.removeItem(input.name));
+        });
+      }
+
+      // Slideshow
+      let currentIndex = 0;
+      const slides = document.querySelectorAll('.slide');
+      const totalSlides = slides.length;
+
+      function showNextSlide() {
+        slides[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % totalSlides;
+        slides[currentIndex].classList.add('active');
+      }
+      setInterval(showNextSlide, 3000);
+    });
+  </script>
 </body>
 </html>

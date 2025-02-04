@@ -41,13 +41,19 @@
         }
     </style>
 </head>
+
+
+@php
+
+$config = \App\Models\AppConfig::find(1);
+@endphp
 <body class="bg-gray-50 font-sans">
 <div class="flex min-h-screen">
     <!-- Left Content: Form Section -->
     <div class="w-7/12 bg-white flex flex-col justify-center items-center p-16">
         <!-- Logo Section -->
         <div class="w-full flex justify-center">
-            <img src="{{asset('images/logo/logo.png')}}" alt="Logo" class="w-[180px] h-auto">
+            <img src="{{asset('images/logo/' .$config->primary_logo )}}" alt="Logo" class="w-[180px] h-auto">
         </div>
 
         <!-- Login Header -->

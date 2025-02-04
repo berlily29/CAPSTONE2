@@ -107,16 +107,7 @@ class RegisterController extends Controller
     }
 
     public function register(Request $request) {
-        $request->validate([
-            'fname'=> 'required|string',
-            'mname'=> 'required|string',
-            'lname'=> 'required|string',
-            'email'=> 'email|required',
-            'password'=> 'string|required|min:6',
-            'mobile_no' => 'required|digits:11|numeric',
-            'age' => 'string|required',
-            'gender' => 'string|required',
-        ]);
+
 
         //check if the email already exist
         if(UsersLogin::where('email',$request->email)->exists()) {
