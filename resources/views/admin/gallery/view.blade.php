@@ -30,7 +30,7 @@
                                         @if($stories->isEmpty())
                                             <span class="text-gray-400 text-sm italic">No stories for this channel</span>
                                         @else
-                                        <button class="flex items-center text-sm text-pink-600" onclick="toggleDropdown('live-dropdown-{{ $story->event_id }}')">
+                                        <button class="flex items-center text-sm text-pink-600" onclick="toggleItemDropdown('live-dropdown-{{ $story->event_id }}')">
                                         Show Images
                                         <span class="ml-2 transform transition duration-300 ease-in-out" data-arrow="live-dropdown-{{ $story->event_id }}">
                                             ▼
@@ -125,10 +125,13 @@
 
         </div>
     </div>
+</div>
+</div> <!-- Missing closing div for main container -->
+
 </x-app-layout>
 
 <script>
-    function toggleDropdown(id) {
+    function toggleItemDropdown(id) {
     var dropdown = document.getElementById(id);
     var arrow = document.querySelector(`[data-arrow="${id}"]`);
 

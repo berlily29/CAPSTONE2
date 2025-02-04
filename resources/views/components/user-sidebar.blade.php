@@ -13,21 +13,21 @@
         <ul>
             <li>
                 <a href="{{ route('user.profile') }}"
-                    class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.profile*') ? 'active_link' : '' }}">
+                    class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.profile*') ? 'active_link' : '' }} pr-2">
                     <span class="material-icons sidebar-icon">account_circle</span>
                     <span class="sidebar-label">Profile</span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('user.dashboard') }}"
-                    class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.dashboard*') ? 'active_link' : '' }}">
+                    class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3  text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.dashboard*') ? 'active_link' : '' }} ">
                     <span class="material-icons sidebar-icon">dashboard</span>
                     <span class="sidebar-label">My Dashboard</span>
                 </a>
             </li>
             <li>
                 <a @if(session('is_approved') == false) href="#" @else href="{{ route('user.joinevents') }}" @endif
-                    class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Request::is('user-joined-events*') ? 'active_link' : '' }}
+                    class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user-joined-events*') ? 'active_link' : '' }}
                     @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
                     <span class="material-icons sidebar-icon">today</span>
                     <span class="sidebar-label">Joined Events</span>
@@ -35,7 +35,7 @@
             </li>
             <li>
                 <a href="{{ route('user.settings') }}"
-                    class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Request::is('user.settings') ? 'active_link' : '' }}">
+                    class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.settings*') ? 'active_link' : '' }}">
                     <span class="material-icons sidebar-icon">settings</span>
                     <span class="sidebar-label">Settings</span>
                 </a>
@@ -48,7 +48,7 @@
         <ul>
             <li>
                 <a @if(session('is_approved') == false) href="#" @else href="{{ route('find-events.index') }}" @endif
-                    class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('find-events.index*') ? 'active_link' : '' }}
+                    class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('find-events.index*') ? 'active_link' : '' }}
                     @if(session('is_approved') === false) opacity-50 cursor-not-allowed @endif">
                     <span class="material-icons sidebar-icon">search</span>
                     <span class="sidebar-label">Find Events</span>
@@ -56,14 +56,14 @@
             </li>
             <li>
                 <a href="{{ route('gallery.index') }}"
-                    class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('gallery*') ? 'active_link' : '' }}">
+                    class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('gallery*') ? 'active_link' : '' }}">
                     <span class="material-icons sidebar-icon">image</span>
                     <span class="sidebar-label">Gallery</span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('user.leaderboards') }}"
-                    class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.leaderboards*') ? 'active_link' : '' }}">
+                    class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('user.leaderboards*') ? 'active_link' : '' }}">
                     <span class="material-symbols-outlined sidebar-icon">social_leaderboard</span>
                     <span class="sidebar-label">Top Volunteers</span>
                 </a>
@@ -74,7 +74,7 @@
             @if(Auth::user()->role === 'Organizer')
                 <li>
                     <a  href="{{ route('eo.dashboard') }}"
-                        class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.dashboard*') ? 'active_link' : '' }}">
+                        class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('eo.dashboard*') ? 'active_link' : '' }}">
                         <span class="material-symbols-outlined sidebar-icon">deployed_code_account</span>
                         <span class="sidebar-label">My Portal</span>
                     </a>
@@ -82,7 +82,7 @@
             @else
                 <li>
                     <a @if(session('eo_ban') == true || session('is_approved') == false) href="#" @else href="{{ route('application.index') }}" @endif
-                        class="flex gap-2 items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('apply.organizer*') ? 'active_link' : '' }}
+                        class="flex gap-2 items-center pr-8 pt-3 pb-3 pl-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Route::is('application.index*') ? 'active_link' : '' }}
                         @if(session('eo_ban') === true || session('is_approved') == false) opacity-50 cursor-not-allowed @endif">
                         <span class="material-symbols-outlined sidebar-icon">send</span>
                         <span class="sidebar-label">Apply as Event Organizer</span>
@@ -147,5 +147,7 @@
     .w-20 .sidebar-label {
         display: none;
     }
+
+
 </style>
 

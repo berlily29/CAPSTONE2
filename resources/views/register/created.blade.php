@@ -23,7 +23,7 @@
             <!-- Action Button -->
             <div class="text-center">
                 <p class="text-gray-600 mb-4">A verification email has been sent to your inbox. Please check your email and verify your account.</p>
-                <a href="/" class="w-full inline-block bg-pink-500 text-white text-base py-3 rounded-xl hover:bg-pink-400 transition-all duration-300">Go to Login</a>
+
             </div>
         </div>
     </div>
