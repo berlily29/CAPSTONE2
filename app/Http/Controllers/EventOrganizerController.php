@@ -74,7 +74,7 @@ class EventOrganizerController extends Controller
     }
 
     public function channels_index() {
-        $events = Events::where('approved',1)-> where('status', 'upcoming')->get() ;
+        $events = Events::where('approved',1)-> where('status', 'upcoming')->where('event_organizer' , Auth::user()->user_id)->get() ;
         return view('organizer.channels.view')->with([
             'events'=> $events
         ]);

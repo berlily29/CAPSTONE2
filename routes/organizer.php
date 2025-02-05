@@ -27,8 +27,8 @@ Route::middleware(['organizer'])->group(function() {
     Route::get('/portal/dashboard', function() {
 
         return view('organizer.dashboard')->with([
-            'upcomingEvents' => Events::where('status', 'upcoming')->count(), // Upcoming Eventss count
-            'totalAccomplishedEvents' => Events::where('status', 'done')->count(), // Total approved (accomplished) events
+            'upcomingEvents' => Events::where('status', 'upcoming')->where('event_organizer', Auth::user()->user_id)->where('approved',1)->count(), // Upcoming Eventss count
+            'totalAccomplishedEvents' => Events::where('status', 'done')->where('event_organizer', Auth::user()->user_id)->count(), // Total approved (accomplished) events
             'currentPendingRequests' => Events::where('approved', 0)->count(), // Pending requests count
             'notifications'=> EONotifications::where('user_id', Auth::user()->user_id)-> get()
         ]);

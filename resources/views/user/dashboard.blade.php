@@ -181,7 +181,7 @@
             document.getElementById('event_title').textContent = recEvent.title;
             document.getElementById('event_date').textContent = recEvent.date.split("T")[0];
             document.getElementById('event_venue').textContent = recEvent.venue;
-            document.getElementById('event-details-link').href = `/find-events/${recEvent.event_id}`;
+            document.getElementById('event-details-link').href = `/events/${recEvent.event_id}`;
          })
          .catch(error => {
             console.error("Error fetching recommended event:", error);
