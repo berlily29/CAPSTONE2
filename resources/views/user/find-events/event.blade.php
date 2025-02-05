@@ -46,18 +46,15 @@
                                 <div>
                                     <h3 class="text-2xl font-semibold text-gray-800">Categories</h3>
                                     <div class="flex flex-wrap gap-2 mt-2">
-                                        @if($event->event_category == 1 || $event->event_category == 6 || $event->event_category == 11 || $event->event_category == 16 || $event->event_category == 20)
-                                            <span class="px-4 py-2 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
-                                                {{ $event->category->name }}
-                                            </span>
-                                        @else
-                                            <span class="px-4 py-2 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
-                                                {{ $event->category->parent->name }}
-                                            </span>
-                                            <span class="px-4 py-2 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
-                                                {{ $event->category->name }}
-                                            </span>
-                                        @endif
+                                            @foreach($event->event_category as $cat)
+                                                @php
+                                                    $categories = \App\Models\EventCategories::where('id', $cat)->first();
+                                                @endphp
+                                                <span class="px-4 py-2 text-sm font-medium bg-pink-100 text-pink-600 rounded-full">
+                                                    {{$categories-> name}}
+                                                </span>
+                                            @endforeach
+
                                     </div>
                                 </div>
                             </div>

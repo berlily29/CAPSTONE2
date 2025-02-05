@@ -19,20 +19,19 @@ class EventRecommender extends Controller
         $events = Events::all();
         // dump('User ID: ' . $user->user_id . ' | ' . $user->fullname);
 
+        $me = Events::where('event_organizer' , $user->user_id)->get();
+        $myevents = []; //events that are managed by the user
+        foreach($me as $i) {
+            $myevents[] = $i->event_id;
+        }
 
 
         //current events (joined = interested)
         $joined_events = $user-> joinedEvents;
         $joined_events_array = [];
         foreach($joined_events as $i) {
-                if(!(in_array($i->event_id, $joined_events_array))) $joined_events_array[]= $i->event_id;
+                if(!(in_array($i->event_id, $joined_events_array)) && !(in_array($i->event_id, $myevents))) $joined_events_array[]= $i->event_id;
         }
-
-
-        // dump('Events currently joined and interested (vvv)');
-        // dump($joined_events_array);
-
-
 
         //user preferences
         $user_preferences = $user->user_preference;
@@ -50,17 +49,13 @@ class EventRecommender extends Controller
 
                      if (in_array($category->parent->id, $up_array) ) {
                         if(!(in_array($event->event_id, $joined_events_array))) {
-                            if(!(in_array($event->event_id, $userpreferences_array))) $userpreferences_array[] = $event->event_id;
+                            if(!(in_array($event->event_id, $userpreferences_array)) && !(in_array($event->event_id, $myevents))) $userpreferences_array[] = $event->event_id;
 
                         }
                     }
                 }
             }
         }
-
-        // dump('Events by: User Preferences (vvv)');
-        // dump($userpreferences_array);
-
         //user location + event target location
         $user_location = $user->city;
         $baseby_location = Events::where('target_location', $user_location )->get();
@@ -68,14 +63,9 @@ class EventRecommender extends Controller
         $location_array= [];
         foreach($baseby_location as $item) {
             if(!(in_array($item->event_id, $joined_events_array))) {
-                if(!(in_array($item->event_id, $location_array))) $location_array[] = $item->event_id;
+                if(!(in_array($item->event_id, $location_array)) && !(in_array($item->event_id, $myevents))) $location_array[] = $item->event_id;
             }
         }
-
-        // dump('Events by User Location + Event Target Location (vvv)');
-        // dump($location_array);
-
-
         //event recommendations based on completed events
         $completed_events_tokens = AttendanceTokens::where('user_id', Auth::user()->user_id)->where('encoded', 1)->get();
 
@@ -111,17 +101,11 @@ class EventRecommender extends Controller
                 $event_categories =  $_event-> event_category;
                 if(!(in_array($event->event_id, $joined_events_array))) {
                     if(in_array($item, $event_categories)) {
-                        if(!(in_array($event->event_id, $sugg_events))) $sugg_events[]= $event->event_id;
+                        if(!(in_array($event->event_id, $sugg_events)) && !(in_array($event->event_id, $myevents))) $sugg_events[]= $event->event_id;
                     }
                 }
             }
         }
-
-
-
-        // dump('Suggested Events based on User Completed Events [with Attendance Tokens] (vvv)');
-        // dump($sugg_events);
-
 
         //event recommendation based on user interest
 
@@ -159,13 +143,6 @@ class EventRecommender extends Controller
         }
 
 
-
-        // dump('Event recommendations based on User Interest (Currently joined upcoming events)');
-        // dump($rec_events);
-
-
-
-        //top 3 events
         $all_recommended_events = array_merge(
             $userpreferences_array,
             $location_array,
@@ -174,22 +151,11 @@ class EventRecommender extends Controller
         );
 
         $event_counts = array_count_values($all_recommended_events);
-
         arsort($event_counts);
-
-        // dump('Event Recommendation Scoring: [by frequencies]');
-        // dump($event_counts);
-
-
-
         $top_events = array_slice(array_keys($event_counts), 0, intdiv(count($event_counts), 2));
 
 
-
-
-
         return $top_events;
-
 
 
     }
