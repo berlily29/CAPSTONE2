@@ -107,14 +107,88 @@
 
       <!-- Other Events -->
       <section class="bg-white p-6 rounded-lg border border-gray-200 mt-4">
-         <h3 class="text-lg font-bold text-gray-800 text-center mb-4">Check out these Events!</h3>
-         <p class="text-center text-gray-600">No featured events at the moment. Stay tuned!</p>
-      </section>
+    <h3 class="text-lg font-bold text-gray-800 text-center">Featured Event</h3>
+    <p class="text-gray-400 text-center mb-4">Handpicked just for you—don't miss out!</p>
+    <div class="mb-4 text-center">
+
+
+        <!-- Loader -->
+        <div id="popup-loader" class="popup-loader hidden fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
+            <div class="card">
+                <div class="loader">
+                    <div class="p-3 animate-spin drop-shadow-2xl bg-gradient-to-bl from-pink-400 via-purple-400 to-indigo-600 md:w-48 md:h-48 h-32 w-32 aspect-square rounded-full">
+                        <div class="rounded-full h-full w-full bg-slate-100 dark:bg-zinc-900 background-blur-xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendation Display -->
+        <div id="recommendation" class="mt-6 hidden">
+            <div class="group relative bg-white rounded-2xl shadow-sm transition-all border border-gray-300 hover:border-pink-100 overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-pink-500 to-sky-600"></div>
+                <div class="pl-6 pr-4 py-6 flex flex-col items-center gap-4">
+                    <div class="flex flex-col">
+                        <h3 id="event_title" class="text-xl font-bold text-pink-600 mb-3"></h3>
+                        <div class="flex items-center gap-3 text-pink-500">
+                            <div class="flex items-center text-sm">
+                                <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2h-14a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                <h1 id="event_date"></h1>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <h1 id="event_venue"></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="#" id="event-details-link" class="flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-pink-500 to-sky-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Details
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
    </div>
 
    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <script>
+
+ // Recommendation functionality
+ document.addEventListener("DOMContentLoaded", function() {
+      // Show loader while fetching the event
+      document.getElementById("popup-loader").classList.remove("hidden");
+
+      fetch("{{ route('find-events.getNewRecommendation') }}")
+         .then(response => response.json())
+         .then(data => {
+            document.getElementById("popup-loader").classList.add("hidden");
+            document.getElementById("recommendation").classList.remove("hidden");
+
+            const recEvent = data.rec_event;
+            document.getElementById('event_title').textContent = recEvent.title;
+            document.getElementById('event_date').textContent = recEvent.date.split("T")[0];
+            document.getElementById('event_venue').textContent = recEvent.venue;
+            document.getElementById('event-details-link').href = `/find-events/${recEvent.event_id}`;
+         })
+         .catch(error => {
+            console.error("Error fetching recommended event:", error);
+            document.getElementById("popup-loader").classList.add("hidden");
+         });
+   });
+
       // Display today's date dynamically
       const currentDateElement = document.getElementById("current-date");
       const today = new Date();
