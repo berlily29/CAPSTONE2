@@ -97,9 +97,6 @@
 
                                 </form>
 
-                             <a href="" class="inline-flex items-center px-4 py-2 bg-sky-700 text-white border font-semibold text-sm uppercase rounded-lg shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-offset-2 transition">
-                                <span class="material-icons">sync</span>
-                             Resubmit </a>
 
                             </div>
 
