@@ -21,7 +21,6 @@
         .category-box.active {
             background-color: #38a169;
             border-color: transparent;
-
         }
 
         /* Hover effect */
@@ -33,8 +32,6 @@
         .category-box.active h4 {
             color: white;
         }
-
-
 
         /* Hide the checkbox */
         input[type="checkbox"] {
@@ -81,7 +78,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <button type="submit" class="bg-pink-500 text-white p-3 rounded-lg hover:bg-pink-600 transition-colors text-sm">
+                    <button type="submit" class="bg-pink-500 text-white p-3 rounded-lg hover:bg-pink-600 transition-colors text-sm" id="submitButton" disabled>
                         Save Your Preferences
                     </button>
                 </div>
@@ -91,6 +88,7 @@
     </form>
 
     <script>
+        // Handle the category box click to toggle active class and checkbox state
         document.querySelectorAll('.category-box').forEach(box => {
             box.addEventListener('click', function(event) {
                 // Prevent click from triggering twice when clicking child elements
@@ -99,8 +97,19 @@
                 const checkbox = this.querySelector('input[type="checkbox"]');
                 checkbox.checked = !checkbox.checked;
                 this.classList.toggle('active');
+                toggleSubmitButton();
             });
         });
+
+        // Check if any checkbox is selected and enable/disable the submit button
+        function toggleSubmitButton() {
+            const submitButton = document.getElementById('submitButton');
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            submitButton.disabled = checkboxes.length === 0;
+        }
+
+        // Initially check if any checkbox is selected when the page loads
+        document.addEventListener('DOMContentLoaded', toggleSubmitButton);
     </script>
 
 </body>

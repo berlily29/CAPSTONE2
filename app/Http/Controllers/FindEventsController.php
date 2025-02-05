@@ -25,7 +25,7 @@ class FindEventsController extends Controller
     {
         $open_events = Events::where('status', 'upcoming')
         ->where('approved', 1)
-        // ->where('event_organizer', '!=', Auth::user()->user_id)
+        ->where('event_organizer', '!=', Auth::user()->user_id)
         ->whereDoesntHave('joinedUsers', function ($query) {
             $query->where('user_joined_events.user_id', Auth::user()->user_id); // Use the correct table alias
         })
@@ -36,6 +36,7 @@ class FindEventsController extends Controller
 
         $nearby_events = Events::where('target_location', $user_location)
         ->where('status', 'upcoming')
+        ->where('event_organizer', '!=', Auth::user()->user_id)
         ->where('approved', 1)
         ->whereDoesntHave('joinedUsers', function ($query) {
             $query->where('user_joined_events.user_id', Auth::user()->user_id); // Use the correct table alias
@@ -43,18 +44,10 @@ class FindEventsController extends Controller
         ->get();
 
 
-        //recommender
-        $recommended_events = $this->recommender->get_recommended_events();
-
-
-        $rec_event = $recommended_events[rand(0,count($recommended_events)-1)];
-
-
-
         return view('user.find-events.view')->with([
             'open_events'=> $open_events,
             'nearby_events'=> $nearby_events,
-            'rec_event'=> Events::where('event_id' , $rec_event)->first()
+
         ]);
     }
 
@@ -62,8 +55,23 @@ class FindEventsController extends Controller
         {
             // Recommender logic for AJAX
             $recommended_events = $this->recommender->get_recommended_events();
+            if(count($recommended_events)==0) {
+                $event = Events::where('status', 'upcoming')
+                ->where('approved', 1)
+                ->where('event_organizer', '!=', Auth::user()->user_id)
+                ->whereDoesntHave('joinedUsers', function ($query) {
+                    $query->where('user_joined_events.user_id', Auth::user()->user_id); // Use the correct table alias
+                })
+                -> inRandomOrder()->first();
 
-            $rec_event = $recommended_events[rand(0, count($recommended_events) - 1)];
+                $rec_event = $event->event_id;
+            } else {
+                $rec_event = $recommended_events[rand(0, count($recommended_events) - 1)];
+
+            }
+
+
+            // inRandomOrder()->first();
 
             return response()->json([
                 'rec_event' => Events::where('event_id', $rec_event)->first()

@@ -68,7 +68,7 @@
 
                 <!-- Action Buttons -->
                 <div class="flex gap-3">
-                    <a href="{{ route('find-events.view', ['id' => $rec_event->event_id]) }}"
+                    <a id =  "event-details-link" href=""
                        class="flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-pink-500 to-sky-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -95,6 +95,7 @@ restart_alt
         document.querySelector('#event_title').textContent = recEvent.title;
         document.querySelector('#event_date').textContent = recEvent.date.split("T")[0]
         document.querySelector('#event_venue').textContent = recEvent.venue;
+        document.getElementById('event-details-link').href = `/events/${recEvent.event_id}`;
 
 
 
@@ -113,16 +114,18 @@ restart_alt
             .then(data => {
                 document.getElementById("popup-loader").classList.add("hidden");
 
-                // Show event recommendation
-                document.getElementById("recommendation").classList.remove("hidden");
 
                 // Update the event details with the new recommendation
                 const recEvent = data.rec_event;
-                console.log(recEvent.title)
+
 
                 document.querySelector('#event_title').textContent = recEvent.title;
-        document.querySelector('#event_date').textContent = recEvent.date.split("T")[0]
-        document.querySelector('#event_venue').textContent = recEvent.venue;
+                document.querySelector('#event_date').textContent = recEvent.date.split("T")[0]
+                document.querySelector('#event_venue').textContent = recEvent.venue;
+                document.getElementById('event-details-link').href = `/events/${recEvent.event_id}`;
+
+                // Show event recommendation
+                document.getElementById("recommendation").classList.remove("hidden");
 
             })
             .catch(error => {
@@ -156,6 +159,8 @@ restart_alt
         document.querySelector('#event_title').textContent = recEvent.title;
         document.querySelector('#event_date').textContent = recEvent.date.split("T")[0]
         document.querySelector('#event_venue').textContent = recEvent.venue;
+        document.getElementById('event-details-link').href = `/events/${recEvent.event_id}`;
+
 
             })
     })
