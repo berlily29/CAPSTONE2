@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AppConfig;
 use App\Models\ID;
 use App\Models\Users;
 use App\Models\UsersLogin;
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         //run other seeders
         $this->call(EventCategorySeeder::class);
         $this->call(EventsSeeder::class);
+        $this->call(AppConfigSeeder::class);
 
 
 

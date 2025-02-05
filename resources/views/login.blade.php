@@ -41,17 +41,23 @@
         }
     </style>
 </head>
+
+
+@php
+
+$config = \App\Models\AppConfig::find(1);
+@endphp
 <body class="bg-gray-50 font-sans">
 <div class="flex min-h-screen">
     <!-- Left Content: Form Section -->
     <div class="w-7/12 bg-white flex flex-col justify-center items-center p-16">
         <!-- Logo Section -->
         <div class="w-full flex justify-center">
-            <img src="{{asset('images/logo/logo.png')}}" alt="Logo" class="w-[150px] h-auto">
+            <img src="{{asset('images/logo/' .$config->primary_logo )}}" alt="Logo" class="w-[180px] h-auto">
         </div>
 
         <!-- Login Header -->
-        <h1 class="text-3xl font-extrabold text-gray-800 mb-6 text-center">Welcome Back</h1>
+        <h1 class="text-3xl font-extrabold text-gray-800 text-center">{{config('app.name')}}</h1>
         <p class="text-gray-500 text-center mb-8">Please log in to your account to continue.</p>
 
         <!-- Form -->

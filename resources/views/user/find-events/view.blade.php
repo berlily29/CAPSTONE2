@@ -1,7 +1,7 @@
 <x-app-layout>
 
 
-    <div class="w-full bg-white rounded-lg p-8">
+    <div class="w-full bg-white rounded-lg px-8 py-2">
         <div class="w-full">
             <div class=" bg-white overflow-hidden shadow-sm ">
                     <h1 class="ml-2 mt-5 text-3xl font-black text-gray-700">Events</h1>

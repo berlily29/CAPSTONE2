@@ -36,7 +36,7 @@
 
                         @if ($done->isEmpty())
                             <tr>
-                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">No active events.</td>
+                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">No completed events.</td>
                             </tr>
                         @endif
                     </tbody>
