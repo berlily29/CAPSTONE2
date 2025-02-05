@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="bg-white overflow-hidden min-h-screen">
+    <div class="bg-gray-50 overflow-hidden min-h-screen">
         <div class="p-8" id="usersSection">
             <div class="mb-3 pl-2">
                 <h1 class="text-lg text-gray-800">Manage</h1>

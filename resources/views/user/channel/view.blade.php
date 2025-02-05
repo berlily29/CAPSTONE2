@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="w-full bg-white rounded-lg p-8">
+    <div class="w-full bg-white rounded-lg px-8">
         <div class="w-full">
 
             <div class="flex justify-between items-center pr-4">

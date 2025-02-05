@@ -101,7 +101,7 @@ $config = \App\Models\AppConfig::find(1);
             </div>
 
             <div class="flex gap-2">
-                <div class="flex items-center gap-2 px-4 border border-gray-200 rounded-xl">
+                <div class="flex items-center gap-2 px-4 rounded-xl">
                     <img
                     src="{{ Auth::user()->user->profile_picture ? asset('storage/uploads/profilepic/' . Auth::user()->user->profile_picture) : asset('images/default-dp.jpg') }}"
                     alt="" class="w-[32px] h-[32px] rounded-full">
