@@ -30,7 +30,7 @@
             <div class="mb-4">
                 <label for="parent_category" class="block text-sm font-medium text-pink-600">Event Category</label>
                 <select name="parent_category" id="parent_category"
-                    class="mt-1 block w-full border border-gray-200 py-4 px-4 focus:border-pink-600 focus:ring-pink-600 sm:text-sm">
+                    class="mt-1 block w-full border border-gray-200 py-4 px-4 focus:border-pink-600 focus:ring-pink-600 sm:text-sm" required>
                     <option value="">Select a Category</option>
                     @foreach ($categories as $parent)
                         <option value="{{ $parent->id }}">{{ $parent->name }}</option>

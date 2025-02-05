@@ -14,9 +14,7 @@ use App\Mail\rejectionNotice;
 use App\Mail\deletionNotice;
 use App\Mail\rejectApplicationNotice;
 use App\Mail\banApplicationNotice;
-
-
-
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Storage;
 
 class PendingRequestController extends Controller
@@ -135,6 +133,10 @@ class PendingRequestController extends Controller
         }
         else if ($request->approveButton2 == "Approved") {
             $user_application->update(['status' => $request->approveButton2]);
+            $user = UsersLogin::where('user_id',$id)->first();
+            $user->update([
+                'role'=> 'Organizer'
+            ]);
             return redirect()->route('admin.pending-request.application')->with(['msg'=> 'Success!']);
 
         }

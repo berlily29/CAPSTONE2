@@ -143,12 +143,20 @@ class EventOrganizerController extends Controller
 
     public function submit_request_event(Request $request) {
         $eid = $this->func-> generate_event_id();
+        $categories = [];
+        $categories[] = (int)$request-> input('parent_category');
+        if($request->input('child_categories')) {
+
+            foreach($request-> input('child_categories') as $cc) {
+                $categories[]= (int)$cc;
+            }
+        }
 
         Events::create([
             'event_id'=> $eid,
             'title'=> $request->title,
             'description'=> $request->description,
-            'event_category'=> $request->input('child_categories'),
+            'event_category'=> $categories,
             'event_organizer'=> Auth::user()->user_id,
             'date'=> $request->date,
             'venue'=> $request-> venue,
