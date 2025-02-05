@@ -6,11 +6,9 @@
             </div>
 
             @if($live->isEmpty())
-                <div>
-                    <h1 class="text-sm text-gray-400 italic">No Stories Available</h1>
-                </div>
+                <h1 class="text-sm text-gray-400 italic">No Stories Available</h1>
             @else
-                <!-- All Stories Gallery (No Division by Event or Channel) -->
+                <!-- All Stories Gallery -->
                 <div class="flex flex-col gap-0">
                     <h1 class="text-[0.8rem] text-gray-400">All Stories in the App Gallery</h1>
                     <h3 class="text-[2rem] font-black text-gray-600">ALL STORIES</h3>
@@ -19,11 +17,8 @@
                 <!-- Grid Gallery of All Stories -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-3">
                     @php
-                        // Get the live channels that are included in the gallery
                         $galleryChannels = \App\Models\Gallery::all();
                         $liveChannelIds = $galleryChannels->pluck('channel_id')->toArray();
-
-                        // Get all stories for these live channels
                         $stories = \App\Models\Stories::whereIn('channel_id', $liveChannelIds)->get();
                     @endphp
 
@@ -33,17 +28,15 @@
                             <div class="relative w-full h-48 bg-gray-200 mb-4 rounded-lg overflow-hidden">
                                 <img src="{{ asset('storage/uploads/story/' . $storyItem->channel_id . '/' . $storyItem->image) }}"
                                      class="w-full h-full object-cover"
-                                     onclick="openStoryPopup('{{ $storyItem->user->fullname }}', '{{ $storyItem->caption }}', '{{ $storyItem->user->fullnames }}', '{{ $storyItem->channel->event->title }}', '{{ asset('storage/uploads/story/' . $storyItem->channel_id . '/' . $storyItem->image) }}')">
+                                     onclick="openStoryPopup('{{ $storyItem->user->fullname }}', '{{ $storyItem->caption }}', '{{ $storyItem->user->fullname }}', '{{ $storyItem->channel->event->title }}', '{{ asset('storage/uploads/story/' . $storyItem->channel_id . '/' . $storyItem->image) }}')">
                             </div>
 
                             <!-- Story Details -->
-                             <div class="flex flex-col gap-0">
-                                 <h4 class="text-lg font-bold text-pink-600 ">{{ $storyItem->user->fullname }}</h4>
-                                 <p class="text-sm text-gray-500 ">{{ $storyItem->caption }}</p>
-
-                                 <p class="text-xs text-gray-400">Event: {{ $storyItem->channel->event->title }}</p>
-
-                             </div>
+                            <div class="flex flex-col gap-0">
+                                <h4 class="text-lg font-bold text-pink-600">{{ $storyItem->user->fullname }}</h4>
+                                <p class="text-sm text-gray-500">{{ $storyItem->caption }}</p>
+                                <p class="text-xs text-gray-400">Event: {{ $storyItem->channel->event->title }}</p>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -51,14 +44,14 @@
         </div>
     </div>
 
-    <!-- Story Details Popup (hidden by default) -->
+    <!-- Story Details Popup -->
     <div id="storyPopup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
         <div class="bg-white p-6 rounded-lg w-96">
             <h3 class="text-2xl font-bold mb-4" id="storyTitle">Story Title</h3>
             <p class="text-sm text-gray-500 mb-4" id="storyCaption">Story Caption</p>
             <p class="text-xs text-gray-400" id="storyEvent">Event: </p>
 
-            <!-- Story Image in Popup -->
+            <!-- Story Image -->
             <div class="relative w-full bg-gray-200 mb-4 rounded-lg overflow-hidden">
                 <img id="storyImage" src="" class="w-full h-full object-cover">
             </div>
@@ -68,19 +61,14 @@
     </div>
 
     <script>
-        // Function to open the popup with story details
-        function openStoryPopup(storyId, caption, userName, eventTitle, imageUrl) {
-            // Populate the popup with story details
-            document.getElementById('storyTitle').innerText = storyId; // Optional: Show Story ID
+        function openStoryPopup(userName, caption, eventTitle, imageUrl) {
+            document.getElementById('storyTitle').innerText = userName;
             document.getElementById('storyCaption').innerText = caption;
             document.getElementById('storyEvent').innerText = "Event: " + eventTitle;
-            document.getElementById('storyImage').src = imageUrl; // Set the image in the popup
-
-            // Show the popup
+            document.getElementById('storyImage').src = imageUrl;
             document.getElementById('storyPopup').classList.remove('hidden');
         }
 
-        // Function to close the popup
         function closeStoryPopup() {
             document.getElementById('storyPopup').classList.add('hidden');
         }
