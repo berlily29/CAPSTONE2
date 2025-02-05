@@ -1,5 +1,10 @@
 <x-app-layout>
    <div class="min-h-screen bg-white p-8 rounded-lg">
+    @if($is_approved)
+        <h1 id = "status" class="hidden">1</h1>
+        @else
+        <h1 id = "status" class="hidden">2</h1>
+    @endif
 
       <!-- Dashboard Header -->
       <section class="mb-6 text-center md:text-left">
@@ -106,7 +111,13 @@
       </section>
 
       <!-- Other Events -->
-      <section class="bg-white p-6 rounded-lg border border-gray-200 mt-4">
+
+
+
+
+
+
+      <section class="bg-white p-6 rounded-lg border border-gray-200 mt-4 hidden" id = "section_unlocked">
     <h3 class="text-lg font-bold text-gray-800 text-center">Featured Event</h3>
     <p class="text-gray-400 text-center mb-4">Handpicked just for you—don't miss out!</p>
     <div class="mb-4 text-center">
@@ -158,6 +169,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 </section>
    </div>
@@ -166,27 +179,32 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <script>
 
- // Recommendation functionality
- document.addEventListener("DOMContentLoaded", function() {
-      // Show loader while fetching the event
-      document.getElementById("popup-loader").classList.remove("hidden");
 
-      fetch("{{ route('find-events.getNewRecommendation') }}")
-         .then(response => response.json())
-         .then(data => {
-            document.getElementById("popup-loader").classList.add("hidden");
-            document.getElementById("recommendation").classList.remove("hidden");
+       // Recommendation functionality
+    document.addEventListener("DOMContentLoaded", function() {
+           // Show loader while fetching the event
+           const status = document.getElementById('status').innerHTML
+      if(status === '1') {
+          document.getElementById('section_unlocked').classList.remove('hidden');
+          document.getElementById("popup-loader").classList.remove("hidden");
 
-            const recEvent = data.rec_event;
-            document.getElementById('event_title').textContent = recEvent.title;
-            document.getElementById('event_date').textContent = recEvent.date.split("T")[0];
-            document.getElementById('event_venue').textContent = recEvent.venue;
-            document.getElementById('event-details-link').href = `/find-events/${recEvent.event_id}`;
-         })
-         .catch(error => {
-            console.error("Error fetching recommended event:", error);
-            document.getElementById("popup-loader").classList.add("hidden");
-         });
+          fetch("{{ route('find-events.getNewRecommendation') }}")
+             .then(response => response.json())
+             .then(data => {
+                document.getElementById("popup-loader").classList.add("hidden");
+                document.getElementById("recommendation").classList.remove("hidden");
+
+                const recEvent = data.rec_event;
+                document.getElementById('event_title').textContent = recEvent.title;
+                document.getElementById('event_date').textContent = recEvent.date.split("T")[0];
+                document.getElementById('event_venue').textContent = recEvent.venue;
+                document.getElementById('event-details-link').href = `/events/${recEvent.event_id}`;
+             })
+             .catch(error => {
+                console.error("Error fetching recommended event:", error);
+                document.getElementById("popup-loader").classList.add("hidden");
+             });
+      }
    });
 
       // Display today's date dynamically
