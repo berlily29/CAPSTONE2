@@ -57,8 +57,8 @@
                             <p class="text-pink-600 mb-3 truncate text-sm">{{ $story->caption }}</p>
                             <div class="flex items-center gap-2">
                                 <div class="flex-shrink-0">
-                                    <div class="w-8 h-8 bg-gray-200 overflow-hidden">
-                                    <img src="{{ $story->user->profile_picture ? asset('storage/uploads/profilepic/' . $story->user->profile_picture) : asset('images/default-dp.jpg') }}" alt="">
+                                    <div class="w-8 h-8 bg-gray-200  overflow-hidden">
+                                    <img src="{{ $story->user->profile_picture ? asset('storage/uploads/profilepic/' . $story->user->profile_picture) : asset('images/default-dp.jpg') }}" class="" alt="">
                                     </div>
                                 </div>
                                 <div class="text-sm text-pink-500 font-medium">

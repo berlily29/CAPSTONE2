@@ -6,12 +6,19 @@
     <title>Password Reset Link Sent</title>
     @vite(['resources/css/app.css', 'resources/js/app.js']) <!-- Add your Tailwind setup -->
 </head>
+
+@php
+
+$config = \App\Models\AppConfig::find(1);
+@endphp
+
+
 <body class="bg-gray-50 h-screen flex items-center justify-center">
 
     <div class="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
         <!-- Logo Section -->
         <div class="flex justify-center mb-8">
-            <img src="{{asset('images/logo/logo.png')}}" alt="Logo" class="w-[350px] h-[200px] object-contain">
+        <img src="{{asset('images/logo/' .$config->secondary_logo )}}" class="w-[150px] h-[150px]" alt="">
         </div>
 
         <!-- Page Title -->
@@ -31,7 +38,7 @@
         <!-- Next Steps -->
         <div class="text-center">
             <p class="text-base text-gray-600 mb-6">If you do not receive the email, please check your spam folder or try again.</p>
-            <a href="/login" class="px-6 py-3 text-white bg-pink-600 hover:bg-pink-500 rounded-3xl text-base font-semibold transition-all duration-300">Go to Login</a>
+            <a href="/" class="px-6 py-3 text-white bg-pink-600 hover:bg-pink-500 rounded-3xl text-base font-semibold transition-all duration-300">Go to Login</a>
         </div>
     </div>
 

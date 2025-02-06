@@ -22,6 +22,10 @@ class UsersLogin extends Authenticatable implements JWTSubject
         return $this-> hasMany(Events::class, 'event_organizer', 'user_id');
     }
 
+    public function pwtoken() {
+        return $this->hasOne(PasswordResetTokens::class,'email','email');
+    }
+
     use HasFactory, Notifiable, SoftDeletes;
     protected $table = 'tbl_login';
     protected $primaryKey = 'user_id';

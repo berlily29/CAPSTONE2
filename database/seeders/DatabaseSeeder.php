@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EventCategorySeeder::class);
         $this->call(EventsSeeder::class);
         $this->call(AppConfigSeeder::class);
+        $this->call(UserSeeder::class);
 
 
 
