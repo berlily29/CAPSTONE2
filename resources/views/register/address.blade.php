@@ -336,13 +336,18 @@ document.querySelector("form").addEventListener("submit", function() {
         { name: 'San Pedro', postal_code: '2006' },
         { name: 'San Isidro', postal_code: '2006' }
     ],
-    'Sasmuan': [
-        { name: 'San Pedro', postal_code: '2009' },
-        { name: 'San Isidro', postal_code: '2009' },
-        { name: 'San Vicente', postal_code: '2009' },
-        { name: 'San Antonio', postal_code: '2009' },
-        { name: 'San Agustin', postal_code: '2009' }
-    ]
+   'Sasmuan': [
+    { name: 'San Pedro', postal_code: '2009' },
+    { name: 'San Isidro', postal_code: '2009' },
+    { name: 'San Vicente', postal_code: '2009' },
+    { name: 'San Antonio', postal_code: '2009' },
+    { name: 'San Agustin', postal_code: '2009' },
+    { name: 'San Juan', postal_code: '2009' },
+    { name: 'San Roque', postal_code: '2009' },
+    { name: 'Santo Niño', postal_code: '2009' },
+    { name: 'Sasmuan Poblacion', postal_code: '2009' },
+    { name: 'Santo Rosario', postal_code: '2009' }
+]
     };
 
      // Function to populate Barangay based on selected city
