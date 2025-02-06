@@ -8,22 +8,20 @@
 </head>
 
 @php
-
 $config = \App\Models\AppConfig::find(1);
 @endphp
-
 
 <body class="bg-gray-50 h-screen flex items-center justify-center">
 
     <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
         <!-- Logo Section -->
-        <div class="flex justify-center ">
-            <img src="{{asset('images/logo/' .$config->primary_logo )}}" alt="Logo" class="w-[350px] h-auto">
+        <div class="flex justify-center">
+            <img src="{{ asset('images/logo/' . $config->primary_logo) }}" alt="Logo" class="w-[350px] h-auto">
         </div>
 
         <hr class="w-full opacity-60 my-4">
 
-        <form method="POST" action="{{ route('reset-password.send') }}">
+        <form method="POST" action="{{ route('reset-password.send') }}" onsubmit="showLoader()">
             @csrf
 
             <!-- Email -->
@@ -46,7 +44,7 @@ $config = \App\Models\AppConfig::find(1);
             </div>
 
             <!-- Display Message -->
-            @if($message != '')
+            @if(isset($message) && $message != '')
                 <div class="text-center text-sm text-gray-600 mb-4">
                     <small>{{ $message }}</small>
                 </div>
@@ -60,5 +58,19 @@ $config = \App\Models\AppConfig::find(1);
             </button>
         </form>
     </div>
+
+    <!-- Popup Loader -->
+    <div id="popup-loader" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+            <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-pink-500"></div>
+            <p class="mt-4 text-gray-700">Processing, please wait...</p>
+        </div>
+    </div>
+
+    <script>
+        function showLoader() {
+            document.getElementById("popup-loader").classList.remove("hidden");
+        }
+    </script>
 </body>
 </html>

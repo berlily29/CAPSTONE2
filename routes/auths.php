@@ -83,3 +83,11 @@ Route::get('/reset-password/sent' , function(){
 Route::get('/verify-session', [PasswordResetController::class, 'verifySession'])->name('reset-password.verify');
 Route::get('/reset-password/{token}', [PasswordResetController::class, 'loadReset'])->name('reset-password.reset');
 Route::patch('/reset-password/{token}/save', [PasswordResetController::class, 'resetPassword'])-> name('reset-password.save');
+
+Route::get('/rpw/success', function() {
+    return view('password-reset.success');
+})->name('reset-password.success');
+
+Route::get('/rpw/error', function(){
+    return view('password-reset.error');
+})-> name('reset-password.error');

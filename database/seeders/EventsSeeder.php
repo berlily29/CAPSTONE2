@@ -45,7 +45,7 @@ $eventDescriptions = ['Join us for a volunteer event...', 'Help support the loca
 
 
         // Create 10 sample events
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $event_id = $faker->uuid;
 
 

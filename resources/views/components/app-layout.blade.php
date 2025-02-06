@@ -58,7 +58,7 @@
         .top-bar {
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 1;
             background-color: white;
         }
 
