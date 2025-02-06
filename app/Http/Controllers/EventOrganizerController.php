@@ -91,12 +91,19 @@ class EventOrganizerController extends Controller
     public function view_channel($id) {
         $event = Events::where('event_id', $id)->first();
 
+        $story_deleted = false;
+        if(session('story_deleted') == true){
+            $story_deleted = true;
+            session()->forget('story_deleted');
+        }
+
         return view('organizer.channels.channel.view')->with([
             'event'=> $event,
             'announcements'=>  Announcements::where('channel_id', $id)->orderBy('created_at', 'desc')->get(),
             'stories'=> Stories::where('channel_id', $id)->orderBy('created_at' ,'desc')-> get(),
             'users'=>$event->joinedUsers,
-            'attendees'=> AttendanceTokens::where('channel_id' , $id)-> where('encoded', 1)->get()
+            'attendees'=> AttendanceTokens::where('channel_id' , $id)-> where('encoded', 1)->get(),
+            'story_deleted'=>$story_deleted
         ]);
     }
 
@@ -251,6 +258,19 @@ class EventOrganizerController extends Controller
 
     }
 
+
+    public function delete_user_story($id) {
+        $story = Stories::where('id', $id)-> first();
+        Stories::where('id',$id)->delete();
+
+        //create nofif
+        $this->notif-> create_deleted_story_announcement($story->channel_id, $story->user_id);
+        session(['story_deleted'=> true]);
+
+
+
+        return redirect()->route('eo.channels.view',['id'=> $story ->channel_id]);
+    }
 
 
 

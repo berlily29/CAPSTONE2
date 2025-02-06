@@ -105,6 +105,12 @@ Route::middleware(['organizer'])->group(function() {
      Route::post('portal/channels/{id}/attendance/encode', [AttendanceController::class, 'encode_token'])->name('eo.channel.token.encode');
 
 
+     /***
+      * STORIES
+      */
+
+      Route::delete('portal/delete/{id}', [EventOrganizerController::class, 'delete_user_story'])->name ('story.delete');
+
 });
 
 

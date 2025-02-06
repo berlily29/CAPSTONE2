@@ -17,7 +17,7 @@
                 </div>
 
                 <!-- Grid Gallery of All Stories -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-3">
+                <div class="grid grid-cols-3 gap-6 mt-3">
                     @php
                         $galleryChannels = \App\Models\Gallery::all();
                         $liveChannelIds = $galleryChannels->pluck('channel_id')->toArray();
@@ -62,7 +62,7 @@
 
 
 <!-- Story Details Popup -->
-<div id="storyPopup" class="fixed inset-1 flex justify-center items-center hidden z-[9999] bg-black bg-opacity-50">
+<div id="storyPopup" class="fixed inset-1 flex justify-center items-center hidden z-[9999] bg-black bg-opacity-40">
     <div class="bg-white flex rounded-lg w-[800px] relative">
         <!-- Close Button (Gray X) -->
         <button onclick="closeStoryPopup()" class="absolute -top-4 -right-4 bg-gray-500 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-600">
@@ -71,7 +71,7 @@
 
         <!-- Image on the Left -->
         <div class="w-1/2 bg-gray-200">
-            <img id="storyImage" src="" class="w-full h-full">
+            <img id="storyImage" src="" class="w-full h-full object-cover">
         </div>
 
         <!-- Captions and Info on the Right -->

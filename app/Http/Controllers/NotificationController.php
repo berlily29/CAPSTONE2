@@ -33,6 +33,18 @@ class NotificationController extends Controller
         }
     }
 
+    public function create_deleted_story_announcement($id, $user) {
+        $event = Events::where('event_id' ,$id)->first();
+
+        $caption = "⚠️ Your story on [" .$event->title. '] was deleted.';
+
+        Notifications::create([
+            'caption'=> $caption,
+            'user_id'=>$user,
+            'channel_id'=>  $event->event_id
+        ]);
+    }
+
     public function create_approval_announcement($id) {
         $event = Events::where('event_id' ,$id)->first();
         $caption = "🎉 Your  Event [" . $event->title . '] was approved! ';
