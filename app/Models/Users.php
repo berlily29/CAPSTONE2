@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Users extends Model
 {
@@ -10,6 +12,55 @@ class Users extends Model
 
     public function login() {
         return $this->belongsTo(UsersLogin::class, 'user_id', 'user_id');
+    }
+
+    public function id() {
+        return $this->hasOne(ID::class,'user_id', 'user_id');
+    }
+
+    public function eo_id() {
+        return $this->hasOne(EO_Application::class,'user_id', 'user_id');
+    }
+
+    public function getFullnameAttribute()
+{
+    return $this->lname . ', ' . $this->fname . ' ' . $this->mname;
+}
+
+
+    public function story(){
+        return $this->hasMany(Stories::class,'user_id', 'user_id');
+    }
+
+    public function user_preference() {
+        return $this-> hasOne(UserPreferences::class, 'user_id','user_id');
+    }
+
+
+    public function joinedEvents(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Events::class,
+            'user_joined_events',
+            'user_id',
+            'event_id',
+            'user_id',
+            'event_id'
+        );
+    }
+
+    public function attendance_token() {
+        return $this->hasMany(AttendanceTokens::class,'user_id', 'user_id');
+    }
+
+
+    public function notification() {
+        return $this-> hasMany(Notifications::class, 'user_id', 'user_id');
+    }
+
+
+    public function eonotification() {
+        return $this-> hasMany(EONotifications::class, 'user_id', 'user_id');
     }
 
     protected $table = 'tbl_user_info';
@@ -33,6 +84,7 @@ class Users extends Model
         'profile_picture',
         'profile_points',
         'verified_status',
+        'account_status'
     ];
 
 }

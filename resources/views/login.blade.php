@@ -3,20 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>Login | {{config('app.name')}}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        /* Slideshow Container */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Slideshow Images */
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Make sure the first slide is visible initially */
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Gradient Overlay */
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 105, 180, 0.7), rgba(255, 182, 193, 0.6));
+            z-index: 1;
+        }
+    </style>
 </head>
+
+
+@php
+
+$config = \App\Models\AppConfig::find(1);
+@endphp
 <body class="bg-gray-50 font-sans">
-<div class="flex h-screen">
+<div class="flex min-h-screen">
     <!-- Left Content: Form Section -->
-    <div class="w-7/12 bg-white flex flex-col justify-center items-center px-16 shadow-lg">
+    <div class="w-7/12 bg-white flex flex-col justify-center items-center p-16">
         <!-- Logo Section -->
         <div class="w-full flex justify-center">
-            <img src="{{asset('images/logo/logo.png')}}" alt="Logo" class="w-[350px] h-[200px]">
+            <img src="{{asset('images/logo/' .$config->primary_logo )}}" alt="Logo" class="w-[180px] h-auto">
         </div>
 
         <!-- Login Header -->
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-6 text-center">Welcome Back</h1>
+        <h1 class="text-3xl font-extrabold text-gray-800 text-center">{{config('app.name')}}</h1>
         <p class="text-gray-500 text-center mb-8">Please log in to your account to continue.</p>
 
         <!-- Form -->
@@ -26,11 +67,11 @@
             <!-- Email Input -->
             <div class="mb-6">
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input 
-                    type="email" 
-                    name="email" 
-                    value="{{ old('email') }}" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400" 
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                     placeholder="Enter your email address"
                     required
                 >
@@ -42,10 +83,10 @@
             <!-- Password Input -->
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400" 
+                <input
+                    type="password"
+                    name="password"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                     placeholder="Enter your password"
                     required
                 >
@@ -60,8 +101,8 @@
             </div>
 
             <!-- Login Button -->
-            <button 
-                type="submit" 
+            <button
+                type="submit"
                 class="w-full py-3 text-white bg-sky-500 hover:bg-sky-600 rounded-lg font-medium tracking-wide transition duration-300"
             >
                 LOGIN
@@ -75,20 +116,48 @@
             @endif
 
             <!-- Signup Section -->
-            <p class="text-center text-gray-600 mt-8">
-                Don't have an account? 
+            <p class="text-center text-gray-s600 mt-8">
+                Don't have an account?
                 <a href="{{route('auth.register')}}" class="text-sky-500 font-semibold hover:underline">Sign up here</a>
             </p>
         </form>
     </div>
 
-    <!-- Right Content: Image Section -->
-    <div class="w-5/12 bg-gradient-to-b from-sky-100 via-white to-sky-50 flex justify-center items-center">
-        <div class="text-center">
-            <h1 class="text-3xl font-bold text-gray-700">GALLERY</h1>
-         
+    <!-- Right Content: Slideshow Section with Gradient Overlay -->
+    <div class="w-full md:w-5/12 relative">
+        <div class="slideshow-container">
+            <!-- Slideshow Images -->
+            <img src="{{asset('images/slideshow/1.jpg')}}" class="slide active">
+            <img src="{{asset('images/slideshow/2.jpg')}}" class="slide">
+            <img src="{{asset('images/slideshow/3.jpg')}}" class="slide">
+
+            <img src="{{asset('images/slideshow/4.jpg')}}" class="slide">
+            <img src="{{asset('images/slideshow/5.jpg')}}" class="slide">
+            <img src="{{asset('images/slideshow/6.jpg')}}" class="slide">
+
+            <img src="{{asset('images/slideshow/7.jpg')}}" class="slide">
+            <img src="{{asset('images/slideshow/8.jpg')}}" class="slide">
+            <!-- Gradient Overlay -->
+            <div class="gradient-overlay"></div>
         </div>
     </div>
 </div>
+
+<script>
+    // Slideshow functionality
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    // Show next slide
+    function showNextSlide() {
+        slides[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % totalSlides;
+        slides[currentIndex].classList.add('active');
+    }
+
+    // Change slide every 3 seconds
+    setInterval(showNextSlide, 3000);
+</script>
 </body>
 </html>

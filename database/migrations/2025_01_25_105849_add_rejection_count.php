@@ -6,18 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::table('tbl_user_info', function (Blueprint $table) {
-            $table->string('profile_picture')->default('profile-picture.jpg')->change();
+            $table->integer('rejection_count')->default(0)->before('created_at');; 
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::table('tbl_user_info', function (Blueprint $table) {
-            // If you want to remove the default value, you can do it here
-            $table->string('profile_picture')->default(null)->change();
+            $table->dropColumn('rejection_count'); 
         });
     }
 };

@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? config('app.name') }}</title>
 
-    <!--Mat-Icon -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    <!-- Mat-Icon -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
@@ -17,135 +24,120 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
         .active_link {
             background-color: #fce7f3;
-         }
+            font-weight: 700;
+        }
 
-         .active-link:hover {
+        .active-link:hover {
             background-color: #F472B6;
-         }
+        }
+
+        .scrollable-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-track {
+            background: #ff4081;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background-color: #e91e64;
+            border-radius: 20px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb:hover {
+            background-color: #c91459;
+        }
+
+        /* Make the top bar sticky */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: white;
+        }
+
+        /* Make the content area scrollable */
+        .scrollable-content {
+            height: calc(100vh - 96px); /* Adjust this value depending on the height of your top bar */
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
 <div class="flex h-screen">
 
-    <!-- Sidebar -->
-    <nav class="w-64 bg-white text-gray-900 p-6 flex flex-col justify-between h-screen border-r border-gray-200">
-        <div>
-            <!-- Profile -->
-            <div class="flex flex-col items-center">
-                <img src="{{asset('images/logo/logo.png')}}" alt="" class="w-66 h-66 rounded-full" />
+@php
 
-            </div>
+$config = \App\Models\AppConfig::find(1);
+@endphp
 
-            <!-- Account Section -->
-            <h1 class="text-lg font-bold mb-4 text-pink-600">Account</h1>
-            <ul>
-                <!-- Profile -->
-                <li class="mb-4">
-                    <a href="{{route('user.profile')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                    {{ Route::is('user.profile*') ? 'active_link' : '' }}">
+    <!-- Sidebar (for user, admin, or organizer) -->
+    @if(Auth::user()->role === 'User' || Auth::user()->role === 'Organizer' && !(Route::is('eo.*')))
+        @include('components.user-sidebar')
+    @endif
 
-                     <span class="material-icons mr-3">account_circle</span>
-                        Profile
-                    </a>
-                </li>
+    @if(Auth::user()->role === 'Admin')
+        @include('components.admin-sidebar')
+    @endif
 
-                <!-- Dashboard -->
-                <li class="mb-4">
-                    <a href="{{route('user.dashboard')}}" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all  {{ Route::is('user.dashboard*') ? 'active_link' : '' }}">
-                        <span class="material-icons mr-3">dashboard</span>
-                        My Dashboard
-                    </a>
-                </li>
-
-                <!-- Joined Events -->
-                <li class="mb-4">
-                    <a href="/user-joined-events" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all {{ Request::is('user-joined-events*') ? 'active_link' : '' }}">
-                        <span class="material-icons mr-3">check_circle</span>
-                        Joined Events
-                    </a>
-                </li>
-
-                <!-- Settings -->
-                <li class="mb-4">
-                    <a href="/settings" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all">
-                        <span class="material-icons mr-3">settings</span>
-                        Settings
-                    </a>
-                </li>
-            </ul>
-
-            <!-- Features Section -->
-            <hr class="my-6 border-gray-200">
-            <h1 class="text-lg font-bold mb-4 text-pink-600">Features</h1>
-            <ul>
-                <!-- Find Events -->
-                <li class="mb-4">
-                    <a href="/user-find-events" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all   {{ Route::is('user.find-events*') ? 'active_link' : '' }}">
-                        <span class="material-icons mr-3">search</span>
-                        Find Events
-                    </a>
-                </li>
-
-                <!-- Gallery -->
-                <li class="mb-4">
-                    <a href="/user-gallery" class="flex items-center p-3 text-pink-600 hover:bg-pink-100 rounded-lg transition-all">
-                        <span class="material-icons mr-3">image</span>
-                        Gallery
-                    </a>
-                </li>
-
-                <!-- Top Volunteers -->
-                <li class="mb-4">
-                    <a href="{{route('user.leaderboards')}}" class="flex items-center p-3  text-pink-600 hover:bg-pink-100 rounded-lg transition-all
-                      {{ Route::is('user.leaderboards*') ? 'active_link' : '' }}
-                       ">
-                        <span class="material-icons mr-3">leaderboard</span>
-                        Top Volunteers
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Volunteer Button -->
-        <div class="w-full mt-8">
-            <button class="w-full bg-sky-400 text-white p-3 rounded-lg hover:bg-pink-700 transition-all flex items-center justify-center">
-
-                Volunteer to an Event
-            </button>
-        </div>
-    </nav>
+    @if(Auth::user()->role === 'Organizer' && Route::is('eo.*'))
+        @include('components.organizer-sidebar')
+    @endif
 
     <!-- Main Content Area -->
-    <div class="flex-1 p-6 bg-gray-100 overflow-y-auto">
+    <div class="flex-1 bg-gray-100 overflow-y-auto">
         <!-- Dropdown Menu -->
-        <div class="absolute top-4 right-4">
-            <div class="relative inline-block text-left">
-                <!-- Button to toggle dropdown -->
-                <button onclick="toggleDropdown()" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                    <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06-.02L10 10.94l3.71-3.75a.75.75 0 011.08 1.04l-4.25 4.29a.75.75 0 01-1.08 0l-4.25-4.29a.75.75 0 01-.02-1.06z" clip-rule="evenodd" />
-                    </svg>
-                </button>
+        <div class="top-bar bg-white w-full border-b border-gray-200 py-4 px-8 flex justify-between">
+            <div class="flex items-center gap-4">
+                <img src="{{asset('images/logo/' . $config->secondary_logo)}}" class="w-[50px] h-[50px]" alt="">
 
-                <!-- Dropdown menu -->
-                <div id="dropdown" class="origin-top-right absolute right-0 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden">
-                    <!-- Logout Form -->
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        @method('POST')
-                        <button type="submit" class="block px-4 py-2 text-sm text-pink-900 hover:bg-gray-100 w-full text-left">
-                            Logout
-                        </button>
-                    </form>
+                <div class="flex flex-col gap-0">
+                    <h1 class="text-gray-600 text-xl font-black">{{$title ?? config('app.name')}}</h1>
+                    <h1 class="text-gray-600 text-[0.8rem] mt-[-0.3rem]">{{$config->name}}</h1>
                 </div>
+            </div>
 
+            <div class="flex gap-2">
+                <div class="flex items-center gap-2 px-4 border border-gray-200 rounded-xl">
+                    <img
+                    src="{{ Auth::user()->user->profile_picture ? asset('storage/uploads/profilepic/' . Auth::user()->user->profile_picture) : asset('images/default-dp.jpg') }}"
+                    alt="" class="w-[32px] h-[32px] rounded-full">
+                    <div class="flex flex-col justify-center">
+                        <h1 class="text-gray-700 font-semibold"> {{Auth::user()->user->fullname}}</h1>
+                        <h1 class="text-gray-500 text-[0.8rem] mt-[-0.4rem]"> {{Auth::user()->email}}</h1>
+                    </div>
+                    <div class="flex items-center">
+                        <!-- Button to toggle dropdown -->
+                        <button onclick="toggleDropdown()" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <svg class="ml-2 h-5 w-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06-.02L10 10.94l3.71-3.75a.75.75 0 011.08 1.04l-4.25 4.29a.75.75 0 01-1.08 0l-4.25-4.29a.75.75 0 01-.02-1.06z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown menu -->
+                        <div id="dropdown" class="origin-top-right absolute right-14 mt-16 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden">
+                            <!-- Logout Form -->
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="block p-4 text-sm text-pink-900 hover:bg-gray-100 w-full text-left">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Content (Place your content here) -->
-        <div>{{$slot}}</div>
+        <div class="scrollable-content p-4">{{$slot}}</div>
     </div>
 
 </div>

@@ -42,11 +42,17 @@
         });
     </script>
 </head>
+@php
+
+$config = \App\Models\AppConfig::find(1);
+@endphp
+
+
 <body class="bg-gray-50 h-screen flex items-center justify-center">
 <div class="w-2/8 flex h-screen items-center justify-center bg-gray-50">
     <div class="w-full p-8 bg-white rounded-xl shadow-lg">
         <div class="w-full flex justify-center my-2">
-          <img src="{{asset('images/logo/logo_shape.png')}}" class="w-[150px] h-[150px]" alt="">
+          <img src="{{asset('images/logo/' .$config->secondary_logo )}}" class="w-[150px] h-[150px]" alt="">
 
         </div>
         <div class="text-center mb-6">
@@ -65,9 +71,6 @@
                        class="mt-2 w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-300"
                        required minlength="6" placeholder="Enter your new password">
 
-                @error('password')
-                <p class="mt-2 text-sm text-pink-500">{{ $message }}</p>
-                @enderror
             </div>
 
             <!-- Confirm New Password -->

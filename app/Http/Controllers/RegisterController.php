@@ -107,13 +107,7 @@ class RegisterController extends Controller
     }
 
     public function register(Request $request) {
-        $request->validate([
-            'fname'=> 'required|string',
-            'mname'=> 'string',
-            'lname'=> 'string',
-            'email'=> 'email|required',
-            'password'=> 'string|required|min:6'
-        ]);
+
 
         //check if the email already exist
         if(UsersLogin::where('email',$request->email)->exists()) {
@@ -138,6 +132,9 @@ class RegisterController extends Controller
             'fname'=> $request->fname,
             'mname'=> $request->mname,
             'lname'=> $request->lname,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'mobile_no' => $request->mobile_no,
             'created_at'=> now(),
             'updated_at'=> now()
         ]);

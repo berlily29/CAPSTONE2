@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\AppConfig;
+use App\Models\ID;
 use App\Models\Users;
 use App\Models\UsersLogin;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,10 +17,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
         //run other seeders
         $this->call(EventCategorySeeder::class);
+        $this->call(EventsSeeder::class);
+        $this->call(AppConfigSeeder::class);
+        $this->call(UserSeeder::class);
 
 
 
@@ -36,14 +40,14 @@ class DatabaseSeeder extends Seeder
             'province' => 'Metro Province',
             'postal_code' => '12345',
             'mobile_no' => '09123456789',
-            'profile_picture' => 'profile-pic.jpg', // Example image file path or URL
+            'profile_picture' => '', // Example image file path or URL
             'profile_points' => 100,  // Default points, if needed
             'email_verified'=> 1,
-            'account_status' => 'Pending',
+            'account_status' => 'Approved',
         ]);
 
         UsersLogin::create([
-            'user_id' => 1,
+            'user_id' => "1",
             'email' => 'test@example.com',
             'password'=> Hash::make('superadmin'),
             'role'=> 'Admin'
@@ -51,7 +55,7 @@ class DatabaseSeeder extends Seeder
 
 
         Users::create([
-            'user_id' => 2,  // or any unique ID, if it's auto-incremented, you can omit this
+            'user_id' => "2",  // or any unique ID, if it's auto-incremented, you can omit this
             'fname' => 'Dale',
             'mname' => 'Salo',
             'lname' => 'Bedania',
@@ -60,22 +64,29 @@ class DatabaseSeeder extends Seeder
             'house_no' => '123',
             'street' => 'Main St.',
             'brgy' => 'Brgy. 1',
-            'city' => 'Metro City',
-            'province' => 'Metro Province',
+            'city' => 'Mabalacat',
+            'province' => 'Pampanga',
             'postal_code' => '12345',
             'mobile_no' => '09123456789',
-            'profile_picture' => 'profile-pic.jpg', // Example image file path or URL
+            'profile_picture' => '', // Example image file path or URL
             'profile_points' => 100,  // Default points, if needed
             'email_verified'=> 1,
 
-            'account_status' => 'Pending',
+            'account_status' => 'Approved',
+        ]);
+
+        ID::create([
+            'user_id'=> '2',
+            'id_type'=> 'national_id',
+            'attachment'=> '2.jpg',
+            'status'=> 'Approved'
         ]);
 
         UsersLogin::create([
             'user_id' => 2,
-            'email' => 'officialdaletv@gmail.com',
+            'email' => 'userpass@gmail.com',
             'password'=> Hash::make('userpass'),
-            'role'=> 'User'
+            'role'=> 'Organizer'
         ]);
 
 
