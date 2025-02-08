@@ -248,9 +248,9 @@
                                             <label for="rejectionReason" class="block mb-2 text-sm font-medium text-gray-700">Reason for Rejection:</label>
                                             <select name="rejectionReason" id="rejectionReason" class="border border-gray-300 rounded-md p-2 mb-4 w-full" onchange="toggleOtherField()">
                                                 <option value="" disabled selected>Select a reason</option>
-                                                <option value="wrong_document">Submitted Wrong Document</option>
-                                                <option value="fake_document">Fake Document</option>
-                                                <option value="not_eligible">Not Eligible</option>
+                                                <option value="Wrong Document">Submitted Wrong Document</option>
+                                                <option value="Fake Documents">Fake Document</option>
+                                                <option value="Requirements did not satisfy">Not Eligible</option>
                                                 <option value="other">Other</option>
                                             </select>
 

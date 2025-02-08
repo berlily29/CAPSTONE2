@@ -1,5 +1,5 @@
 <div class='w-full '>
-    <h2 class="w-full text-2xl font-bold text-gray-700 mb-4">Edit User Information</h2>
+    <h2 class="w-full text-2xl font-bold text-gray-700 mb-4"> User Information</h2>
 
     <form id="editForm" action="{{ route('user.settings.storeUserInfo') }}" class='w-full h-full' method="POST">
         @csrf
@@ -116,8 +116,8 @@
                     </div>
 
                     <div class="mt-2 text-center w-full flex flex-row-reverse">
-        <button id="editButton" type="button" class="flex items-center justify-center w-12 h-12  my-2  bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
-            <span class="material-icons">edit</span>
+        <button id="editButton" type="button" class=" text-white font-semibold flex items-center justify-center p-2  my-2 text-white rounded-lg bg-gradient-to-r from-pink-500 to-pink-400 hover:scale-[1.02] transition-all">
+            <span class="text-xl material-icons mx-2">edit</span> Edit Information
         </button>
 
         </div>

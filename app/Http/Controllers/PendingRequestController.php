@@ -152,15 +152,16 @@ class PendingRequestController extends Controller
         $user_ID = ID::where('user_id', $id)->first();
         $user_Login = UsersLogin::where('user_id', $id)->first();
 
+        $pathProfile = 'uploads/profilepic/';
+        $pathId = '/uploads/id/';
+
         if ($user && $user_ID) {
 
         $user->increment('rejection_count');
 
         if ($user->rejection_count >= 3) {
 
-            $pathProfile = 'uploads/profilepic/';
-            $pathId = '/uploads/id/';
-
+    
             Mail::to($user_Login->email)->send(new deletionNotice($user));
 
 
@@ -185,6 +186,10 @@ class PendingRequestController extends Controller
         }
         else {
         Mail::to($user_Login->email)->send(new rejectionNotice($user, $validatedData['rejectionReason']));
+        }
+
+        if (Storage::disk('public')->exists($pathId . $user_ID->attachment)) {
+            Storage::disk('public')->delete($pathId . $user_ID->attachment);
         }
 
         $user->update(['account_status' => 'To-Review']);

@@ -30,7 +30,7 @@ class rejectApplicationNotice extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reject Application on Event Organizer',
+            subject: 'Rejection Notice: Event Organizer',
         );
     }
 

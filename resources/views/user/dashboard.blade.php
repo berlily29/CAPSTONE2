@@ -103,7 +103,7 @@
 
             @endif
             <div class="relative w-full mt-4">
-               <a href="{{ route('find-events.index') }}" class="w-full bg-pink-500 p-2 rounded-lg text-white hover:bg-pink-600 hover:scale-105 transition-all text-sm flex items-center justify-center">
+               <a @if(session('is_approved') == false) href="#" @else href="{{ route('find-events.index') }} @endif" class="{{$is_approved === false ? 'opacity-50 cursor-not-allowed' : 'hover:bg-pink-600 hover:scale-105'}} w-full bg-pink-500 p-2 rounded-lg text-white transition-all text-sm flex items-center justify-center">
                   Find Events >
                 </a>
             </div>
@@ -111,11 +111,6 @@
       </section>
 
       <!-- Other Events -->
-
-
-
-
-
 
       <section class="bg-white p-6 rounded-lg border border-gray-200 mt-4 hidden" id = "section_unlocked">
     <h3 class="text-lg font-bold text-gray-800 text-center">Featured Event</h3>
