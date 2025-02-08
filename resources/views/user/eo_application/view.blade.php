@@ -65,7 +65,13 @@
             pdfPreview.src = fileURL;
             previewcontainer.classList.remove('hidden'); 
         } else {
-            alert('Please select a valid PDF file.');
+            Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Wrong File Format Use PDF.",
+            showConfirmButton: false,
+            timer: 2000
+            });
             previewcontainer.classList.add('hidden'); 
         }
     }
