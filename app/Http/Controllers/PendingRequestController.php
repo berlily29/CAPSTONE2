@@ -113,19 +113,17 @@ class PendingRequestController extends Controller
             $user_application->update(['status' => $request->approveButton2]);
 
             if($user_application->rejection_count >= 3) {
-
             Mail::to($user_application->user->login->email)->send(new banApplicationNotice($user_application->user));
+            }
+            else {
+            Mail::to($user_application->user->login->email)->send(new rejectApplicationNotice($user_application->user));
+            }
 
             $path = 'uploads/application/';
             if (Storage::disk('public')->exists($path . $user_application->attachment))
                 {
                 Storage::disk('public')->delete($path . $user_application->attachment);
                 }
-
-            }
-            else {
-            Mail::to($user_application->user->login->email)->send(new rejectApplicationNotice($user_application->user));
-            }
 
 
             return redirect()->route('admin.pending-request.application')->with(['msg'=> 'Success!']);
