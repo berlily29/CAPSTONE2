@@ -44,7 +44,7 @@ class PendingRequestController extends Controller
     {
 
         $users = Users::where('account_status', "Pending")
-        ->where('email_verified', 1)->with(['login','id'])->get();
+        ->where('email_verified', 1)->whereHas("id")->get();
 
         $application = EO_Application::where('status', "Pending")->get();
 
