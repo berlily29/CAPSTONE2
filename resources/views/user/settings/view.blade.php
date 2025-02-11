@@ -156,9 +156,9 @@
     <script>
         showTab('passwordSettings')
         </script>
-    @elseif ($errors->has('fname') || $errors->has('mname') || $errors->has('lname')|| $errors->has('age')
+   @elseif ($errors->has('fname') || $errors->has('mname') || $errors->has('lname')|| $errors->has('age')
         || $errors->has('gender')|| $errors->has('province')|| $errors->has('city')|| $errors->has('brgy')
-        || $errors->has('postal_code')|| $errors->has('house_no') || $errors->has('street'))
+        || $errors->has('postal_code')|| $errors->has('house_no') || $errors->has('street') || $errors->has('mobile_no'))
     <script>
         showTab('informationSettings')
         </script>
