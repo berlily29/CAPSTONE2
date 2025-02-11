@@ -56,6 +56,21 @@ class FindEventsController extends Controller
             // Recommender logic for AJAX
             $recommended_events = $this->recommender->get_recommended_events();
             if(count($recommended_events)==0) {
+
+                $event_check = Events::where('status', 'upcoming')
+                ->where('approved', 1)
+                ->where('event_organizer', '!=', Auth::user()->user_id)
+                ->whereDoesntHave('joinedUsers', function ($query) {
+                    $query->where('user_joined_events.user_id', Auth::user()->user_id); // Use the correct table alias
+                })
+                -> inRandomOrder()->get();
+                if($event_check -> count()== 0) {
+                    return response()-> json([
+                        'success'=> false
+                    ]);
+                }
+
+
                 $event = Events::where('status', 'upcoming')
                 ->where('approved', 1)
                 ->where('event_organizer', '!=', Auth::user()->user_id)
@@ -63,6 +78,9 @@ class FindEventsController extends Controller
                     $query->where('user_joined_events.user_id', Auth::user()->user_id); // Use the correct table alias
                 })
                 -> inRandomOrder()->first();
+
+
+
 
                 $rec_event = $event->event_id;
             } else {
