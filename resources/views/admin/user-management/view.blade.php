@@ -11,9 +11,10 @@
                 <form action="{{ route('admin.user-management.filter') }}" method="GET" id="searchForm" class="w-full">
                     <div class="absolute right-4">
                         <input type="text" placeholder="Search" name="search" value="{{ request()->search }}"
-                            class="border border-gray-300 p-2 pl-10 pr-4 rounded-lg w-64 text-right focus:outline-none focus:ring-1 focus:ring-blue-400"
-                            onkeyup="this.form.submit()">
-                        <span class="material-icons absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">search</span>
+                            class="border border-gray-300 p-2 pl-4 pr-10 rounded-lg w-64 text-left focus:outline-none focus:ring-1 focus:ring-blue-400">
+                        <button class=''>
+                        <span class="hover:text-pink-600 flex justify-center items-center h-[40px] w-[40px] cursor-pointer material-icons absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">search</span>
+                        </button>
                     </div>
                 </form>
             </div>
