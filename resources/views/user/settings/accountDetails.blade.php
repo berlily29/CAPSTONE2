@@ -7,7 +7,7 @@
 
         @if ($errors->has('fname') || $errors->has('mname') || $errors->has('lname')|| $errors->has('age')
         || $errors->has('gender')|| $errors->has('province')|| $errors->has('city')|| $errors->has('brgy')
-        || $errors->has('postal_code')|| $errors->has('house_no') || $errors->has('street'))
+        || $errors->has('postal_code')|| $errors->has('house_no') || $errors->has('street')) || $errors->has('mobile_no')
             <div class="bg-red-500 text-white p-4 rounded mb-4">
                 <ul>
     @foreach ($errors->all() as $error)
