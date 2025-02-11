@@ -1,5 +1,5 @@
 <x-app-layout>
-<div class="w-full bg-white min-h-[80vh] rounded-2xl p-8 shadow-lg mx-auto mt-10">
+<div class="w-3/4 bg-white rounded-2xl p-8 shadow-lg mx-auto mt-10">
     <div class="w-full space-y-8">
         <div class="text-center">
             <h1 class="text-4xl font-extrabold text-gray-700">Event Organizer Application</h1>
@@ -26,7 +26,7 @@
 
             <div class="flex items-center space-x-4">
                 <button type="button" onclick="document.getElementById('file-input').click()"
-                    class="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-4 rounded-xl shadow-md transition-all duration-300">
+                    class="bg-gradient-to-r from-pink-500 to-pink-400 hover:scale-[1.02] text-white font-semibold py-2 px-4 rounded-xl shadow-md transition-all duration-300">
                     Upload Your Resume
                 </button>
                 
@@ -43,7 +43,7 @@
 
             <div class="flex flex-row-reverse mt-4">
                 <button id="submitapplication" type="button" 
-                    class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all duration-300">
+                    class="bg-gradient-to-r from-pink-500 to-pink-400 hover:scale-[1.02] text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all duration-300">
                     Submit
                 </button>
             </div>
@@ -65,7 +65,13 @@
             pdfPreview.src = fileURL;
             previewcontainer.classList.remove('hidden'); 
         } else {
-            alert('Please select a valid PDF file.');
+            Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Wrong File Format Use PDF.",
+            showConfirmButton: false,
+            timer: 2000
+            });
             previewcontainer.classList.add('hidden'); 
         }
     }

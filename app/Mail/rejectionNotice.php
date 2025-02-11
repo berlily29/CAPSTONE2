@@ -33,7 +33,7 @@ class rejectionNotice extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Rejection Notice',
+            subject: 'Rejection Notice: Verification',
         );
     }
 

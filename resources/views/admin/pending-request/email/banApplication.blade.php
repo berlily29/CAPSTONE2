@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Rejection Notification</title>
+    <title>Ban Notification</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,7 +46,7 @@
     <table cellpadding="0" cellspacing="0">
         <tr>
             <td style="text-align: center; padding-bottom: 2px;">
-                <h1>You are permanently banned!</h1>
+                <h1>Banning you on applying Event Organizer</h1>
             </td>
         </tr>
         <tr>

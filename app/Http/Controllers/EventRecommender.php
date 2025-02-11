@@ -153,8 +153,6 @@ class EventRecommender extends Controller
         $event_counts = array_count_values($all_recommended_events);
         arsort($event_counts);
         $top_events = array_slice(array_keys($event_counts), 0, intdiv(count($event_counts), 2));
-
-
         return $top_events;
 
 

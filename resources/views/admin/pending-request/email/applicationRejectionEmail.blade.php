@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Rejection Notification</title>
+    <title>Rejection Notification</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,7 +53,7 @@
             <td style="padding: 10px 20px;">
                 <p>Dear <strong>{{ $user->fname }} {{ $user->lname }}</strong>,</p>
                 <p>We regret to inform you that we have to reject your Application regarding Event Organizer.</p>
-                <p>Reason for Rejection: <strong>MALI KA</strong></p>
+                <p>Reason for Rejection: <strong>Requirements did not satisfy</strong></p>
                 <p>If you have any questions or need further clarification, please feel free to reach out to our support team.</p>
                 <p>Thank you for your understanding.</p>
                 <p>Best regards,<br>Angat Pampanga</p>

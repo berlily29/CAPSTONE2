@@ -29,7 +29,7 @@ class deletionNotice extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Deletion Notice',
+            subject: 'Deletion Notice: Account Deletion',
         );
     }
 

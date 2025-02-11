@@ -28,7 +28,7 @@ class banApplicationNotice extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Permanently banning your account to apply Event Organizer Role',
+            subject: 'Ban Notice: Event Organizer',
         );
     }
 

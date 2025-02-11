@@ -17,31 +17,30 @@ class UserManagementController extends Controller
 
     public function filter(Request $request)
 {
-        $query = Users::query();
+    $query = Users::query();
 
-        // If there's a search term, filter the relevant fields (name, email, role)
-        if ($request->has('search') && $request->search != '') {
-            $query->where(function ($q) use ($request) {
-                $q->where('fname', 'like', '%' . $request->search . '%')
-                ->orWhere('mname', 'like', '%' . $request->search . '%')
-                ->orWhere('lname', 'like', '%' . $request->search . '%')
-                ->orWhere('lname', 'like', '%' . $request->search . '%')
-                ->orWhereHas('login', function ($q) use ($request) {
-                    $q->where('email', 'like', '%' . $request->search . '%');
-                })
-                ->orWhereHas('login', function ($q) use ($request) {
-                    $q->where('role', 'like', '%' . $request->search . '%');
-                });
+        // If there's a search term, filter relevant fields
+        if ($request->filled('search')) {
+            $searchTerms = explode(' ', $request->search);
+            $query->where(function ($q) use ($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    $q->where('fname', 'like', '%' . $term . '%')
+                    ->orWhere('mname', 'like', '%' . $term . '%')
+                    ->orWhere('lname', 'like', '%' . $term . '%')
+                    ->orWhereHas('login', function ($q) use ($term) {
+                        $q->where('email', 'like', '%' . $term . '%')
+                            ->orWhere('role', 'like', '%' . $term . '%');
+                    });
+                }
             });
         }
-
-        // If there's a selected role filter
-        if ($request->has('role') && $request->role != '') {
+        
+        // Role filter
+        if ($request->filled('role')) {
             $query->whereHas('login', function ($q) use ($request) {
                 $q->where('role', $request->role);
             });
         }
-
         // Retrieve the filtered users
         $users = $query->get();
 

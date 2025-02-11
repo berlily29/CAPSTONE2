@@ -28,8 +28,8 @@
                 <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-pink-500 p-2" required>
             </div>
             <div class='w-full flex flex-row-reverse'>
-            <button id='changePasswordButton' type="button" class="px-4 flex items-center justify-center sm:w-full lg:w-1/2 md:w-full bg-pink-500 text-white font-semibold py-2 rounded-md hover:bg-pink-600 transition duration-200">
-                <span class="material-icons mx-2">edit</span>Change Password
+            <button id='changePasswordButton' type="button" class="flex items-center justify-center sm:w-full lg:w-1/3 md:w-full bg-gradient-to-r from-pink-500 to-pink-400 hover:scale-[1.02] text-white font-semibold py-2 rounded-md transition duration-200">
+                <span class="material-icons mx-2">lock_reset</span>Change Password
             </button>
             </div>
     </form>

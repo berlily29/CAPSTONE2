@@ -6,7 +6,7 @@
                 <div class="relative group">
                     <img src="{{ $user->profile_picture ? asset('storage/uploads/profilepic/' . $user->profile_picture) : asset('images/default-dp.jpg') }}"
                          alt="Profile Picture"
-                         class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg hover:border-purple-100 transition-colors duration-200">
+                         class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg hover:border-purple-100 transition-background-color duration-200">
                 </div>
                 <div>
                     <h1 class="text-3xl font-bold text-gray-800">{{ $user->fullname }}</h1>

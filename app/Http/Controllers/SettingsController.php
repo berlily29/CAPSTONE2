@@ -34,7 +34,7 @@ class SettingsController extends Controller
         'fname'=> 'required|string',
         'mname'=> 'required|string',
         'lname'=> 'required|string',
-        'age'=> 'required|string',
+        'age'=> 'required|integer|min:1|max:120',
         'gender'=> 'required|string',
         'mobile_no' => 'required|digits:11|numeric',
         'house_no' => 'required|string',
