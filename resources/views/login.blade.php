@@ -80,16 +80,26 @@ $config = \App\Models\AppConfig::find(1);
                 @enderror
             </div>
 
-            <!-- Password Input -->
-            <div class="mb-4">
+                        <!-- Password Input -->
+            <div class="mb-4 relative">
                 <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
-                    placeholder="Enter your password"
-                    required
-                >
+                <div class="relative">
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400 pr-12"
+                        placeholder="Enter your password"
+                        required
+                    >
+                    <button
+                        type="button"
+                        id="togglePassword"
+                        class="absolute inset-y-0 right-0 flex items-center px-3 text-sm text-gray-500 hover:text-gray-700 focus:outline-none"
+                    >
+                        <span class="material-icons" id = "pw_icon"> visibility </span>
+                    </button>
+                </div>
                 @error('password')
                 <p class="text-pink-500 text-sm mt-2">{{ $message }}</p>
                 @enderror
@@ -144,6 +154,18 @@ $config = \App\Models\AppConfig::find(1);
 </div>
 
 <script>
+
+const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const pw_icon = document.getElementById('pw_icon')
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        pw_icon.innerHTML = type === 'password' ? 'visibility' : 'visibility_off';
+    });
+
+
     // Slideshow functionality
     let currentIndex = 0;
     const slides = document.querySelectorAll('.slide');
