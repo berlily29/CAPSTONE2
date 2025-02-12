@@ -36,7 +36,7 @@
 
             <div class="text-center mt-4">
                 <p class="text-gray-600 text-sm">
-                    Having trouble? <a href="" class="text-pink-500 hover:text-pink-400">Contact Support</a>
+                    Having trouble? Contact our support.
                 </p>
             </div>
         </div>
