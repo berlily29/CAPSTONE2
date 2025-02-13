@@ -43,6 +43,7 @@
                         <option value="Angeles">Angeles</option>
                         <option value="Apalit">Apalit</option>
                         <option value="Arayat">Arayat</option>
+                        <option value="Bacolor">Bacolor</option>
                         <option value="Candaba">Candaba</option>
                         <option value="Floridablanca">Floridablanca</option>
                         <option value="Guagua">Guagua</option>

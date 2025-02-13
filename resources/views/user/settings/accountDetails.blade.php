@@ -70,7 +70,7 @@
             <select id="city" name="city" class="text-xl mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" required>
             @php
                 $cities = [
-                    'Angeles', 'Apalit', 'Arayat', 'Candaba', 'Floridablanca',
+                    'Angeles', 'Apalit', 'Arayat', 'Bacolor', 'Candaba', 'Floridablanca',
                     'Guagua', 'Lubao', 'Mabalacat', 'Macabebe', 'Magalang',
                     'Masantol', 'Mexico', 'Minalin', 'Porac', 'San Fernando',
                     'San Luis', 'San Simon', 'Santo Tomas', 'Santa Ana',

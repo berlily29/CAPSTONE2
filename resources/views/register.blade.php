@@ -163,7 +163,7 @@
 document.getElementById("registrationForm").addEventListener("submit", function(event) {
         const password = document.getElementById("password").value;
         const passwordError = document.getElementById("passwordError");
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._])[A-Za-z\d@$!%*?&._]{8,}$/;
 
         if (!passwordRegex.test(password)) {
             event.preventDefault(); // Prevent form submission
